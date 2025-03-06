@@ -15,7 +15,6 @@ class LazyFileHandler(logging.FileHandler):
         # running the superclass _open() method creates the logfile
         return super()._open()
 
-
 class LoggerHelper:
     @staticmethod
     def setup(current_datetime: datetime, logname: str = "main") -> Logger:
@@ -26,6 +25,9 @@ class LoggerHelper:
         cout / terminal / stream level is INFO
         file level is DEBUG
         """
+        # determine the root directory of the application (hacky but static so works fine)
+        app_root = Path(__file__).resolve().parents[2]
+        
         # create a generic logger
         logger = logging.getLogger(logname)
         logger.setLevel(logging.DEBUG)
@@ -34,7 +36,7 @@ class LoggerHelper:
         c_handler = logging.StreamHandler()
         c_handler.setLevel(logging.INFO)
 
-        logfilepath = Path(f"./.logs/{current_datetime:%Y%m%d_%H%M%S}.log")
+        logfilepath = app_root / f".logs/{current_datetime:%Y%m%d_%H%M%S}.log"
         if not logfilepath.parent.is_dir():
             logfilepath.parent.mkdir(parents=True, exist_ok=True)
 
