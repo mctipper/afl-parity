@@ -15,6 +15,7 @@ class LazyFileHandler(logging.FileHandler):
         # running the superclass _open() method creates the logfile
         return super()._open()
 
+
 class LoggerHelper:
     @staticmethod
     def setup(current_datetime: datetime, logname: str = "main") -> Logger:
@@ -27,7 +28,7 @@ class LoggerHelper:
         """
         # determine the root directory of the application (hacky but static so works fine)
         app_root = Path(__file__).resolve().parents[2]
-        
+
         # create a generic logger
         logger = logging.getLogger(logname)
         logger.setLevel(logging.DEBUG)
