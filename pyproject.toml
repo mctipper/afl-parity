@@ -1,0 +1,18 @@
+[project]
+name = "afl-parity"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "matplotlib>=3.10.1",
+    "mypy>=1.15.0",
+    "pydantic>=2.10.6",
+    "pytest>=8.3.5",
+    "requests>=2.32.3",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.9.9",
+]

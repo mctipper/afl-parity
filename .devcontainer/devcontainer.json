@@ -1,0 +1,26 @@
+{
+    "name": "afl-parity",
+    "build": {
+        "context": "..",
+        "dockerfile": "Dockerfile",
+        "args": {
+            "UV_VERSION": "latest",
+            "DEBIAN_VERSION": "bookworm"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance"
+            ]
+        }
+    },
+    "containerEnv": {
+        "PYTHONUNBUFFERED": "True",
+        "UV_LINK_MODE": "copy",
+        "UV_PROJECT_ENVIRONMENT": "/home/vscode/.venv"
+    },
+    "postCreateCommand": "uv sync --frozen && uv venv && uv add --dev ruff",
+    "remoteUser": "vscode"
+}

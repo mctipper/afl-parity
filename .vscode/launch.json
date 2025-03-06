@@ -1,0 +1,40 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "main.py (Manual Args Input)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "./src/main.py",
+            "console": "integratedTerminal",
+            "args": "${command:pickArgs}"
+        },
+        {
+            "name": "main.py -s 2025",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "./src/main.py",
+            "console": "integratedTerminal",
+            "args": ["-s", "2025"]
+        },
+        {
+            "name": "main.py -s 2025 -c",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "./src/main.py",
+            "console": "integratedTerminal",
+            "args": ["-s", "2025", "-c"]
+        },
+        {
+            "name": "main.py -s 1896",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "./src/main.py",
+            "console": "integratedTerminal",
+            "args": ["-s", "1896"]
+        }
+    ]
+}
