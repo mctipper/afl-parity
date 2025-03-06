@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# the script dir, not the dir the script was run from
+SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+
 # default is current year
 CURRENT_YEAR=$(date +"%Y")
 SEASON=$CURRENT_YEAR
@@ -16,5 +19,5 @@ while [ "$#" -gt 0 ]; do
 done
 
 # run
-cd src
-python main.py --season "$SEASON" $CLEARCACHE
+cd "$SCRIPT_DIR/../src"
+uv run -q main.py --season "$SEASON" $CLEARCACHE
