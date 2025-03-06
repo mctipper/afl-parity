@@ -1,0 +1,29 @@
+ARG UV_VERSION=0.6.4
+ARG DEBIAN_VERSION=bookworm
+
+FROM ghcr.io/astral-sh/uv:$UV_VERSION AS uv
+
+# anything slim
+FROM debian:$DEBIAN_VERSION-slim
+
+# uv setup
+COPY --from=uv --chown=root: /uv /uvx /bin/
+
+# copy files and take ownership
+WORKDIR /app
+COPY pyproject.toml .
+COPY uv.lock .
+COPY .python-version .
+COPY src/ ./src/
+COPY scripts/ ./scripts/
+
+# env variables
+ENV PYTHONUNBUFFERED=True
+ENV UV_LINK_MODE=copy
+ENV UV_PROJECT_ENVIRONMENT=/home/root/.venv
+
+# install dependencies
+RUN uv sync --no-dev --frozen
+
+# leave docker running
+CMD ["tail", "-f", "/dev/null"]
