@@ -21,6 +21,6 @@
         "UV_LINK_MODE": "copy",
         "UV_PROJECT_ENVIRONMENT": "/home/vscode/.venv"
     },
-    "postCreateCommand": "uv sync --frozen && uv venv && uv add --dev ruff && pre-commit install",
+    "postCreateCommand": "uv sync --frozen && uv venv && uv add --dev ruff && uv add pre-commit && /home/vscode/.venv/bin/pre-commit install && /home/vscode/.venv/bin/pre-commit run --all-files",
     "remoteUser": "vscode"
 }
