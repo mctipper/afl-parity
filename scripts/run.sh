@@ -20,4 +20,4 @@ done
 
 # run
 cd "$SCRIPT_DIR/../src"
-uv run -q main.py --season "$SEASON" $CLEARCACHE
+uv run --no-dev -q main.py --season "$SEASON" $CLEARCACHE

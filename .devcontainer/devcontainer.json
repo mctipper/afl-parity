@@ -21,6 +21,6 @@
         "UV_LINK_MODE": "copy",
         "UV_PROJECT_ENVIRONMENT": "/home/vscode/.venv"
     },
-    "postCreateCommand": "uv sync --frozen && uv add --dev ruff",
-    "remoteUser": "vscode"
+    "remoteUser": "vscode",
+    "postCreateCommand": "uv sync --frozen && uv add --dev ruff"
 }
