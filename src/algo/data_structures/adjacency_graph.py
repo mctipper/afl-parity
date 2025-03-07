@@ -54,14 +54,14 @@ class AdjacencyGraph(BaseModel):
             if adjacency_list.children_n == max_children_n
         ]
 
-    def _get_adjacency_graph(self, parent: int) -> Optional[AdjacencyList]:
+    def get_adjacency_graph(self, parent: int) -> Optional[AdjacencyList]:
         for adjacency_list in self.adjacency_lists:
             if adjacency_list.parent == parent:
                 return adjacency_list
         return None
 
     def add_child_to_parent(self, parent: int, child: int) -> None:
-        parents_adjacency_list = self._get_adjacency_graph(parent)
+        parents_adjacency_list = self.get_adjacency_graph(parent)
         if not parents_adjacency_list:
             self.adjacency_lists.append(AdjacencyList(parent=parent, children={child}))
         else:

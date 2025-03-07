@@ -104,9 +104,12 @@ class SquiggleAPI:
                 ateamid=game["ateamid"],
                 hscore=int(game["hscore"]),
                 ascore=int(game["ascore"]),
+                hteamname=game["hteam"],
+                ateamname=game["ateam"],
                 winnerteamid=int(game["winnerteamid"])
                 if game["winnerteamid"]
                 else None,
+                wteamname=game["winner"],
                 date=datetime.strptime(game["date"], "%Y-%m-%d %H:%M:%S"),
             )
 

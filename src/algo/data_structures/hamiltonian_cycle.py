@@ -1,15 +1,15 @@
 from pydantic import BaseModel
-from api.response_models import GameResult, Team
+from api.response_models import GameResult
 from datetime import datetime
+from typing import List
+import json
 import logging
-from typing import List, Optional
 
 logger = logging.getLogger("main")
 
 
 class HamiltonianCycle(BaseModel):
     cycle: List[int]
-    cycle_names: List[str] = []
     games: List[GameResult]
 
     def __str__(self) -> str:
@@ -23,19 +23,22 @@ class HamiltonianCycle(BaseModel):
     def max_round(self) -> int:
         return max(game.round for game in self.games)  # type: ignore
 
-    def update_cycle_names(self, teams: List[Team]) -> None:
-        team_id_to_name = {team.id: team.name for team in teams}
-        self.cycle_names = [
-            team_id_to_name.get(team_id, "Unknown") for team_id in self.cycle
-        ]
+    @property
+    def cycle_names(self) -> List[str]:
+        return [game.wteamname for game in self.games]
 
+    def hamiltonian_cycle_game_details_pprint(self) -> str:
+        result: str = "Hamiltonian Cycle Details\n"
+        result += f"Rd. {self.max_round} - {self.max_date:%Y-%m-%d %H:%M:%S}\n"
+        for teamid in self.cycle:
+            for game in self.games:
+                if game.winnerteamid == teamid:
+                    formatted_string = f"Rd. {game.round}: {game.wteamname} def. {game.lteamname} ({game.wscore} - {game.lscore})\n"
+                    result += formatted_string
+        return result
 
-class FirstCycle(BaseModel):
-    first_hamiltonian_cycle: Optional[HamiltonianCycle] = None
-
-    def update(self, new_cycle: HamiltonianCycle) -> None:
-        if (
-            not self.first_hamiltonian_cycle
-            or new_cycle.max_date < self.first_hamiltonian_cycle.max_date
-        ):
-            self.first_hamiltonian_cycle = new_cycle
+    def model_dump_json(self) -> str:
+        data = self.model_dump(exclude={"games"})
+        data["games"] = [json.loads(game.model_dump_json()) for game in self.games]
+        data["cycle_names"] = self.cycle_names
+        return json.dumps(data, default=str)

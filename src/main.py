@@ -13,13 +13,13 @@ def main() -> None:
     squiggle_api = SquiggleAPI(argument_parser_helper.args.season)
     squiggle_api.populate_data()
 
-    print(squiggle_api.season_results.nteams)
-
     dfs = DFS(squiggle_api.season_results)
 
     dfs.process_season()
 
-    print((dfs.hamiltonian_cycles))
+    print(
+        dfs.traversal_output.first_hamiltonian_cycle.hamiltonian_cycle_game_details_pprint()
+    )
 
 
 if __name__ == "__main__":

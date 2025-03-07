@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from datetime import datetime
 from typing import List, Dict, Optional, Iterator
+import json
 import logging
 
 logger = logging.getLogger("main")
@@ -26,26 +27,29 @@ class GameResult(BaseModel):
     hscore: int
     ascore: int
     winnerteamid: Optional[int]
+    hteamname: str
+    ateamname: str
+    wteamname: Optional[str]
     date: datetime
 
     @property
-    def wteamid(self) -> int | None:
-        if not self.winnerteamid:
-            return None
-        if self.hteamid == self.winnerteamid:
-            return self.hteamid
-        if self.ateamid == self.winnerteamid:
-            return self.ateamid
-        return None
-
-    @property
-    def lteamid(self) -> int | None:
+    def loserteamid(self) -> int | None:
         if not self.winnerteamid:
             return None
         if self.hteamid != self.winnerteamid:
             return self.hteamid
         if self.ateamid != self.winnerteamid:
             return self.ateamid
+        return None
+
+    @property
+    def lteamname(self) -> str | None:
+        if not self.winnerteamid:
+            return None
+        if self.hteamid != self.winnerteamid:
+            return self.hteamname
+        if self.ateamid != self.winnerteamid:
+            return self.ateamname
         return None
 
     @property
@@ -67,6 +71,14 @@ class GameResult(BaseModel):
         if self.ateamid != self.winnerteamid:
             return self.ascore
         return None
+
+    def model_dump_json(self) -> str:
+        data = self.model_dump()
+        data["loserteamid"] = self.loserteamid
+        data["lteamname"] = self.lteamname
+        data["wscore"] = self.wscore
+        data["lscore"] = self.lscore
+        return json.dumps(data, default=str)
 
 
 class RoundResults(BaseModel):
@@ -105,6 +117,10 @@ class SeasonResults(BaseModel):
     def team_ids(self) -> List[int]:
         """list of team id integers"""
         return sorted(list(self.teams.keys()))
+
+    @property
+    def team_list(self) -> List[Team]:
+        return [team for _, team in self.teams.items()]
 
     def add_game_result(self, cur_game: GameResult) -> None:
         if cur_game.round not in self.round_results:
