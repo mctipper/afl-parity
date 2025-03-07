@@ -13,6 +13,22 @@
             "args": "${command:pickArgs}"
         },
         {
+            "name": "main.py -s 2023",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "./src/main.py",
+            "console": "integratedTerminal",
+            "args": ["-s", "2023"]
+        },
+        {
+            "name": "main.py -s 2024",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "./src/main.py",
+            "console": "integratedTerminal",
+            "args": ["-s", "2024"]
+        },
+        {
             "name": "main.py -s 2025",
             "type": "debugpy",
             "request": "launch",
