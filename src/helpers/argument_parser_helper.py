@@ -1,4 +1,5 @@
 import argparse
+from datetime import datetime
 from dataclasses import dataclass
 
 
@@ -19,8 +20,8 @@ class ArgumentParserHelper:
             "-s",
             "--season",
             type=str,
-            required=True,
-            help="Season (Year) to be assessed, can be individual or 'all' to do 1897 to today",
+            default=str(datetime.now().year),
+            help="Season (Year) to be assessed, can be individual or 'all' to do 1897 to today. Default is this year",
         )
         self.parser.add_argument(
             "-d",
