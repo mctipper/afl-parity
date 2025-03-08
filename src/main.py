@@ -45,7 +45,7 @@ def main() -> None:
         checkpoint_time: float = time.time()
 
         logger.info(
-            f"Season {season} in {((checkpoint_time - prev_checkpoint_time) / 60):.2f} minutes"
+            f"Season {season} in {((checkpoint_time - prev_checkpoint_time)):.2f} seconds"
         )
 
         prev_checkpoint_time = checkpoint_time
@@ -53,7 +53,7 @@ def main() -> None:
     OutputHelper.combine_all_json_outputs()
 
     end_time: float = time.time()
-    logger.info(f"Complete in {((end_time - start_time) / 60):.2f} minutes")
+    logger.info(f"Complete in {((end_time - start_time)):.2f} seconds")
 
 
 if __name__ == "__main__":
