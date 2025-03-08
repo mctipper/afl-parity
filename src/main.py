@@ -16,7 +16,6 @@ def main() -> None:
     if argument_parser_helper.args.season == "all":
         FIRST_SEASON: int = 1897
         CURRENT_SEASON: int = datetime.now().year
-        # CURRENT_SEASON: int = 1913
         seasons = [yr for yr in range(FIRST_SEASON, CURRENT_SEASON + 1)]
     else:
         seasons = [int(argument_parser_helper.args.season)]
@@ -60,7 +59,7 @@ def main() -> None:
 if __name__ == "__main__":
     # Big Tarp logging pattern
     try:
-        main_logger = LoggerHelper.setup(datetime.now(), "main")
+        ue_logger = LoggerHelper.setup(datetime.now(), "UNHANDLED_ERROR")
         main()
     except Exception:
-        main_logger.exception("Fatal error in main()")
+        ue_logger.exception("Fatal unhandled error in main()")
