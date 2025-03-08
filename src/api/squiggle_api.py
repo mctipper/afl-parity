@@ -28,7 +28,7 @@ class SquiggleAPI:
 
     API_URL: str = "https://api.squiggle.com.au/"
     RESOURCE_URL: str = "https://squiggle.com.au"
-    headers: Dict[str, Any] = {"User-Agent": "dummy@email.com"}
+    headers: Dict[str, Any] = {"User-Agent": "mctipper(at)github:afl-parity"}
     season_results: SeasonResults
 
     def __init__(self, season: int) -> None:
