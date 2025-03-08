@@ -1,10 +1,14 @@
 from models import SeasonResults
+from helpers import LoggerHelper
 from algo.data_structures import AdjacencyGraph, HamiltonianCycle, DFSTraversalOutput
 from typing import List
 from datetime import datetime
 import json
 from pathlib import Path
 import logging
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import os
+import copy
 
 
 class DFS:
@@ -77,25 +81,6 @@ class DFS:
         except Exception as e:
             self.logger.error(f"Failed to save output: {e}")
 
-    def _hamiltonian_cycle_permutation_logger(self, force: bool = False) -> None:
-        """helper function to log permutation progress, just helpful for eyeballing/ensuring compute is progressing"""
-        thresholds = [10_000, 100_000, 500_000, 1_000_000]
-
-        log_me: bool = False
-        if self.dfs_steps > thresholds[-1]:
-            if self.dfs_steps % thresholds[-1] == 0:
-                log_me = True
-        else:
-            for threshold in thresholds:
-                if self.dfs_steps < threshold * 10:
-                    if self.dfs_steps % threshold == 0:
-                        log_me = True
-                    break
-        if log_me or force:
-            self.logger.info(
-                f"Season: {self.season_results.season} | DFS Steps: {self.dfs_steps:<2} | Skipped Steps: {self.skipped_steps:<2} | Hamiltonian Cycles Found: {self.hamiltonian_cycles_found}"
-            )
-
     def _validate_hamiltonian_cycle_possible(self) -> bool:
         """helper method to first check all teams have either won or lost at least one game"""
         parents_count = len(self.adjacency_graph.parents)
@@ -106,14 +91,15 @@ class DFS:
         else:
             return False
 
-    def _dfs(self, cur_winner: int, path: List[int]) -> None:
+    def _dfs(
+        self, cur_winner: int, path: List[int], thread_logger: logging.Logger
+    ) -> None:
         """recursive method to perform DFS. Exits early upon successfull hamiltonian cycle being found"""
         if self.early_exit:
             # early_exit trigger made, lets get out of here
             return
 
         self.dfs_steps += 1
-        self._hamiltonian_cycle_permutation_logger()
 
         # gets the losers for the current winner
         adjacency_list = self.adjacency_graph.get_adjacency_graph(cur_winner)
@@ -125,7 +111,8 @@ class DFS:
         if len(path) == self.season_results.nteams:
             adjacency_list = self.adjacency_graph.get_adjacency_graph(cur_winner)
             if adjacency_list and path[0] in adjacency_list.children:
-                self.logger.debug("Found Hamiltonian Cycle")
+                thread_logger.debug("Found Hamiltonian Cycle")
+                thread_logger.debug(f"path: {len(path):<2}\t{''.ljust(8)} {path}")
                 self.hamiltonian_cycles_found += 1
                 cur_hamiltonian_cycle = HamiltonianCycle(cycle=path.copy())
                 self._populate_hamiltonian_cycle_with_game_data(cur_hamiltonian_cycle)
@@ -137,7 +124,7 @@ class DFS:
                 ):
                     logger_msg: str
                     if self.traversal_output.first_hamiltonian_cycle:
-                        self.logger.debug(
+                        thread_logger.debug(
                             f"Current: {self.traversal_output.first_hamiltonian_cycle.max_date} | New: {cur_hamiltonian_cycle.max_date}"
                         )
                         logger_msg = "Updated Hamiltonian Cycle"
@@ -150,21 +137,22 @@ class DFS:
                     self.logger.info(
                         f"{logger_msg} | {self.traversal_output.first_hamiltonian_cycle.max_date} | {self.traversal_output.first_hamiltonian_cycle.cycle}"  # type: ignore[union-attr]
                     )
-                    self.logger.debug(logger_msg)
+                    thread_logger.debug(logger_msg)
                     if self.traversal_output.first_hamiltonian_cycle:
                         if (
                             self.traversal_output.first_hamiltonian_cycle.max_date
                             <= self.early_exit_date
                         ):
                             self.early_exit = True
+                            self.traversal_output.early_exit = True
                             # the first game of the round is already part of the hamiltonian path, we
                             # can stop travesing now but just escaping the queued recursions early
-                            self.logger.debug(
-                                f"Hamiltonian Cycle includes first game this round - early exit: {self.traversal_output.first_hamiltonian_cycle.max_date} <= {self.early_exit_date}"
+                            self.logger.info(
+                                f"Hamiltonian Cycle includes first game this round can early exit: {self.traversal_output.first_hamiltonian_cycle.max_date} <= {self.early_exit_date}"
                             )
                             return
                 else:
-                    self.logger.debug("Did not update the first Hamiltonian Cycle")
+                    thread_logger.debug("Did not update the first Hamiltonian Cycle")
             else:
                 self.full_paths_not_hamiltonian += 1
             return
@@ -181,27 +169,29 @@ class DFS:
                         self.traversal_output.first_hamiltonian_cycle
                         and (
                             game.date
-                            < self.traversal_output.first_hamiltonian_cycle.max_date
+                            <= self.traversal_output.first_hamiltonian_cycle.max_date
                         )
                     ) or not self.traversal_output.first_hamiltonian_cycle:
                         path.append(cur_loser)
-                        self.logger.debug(
+                        thread_logger.debug(
                             f"path: {len(path):<2}\t{'Fwd:'.ljust(8)} {path}"
                         )
-                        self._dfs(cur_loser, path)
+                        self._dfs(cur_loser, path, thread_logger)
                         # check for early exit before backtracking
                         if self.early_exit:
                             return
                         # traversal ended - backtrack
-                        path.pop()
-                        self.logger.debug(
+                        path.remove(
+                            cur_loser
+                        )  # only remove the current_loser, prevent backtracking over original input path
+                        thread_logger.debug(
                             f"path: {len(path):<2}\t{'Back:'.ljust(8)} {path}"
                         )
                     else:
                         # can skip this game, as it occured after the last game of the current hamiltonian cycle, no point checking it
                         self.skipped_steps += 1
                         if self.traversal_output.first_hamiltonian_cycle:
-                            self.logger.debug(
+                            thread_logger.debug(
                                 f"{cur_winner}-{cur_loser} Gamedate {game.date} Found Hamiltonian Cycle Maxdate {self.traversal_output.first_hamiltonian_cycle.max_date} - Skipped"
                             )
                         pass
@@ -211,22 +201,39 @@ class DFS:
 
     def _find_hamiltonian_cycles(self, cur_round: int) -> None:
         """setup and start dfs search for hamiltonian cycles"""
-        # build the adjanecy graph for results up to this cur_round
-        self._build_adjacency_graph(cur_round)
-        adjacency_list_parents = self.adjacency_graph.parents_with_least_children
-        # just pick one
-        cur_parent: int = adjacency_list_parents[0]
-        # get the early exit date (ie first game of the round)
+        cpu_count: int = os.cpu_count() or 1  # mypy annoyances with max() function
+        # use the first game of the current round to get starting point
         cur_round_results = self.season_results.get_round_results(cur_round)
-        if cur_round_results:
-            self.early_exit_date = cur_round_results.min_date_of_round
-        self.logger.info(
-            f"Begin search for round {cur_round}, using parent {cur_parent}, with earlyexitdate {self.early_exit_date}"
-        )
-        self._dfs(
-            cur_winner=cur_parent,
-            path=[cur_parent],
-        )
+        # loop over the games of this round until we get one with a winner (ie. no draws)
+        for game_result in cur_round_results:  # type: ignore
+            if game_result and game_result.winnerteamid:
+                self.early_exit_date = game_result.date
+
+        with ThreadPoolExecutor(max_workers=max(cpu_count - 2, 1)) as executor:
+            futures = []
+            parents = [game_result.winnerteamid, game_result.loserteamid]
+            for parent in parents:
+                adjacency_list = self.adjacency_graph.get_adjacency_graph(parent)  # type: ignore
+                # one thread per parent-child relationship
+                for child in adjacency_list.children:  # type: ignore[union-attr]
+                    # setup to mimick the 'first step' of the dfs search, allowing this parallel action to happen
+                    path_copy = copy.deepcopy([parent, child])
+                    thread_logger = LoggerHelper.setup(
+                        datetime.now(),
+                        f"{self.season_results.season}_R{cur_round}_{parent}_{child}",
+                        self.output_file_debug,
+                    )
+                    futures.append(
+                        executor.submit(self._dfs, child, path_copy, thread_logger)  # type: ignore
+                    )
+            # smash it out
+            for future in as_completed(futures):
+                if not self.early_exit:
+                    # only log this if thread exited without an early exit
+                    self.logger.info(
+                        f"Season: {self.season_results.season} | DFS Steps: {self.dfs_steps:<2} | Skipped Steps: {self.skipped_steps:<2} | Hamiltonian Cycles Found: {self.hamiltonian_cycles_found}"
+                    )
+                future.result()
 
     def process_season(self) -> None:
         """lets gooooo"""
@@ -244,7 +251,9 @@ class DFS:
                 self.traversal_output.total_hamiltonian_cycles = (
                     self.hamiltonian_cycles_found
                 )
-                self._hamiltonian_cycle_permutation_logger(force=True)
+                self.logger.info(
+                    f"Season: {self.season_results.season} | DFS Steps: {self.dfs_steps:<2} | Skipped Steps: {self.skipped_steps:<2} | Early Exit: {self.early_exit} | Hamiltonian Cycles Found: {self.hamiltonian_cycles_found}"
+                )
                 if self.traversal_output.first_hamiltonian_cycle:
                     self.logger.info("Hamiltonian Cycle Found")
                     self.logger.info(
