@@ -36,5 +36,3 @@ class OutputHelper:
         combined_output_path = output_dir / "combined_outputs.json"
         with open(combined_output_path, "w") as f:
             json.dump(combined_data, f, indent=4)
-
-        print(f"Combined JSON file created at {combined_output_path}")
