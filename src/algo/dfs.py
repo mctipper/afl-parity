@@ -24,12 +24,12 @@ class DFS:
         self.output_file_debug = output_file_debug
         self.logger = logging.getLogger(f"{self.season_results.season}_main")
 
-    def _build_adjacency_graph(self, up_to_round: int) -> None:
+    def _build_adjacency_graph(self, round: int) -> None:
         """dynmically build adjacency graph up to the supplied round"""
         self.adjacency_graph = AdjacencyGraph()
         for round_results in self.season_results:
             for game_result in round_results:
-                if game_result.round <= up_to_round:
+                if game_result.round <= round:
                     if game_result.winnerteamid and game_result.loserteamid:
                         self.adjacency_graph.add_child_to_parent(
                             game_result.winnerteamid, game_result.loserteamid
@@ -151,29 +151,44 @@ class DFS:
 
         for cur_loser in adjacency_list.children:
             if cur_loser not in visited:
-                visited.add(cur_loser)
-                path.append(cur_loser)
                 game = self.season_results.get_first_game_result(cur_winner, cur_loser)
                 if game:
-                    games.append(game)
-                self.logger.debug(
-                    f"games: {len(games)} path: {len(path)}\t{'Fwd:'.ljust(8)} {path}"
-                )
-                self._dfs(cur_loser, visited, path, games, first_parent_in_path)
-                # traversal ended - backtrack
-                path.pop()
-                games.pop()
-                visited.remove(cur_loser)
-                self.logger.debug(
-                    f"games: {len(games)} path: {len(path)}\t{'Back:'.ljust(8)} {path}"
-                )
+                    # check if game was before the max date of all games in the current first hamiltonian cycle
+                    # to allow for skipping pointless combinations
+                    if (
+                        self.traversal_output.first_hamiltonian_cycle
+                        and (
+                            game.date
+                            < self.traversal_output.first_hamiltonian_cycle.max_date
+                        )
+                    ) or not self.traversal_output.first_hamiltonian_cycle:
+                        games.append(game)
+                        visited.add(cur_loser)
+                        path.append(cur_loser)
+                        self.logger.debug(
+                            f"games: {len(games)} path: {len(path)}\t{'Fwd:'.ljust(8)} {path}"
+                        )
+                        self._dfs(cur_loser, visited, path, games, first_parent_in_path)
+                        # traversal ended - backtrack
+                        path.pop()
+                        games.pop()
+                        visited.remove(cur_loser)
+                        self.logger.debug(
+                            f"games: {len(games)} path: {len(path)}\t{'Back:'.ljust(8)} {path}"
+                        )
+                    else:
+                        # can skip this game, as it occured after the last game of the current hamiltonian cycle, no point checking it
+                        if self.traversal_output.first_hamiltonian_cycle:
+                            self.logger.debug(f'{cur_winner}-{cur_loser} Gamedate {game.date} Found Hamiltonian Cycle Maxdate {self.traversal_output.first_hamiltonian_cycle.max_date} - Skipped')
+                        pass
             else:
                 # explicit "do nothing" the cur_loser already visited in this path
                 pass
 
-    def _find_hamiltonian_cycles(self, up_to_round: int) -> None:
+    def _find_hamiltonian_cycles(self, round: int) -> None:
         """setup and start dfs search for hamiltonian cycles"""
-        self._build_adjacency_graph(up_to_round)
+        # build the adjanecy graph for results up to this round
+        self._build_adjacency_graph(round)
         largest_adjacency_list_parents = self.adjacency_graph.parents_with_most_children
         # just pick one of them bigguns
         largest_parent: int = largest_adjacency_list_parents[0]
@@ -189,11 +204,11 @@ class DFS:
         """lets gooooo"""
         # iterate over round in sequential order to prevent unecessary compute/searching
         for round in self.season_results.rounds_list:
-            self._build_adjacency_graph(up_to_round=round)
+            self._build_adjacency_graph(round=round)
 
             if self._validate_hamiltonian_cycle_possible():
                 self.logger.info(f"Begin search for round {round}")
-                self._find_hamiltonian_cycles(up_to_round=round)
+                self._find_hamiltonian_cycles(round=round)
                 self.traversal_output.total_dfs_steps = self.dfs_steps
                 self.traversal_output.total_full_paths_not_hamiltonian = (
                     self.full_paths_not_hamiltonian
