@@ -94,7 +94,16 @@ class Infographic:
                     cur_loser = hamiltonian_cycle[0]
 
                 cur_team: Team = self.season_results.get_team(cur_winner)  # type: ignore[assignment]
-                logo_filepath: Path = self._logo_dir / cur_team.logo_filename
+
+                # the Fitzroy.png image is huge for some reason, so prefer just to use a different one than resizing annoyances
+                # the 1990 logo isnt actually referenced until 1994
+                logo_override: str
+                if cur_team.logo_filename == "Fitzroy.png":
+                    logo_override = "Fitzroy1990.png"
+                else:
+                    logo_override = cur_team.logo_filename
+
+                logo_filepath: Path = self._logo_dir / logo_override
                 img: NDArray[np.float64] = plt.imread(logo_filepath, format="png")
                 imagebox: OffsetImage = OffsetImage(img, zoom=0.8)
                 imagebox.image.axes = ax
