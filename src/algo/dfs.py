@@ -1,6 +1,7 @@
-from models import SeasonResults, GameResult
+from models import SeasonResults
 from algo.data_structures import AdjacencyGraph, HamiltonianCycle, DFSTraversalOutput
-from typing import Set, List
+from typing import List
+from datetime import datetime
 import json
 from pathlib import Path
 import logging
@@ -10,7 +11,10 @@ class DFS:
     season_results: SeasonResults
     adjacency_graph: AdjacencyGraph
     traversal_output: DFSTraversalOutput
+    early_exit: bool = False
+    early_exit_date: datetime
     dfs_steps: int = 0
+    skipped_steps: int = 0
     full_paths_not_hamiltonian: int = 0
     hamiltonian_cycles_found: int = 0
     output_file_debug: bool = False
@@ -24,16 +28,33 @@ class DFS:
         self.output_file_debug = output_file_debug
         self.logger = logging.getLogger(f"{self.season_results.season}_main")
 
-    def _build_adjacency_graph(self, round: int) -> None:
-        """dynmically build adjacency graph up to the supplied round"""
+    def _build_adjacency_graph(self, cur_round: int) -> None:
+        """dynmically build adjacency graph up to the supplied cur_round"""
         self.adjacency_graph = AdjacencyGraph()
         for round_results in self.season_results:
             for game_result in round_results:
-                if game_result.round <= round:
+                if game_result.round <= cur_round:
                     if game_result.winnerteamid and game_result.loserteamid:
                         self.adjacency_graph.add_child_to_parent(
                             game_result.winnerteamid, game_result.loserteamid
                         )
+
+    def _populate_hamiltonian_cycle_with_game_data(
+        self, hamiltonian_cycle: HamiltonianCycle
+    ) -> None:
+        # populate with game data
+        for i, cur_winner in enumerate(hamiltonian_cycle.cycle):
+            try:
+                cur_loser = hamiltonian_cycle.cycle[i + 1]
+            except IndexError:
+                # if reached end of list, return first in list
+                cur_loser = hamiltonian_cycle.cycle[0]
+
+            cur_game = self.season_results.get_first_game_result_between_teams(
+                winner=cur_winner, loser=cur_loser
+            )
+            if cur_game:
+                hamiltonian_cycle.games.append(cur_game)
 
     def _save_output_to_file(self) -> None:
         """save the traversal output to a json file in the output directory"""
@@ -42,7 +63,9 @@ class DFS:
 
             output_dir: Path = project_root / "output" / str(self.season_results.season)
             output_dir.mkdir(parents=True, exist_ok=True)
-            output_file: Path = output_dir / "dfs_traversal_output.json"
+            output_file: Path = (
+                output_dir / f"{self.season_results.season}_dfs_traversal_output.json"
+            )
 
             with open(output_file, "w") as f:
                 json.dump(
@@ -70,7 +93,7 @@ class DFS:
                     break
         if log_me or force:
             self.logger.info(
-                f"Season: {self.season_results.season}\t | DFS Steps: {self.dfs_steps}\t| Hamiltonian Cycles Found: {self.hamiltonian_cycles_found}"
+                f"Season: {self.season_results.season} | DFS Steps: {self.dfs_steps:<2} | Skipped Steps: {self.skipped_steps:<2} | Hamiltonian Cycles Found: {self.hamiltonian_cycles_found}"
             )
 
     def _validate_hamiltonian_cycle_possible(self) -> bool:
@@ -83,15 +106,12 @@ class DFS:
         else:
             return False
 
-    def _dfs(
-        self,
-        cur_winner: int,
-        visited: Set[int],
-        path: List[int],
-        games: List[GameResult],
-        first_parent_in_path: int,
-    ) -> None:
+    def _dfs(self, cur_winner: int, path: List[int]) -> None:
         """recursive method to perform DFS. Exits early upon successfull hamiltonian cycle being found"""
+        if self.early_exit:
+            # early_exit trigger made, lets get out of here
+            return
+
         self.dfs_steps += 1
         self._hamiltonian_cycle_permutation_logger()
 
@@ -102,22 +122,13 @@ class DFS:
             return
 
         # once all teams have been visited, can inspect for hamiltonian cycle
-        if len(visited) == self.season_results.nteams:
+        if len(path) == self.season_results.nteams:
             adjacency_list = self.adjacency_graph.get_adjacency_graph(cur_winner)
-            if adjacency_list and first_parent_in_path in adjacency_list.children:
+            if adjacency_list and path[0] in adjacency_list.children:
                 self.logger.debug("Found Hamiltonian Cycle")
-                game = self.season_results.get_first_game_result(
-                    cur_winner, first_parent_in_path
-                )
-                if game:
-                    games.append(game)
-                cur_hamiltonian_cycle = HamiltonianCycle(
-                    cycle=path.copy(), games=games.copy()
-                )
-                if self.traversal_output.first_hamiltonian_cycle:
-                    self.logger.debug(
-                        f"Cur: {cur_hamiltonian_cycle.max_date} Current First: {self.traversal_output.first_hamiltonian_cycle.max_date}"
-                    )
+                self.hamiltonian_cycles_found += 1
+                cur_hamiltonian_cycle = HamiltonianCycle(cycle=path.copy())
+                self._populate_hamiltonian_cycle_with_game_data(cur_hamiltonian_cycle)
                 # determine if update call need to be made to first_cycle
                 if (
                     not self.traversal_output.first_hamiltonian_cycle
@@ -140,20 +151,31 @@ class DFS:
                         f"{logger_msg} | {self.traversal_output.first_hamiltonian_cycle.max_date} | {self.traversal_output.first_hamiltonian_cycle.cycle}"  # type: ignore[union-attr]
                     )
                     self.logger.debug(logger_msg)
+                    if self.traversal_output.first_hamiltonian_cycle:
+                        if (
+                            self.traversal_output.first_hamiltonian_cycle.max_date
+                            <= self.early_exit_date
+                        ):
+                            self.early_exit = True
+                            # the first game of the round is already part of the hamiltonian path, we
+                            # can stop travesing now but just escaping the queued recursions early
+                            self.logger.debug(
+                                f"Hamiltonian Cycle includes first game this round - early exit: {self.traversal_output.first_hamiltonian_cycle.max_date} <= {self.early_exit_date}"
+                            )
+                            return
                 else:
                     self.logger.debug("Did not update the first Hamiltonian Cycle")
-                self.hamiltonian_cycles_found += 1
-                # remove appended game upon successful hamiltonian cycle discovery ( as this game.append is done outside of my cur_loser loop below)
-                games.pop()
             else:
                 self.full_paths_not_hamiltonian += 1
             return
 
         for cur_loser in adjacency_list.children:
-            if cur_loser not in visited:
-                game = self.season_results.get_first_game_result(cur_winner, cur_loser)
+            if cur_loser not in path and not self.early_exit:
+                game = self.season_results.get_first_game_result_between_teams(
+                    cur_winner, cur_loser
+                )
                 if game:
-                    # check if game was before the max date of all games in the current first hamiltonian cycle
+                    # check if this game was before the max date of all games in the current first hamiltonian cycle
                     # to allow for skipping pointless combinations
                     if (
                         self.traversal_output.first_hamiltonian_cycle
@@ -162,53 +184,59 @@ class DFS:
                             < self.traversal_output.first_hamiltonian_cycle.max_date
                         )
                     ) or not self.traversal_output.first_hamiltonian_cycle:
-                        games.append(game)
-                        visited.add(cur_loser)
                         path.append(cur_loser)
                         self.logger.debug(
-                            f"games: {len(games)} path: {len(path)}\t{'Fwd:'.ljust(8)} {path}"
+                            f"path: {len(path):<2}\t{'Fwd:'.ljust(8)} {path}"
                         )
-                        self._dfs(cur_loser, visited, path, games, first_parent_in_path)
+                        self._dfs(cur_loser, path)
+                        # check for early exit before backtracking
+                        if self.early_exit:
+                            return
                         # traversal ended - backtrack
                         path.pop()
-                        games.pop()
-                        visited.remove(cur_loser)
                         self.logger.debug(
-                            f"games: {len(games)} path: {len(path)}\t{'Back:'.ljust(8)} {path}"
+                            f"path: {len(path):<2}\t{'Back:'.ljust(8)} {path}"
                         )
                     else:
                         # can skip this game, as it occured after the last game of the current hamiltonian cycle, no point checking it
+                        self.skipped_steps += 1
                         if self.traversal_output.first_hamiltonian_cycle:
-                            self.logger.debug(f'{cur_winner}-{cur_loser} Gamedate {game.date} Found Hamiltonian Cycle Maxdate {self.traversal_output.first_hamiltonian_cycle.max_date} - Skipped')
+                            self.logger.debug(
+                                f"{cur_winner}-{cur_loser} Gamedate {game.date} Found Hamiltonian Cycle Maxdate {self.traversal_output.first_hamiltonian_cycle.max_date} - Skipped"
+                            )
                         pass
             else:
                 # explicit "do nothing" the cur_loser already visited in this path
                 pass
 
-    def _find_hamiltonian_cycles(self, round: int) -> None:
+    def _find_hamiltonian_cycles(self, cur_round: int) -> None:
         """setup and start dfs search for hamiltonian cycles"""
-        # build the adjanecy graph for results up to this round
-        self._build_adjacency_graph(round)
-        largest_adjacency_list_parents = self.adjacency_graph.parents_with_most_children
-        # just pick one of them bigguns
-        largest_parent: int = largest_adjacency_list_parents[0]
+        # build the adjanecy graph for results up to this cur_round
+        self._build_adjacency_graph(cur_round)
+        adjacency_list_parents = self.adjacency_graph.parents_with_least_children
+        # just pick one
+        cur_parent: int = adjacency_list_parents[0]
+        # get the early exit date (ie first game of the round)
+        cur_round_results = self.season_results.get_round_results(cur_round)
+        if cur_round_results:
+            self.early_exit_date = cur_round_results.min_date_of_round
+        self.logger.info(
+            f"Begin search for round {cur_round}, using parent {cur_parent}, with earlyexitdate {self.early_exit_date}"
+        )
         self._dfs(
-            cur_winner=largest_parent,
-            visited={largest_parent},
-            path=[largest_parent],
-            games=[],
-            first_parent_in_path=largest_parent,
+            cur_winner=cur_parent,
+            path=[cur_parent],
         )
 
     def process_season(self) -> None:
         """lets gooooo"""
-        # iterate over round in sequential order to prevent unecessary compute/searching
-        for round in self.season_results.rounds_list:
-            self._build_adjacency_graph(round=round)
+        # iterate over cur_round in sequential order to prevent unecessary compute/searching
+        for cur_round in self.season_results.rounds_list:
+            self._build_adjacency_graph(cur_round=cur_round)
 
             if self._validate_hamiltonian_cycle_possible():
-                self.logger.info(f"Begin search for round {round}")
-                self._find_hamiltonian_cycles(round=round)
+                self._find_hamiltonian_cycles(cur_round=cur_round)
+
                 self.traversal_output.total_dfs_steps = self.dfs_steps
                 self.traversal_output.total_full_paths_not_hamiltonian = (
                     self.full_paths_not_hamiltonian
@@ -230,7 +258,7 @@ class DFS:
                     self.logger.info("Hamiltonian Cycle Not Found")
             else:
                 self.logger.info(
-                    f"Round {round}: Hamiltonian Cycle is not possible, team(s) without wins or losses present"
+                    f"Round {cur_round}: Hamiltonian Cycle is not possible, team(s) without wins or losses present"
                 )
 
         # save resultsaaahhh

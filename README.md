@@ -29,6 +29,34 @@ Depth-First-Search is a well suited as it has better memory space than Breadth-F
 
 While time complexity for DFS is **O(V + E)** (**V**ectors plus **E**dges), the special requirement for a hamiltonian cycle makes it **O(n^n)** as its possible that every node must visit every other node. Space complexity remains **O(n)** as we only record a single path at a time, which is sweet.  
 
+### Efficiencies
+
+As we are searching only for the _first_ hamiltonian cycle per season, it allows some efficiencies when traversing. These have all been coded in to allow for (potentially...) quicker computation:
+
+#### 1. All winners and losers  
+Obvious one first: every team has either won or lost at least one match. No point traversing otherwise.
+
+#### 2. Sequentially run, by round  
+By checking results by round, there are less permutations to traverse and thus the first hamiltonian cycle will be quicker to reveal itself.  
+Most beneficial when it happens to occur 'earlier' in the season, and the benefits on this sequential approach are reduced when it occurs later in the season.
+
+#### 3. First game of the round
+Once a hamiltonian cycle has been found, check if the first game of the round is part of the cycle. If so, can exit early as there is no possible way to find an 'earlier' hamiltonian cycle  
+
+#### 4. Start each round with the first game of the round
+We can pick the first team to begin the traverse from at the start of each round traversal, so it makes sense to start with a team that played in the first game of the round - that way if a hamiltonian cycle is to be found, it will allow for early exits to occur.
+
+#### 5. Game occured after current hamiltonian cycle  
+Again once a hamiltonian cycle has been found (which doesnt include the first game of the round), before traversing next game check if it occured after the current last occuring game in the known hamiltonian cycle. If it occured after, there is no way the addition of that game improve on the result, so it can be skipped.  
+While it is easy to count this as a single skipped step, by skipping these games it can prevent many hundreds or even thousands of pointless permutations.
+
+### Efficiency Notes
+
+A good example of the benefits of these efficiencies were observed when traversing Season 2000. A hamiltonian cycle was above to be discovered in *_only 16 steps_*. This particular efficiency was mainly due to efficiencies 3 and 4, without these efficiences (i.e only using 1 and 2 from the above) it took _~610 million_ steps to find the same hamiltonian cycle.
+
+While all the above greatly improve performance and reduce computation time for traversing, they do not guarentee it and still rely on some favourable qualities in order to be taken advantage of. The key thing to remember here is understanding the data, the outcomes, and the algorithms themselves allow you to provide neat little hacks and shortcuts to reach goals and outcomes quicker.
+
+
 ## How to run
 
 Easiest is with `vscode devcontainers`. Just need to open this repo in a devcontainer and all the environment hassle is taken care of. So very neat.  

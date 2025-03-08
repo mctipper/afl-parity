@@ -114,8 +114,10 @@ class Infographic:
                     # if reached end of list, return first in list
                     cur_loser = hamiltonian_cycle[0]
 
-                cur_game_deets: GameResult = self.season_results.get_first_game_result(  # type: ignore[assignment]
-                    cur_winner, cur_loser
+                cur_game_deets: GameResult = (
+                    self.season_results.get_first_game_result_between_teams(  # type: ignore[assignment]
+                        cur_winner, cur_loser
+                    )
                 )
                 cur_round: int = cur_game_deets.round
                 cur_winner_score: int = cur_game_deets.wscore  # type: ignore[assignment]

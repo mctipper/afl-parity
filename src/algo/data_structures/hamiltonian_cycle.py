@@ -7,7 +7,7 @@ import json
 
 class HamiltonianCycle(BaseModel):
     cycle: List[int]
-    games: List[GameResult]
+    games: List[GameResult] = []
 
     def __str__(self) -> str:
         return f"Hamiltonian Cycle: {self.cycle_names}"

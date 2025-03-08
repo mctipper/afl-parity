@@ -6,6 +6,7 @@ from algo.data_structures import HamiltonianCycle
 
 class DFSTraversalOutput(BaseModel):
     total_dfs_steps: int = 0
+    total_skipped_steps: int = 0
     total_full_paths_not_hamiltonian: int = 0
     total_hamiltonian_cycles: int = 0
     first_hamiltonian_cycle: Optional[HamiltonianCycle] = None

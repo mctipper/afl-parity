@@ -88,6 +88,22 @@ class RoundResults(BaseModel):
     round: int
     results: List[GameResult]
 
+    @property
+    def min_date_of_round(self) -> datetime:
+        """used for early escaping hamilton cycle searches"""
+        if not self.results:
+            return datetime.now()
+        return min(game.date for game in self.results)
+
+    @property
+    def first_game(self) -> Optional[GameResult]:
+        """"""
+        for game in self.results:
+            if game:
+                if game.date == self.min_date_of_round:
+                    return game
+        return None
+
     def __iter__(self) -> Iterator[GameResult]:  # type: ignore[override]
         return iter(self.results)
 
@@ -148,7 +164,9 @@ class SeasonResults(BaseModel):
         except KeyError:
             return None
 
-    def get_first_game_result(self, winner: int, loser: int) -> Optional[GameResult]:
+    def get_first_game_result_between_teams(
+        self, winner: int, loser: int
+    ) -> Optional[GameResult]:
         first_game: Optional[GameResult] = None
         for round_results in self.round_results.values():
             for game in round_results:
@@ -156,6 +174,13 @@ class SeasonResults(BaseModel):
                     if first_game is None or game.round < first_game.round:
                         first_game = game
         return first_game
+
+    def get_team_from_first_game_of_round(self, round: int) -> int:
+        cur_round: Optional[RoundResults] = self.get_round_results(round)
+        if cur_round:
+            if cur_round.first_game:
+                return cur_round.first_game.hteamid
+        return 0
 
     def __iter__(self) -> Iterator[RoundResults]:  # type: ignore[override]
         for round_id in self.rounds_list:

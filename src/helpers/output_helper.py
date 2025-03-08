@@ -19,7 +19,7 @@ class OutputHelper:
             for dir_name in sorted(dirs):
                 season = dir_name
                 json_file_path = os.path.join(
-                    root, dir_name, "dfs_traversal_output.json"
+                    root, dir_name, f"{season}_dfs_traversal_output.json"
                 )
 
                 if os.path.exists(json_file_path):
