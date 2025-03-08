@@ -1,19 +1,15 @@
 import argparse
-import logging
-import sys
 from dataclasses import dataclass
-
-logger = logging.getLogger("main")
 
 
 @dataclass
 class Args:
-    season: int
-    clearcache: bool
+    season: int | str
+    debug: bool
 
 
 class ArgumentParserHelper:
-    """class to handle definition, validation, and parsing of command line arguments"""
+    """helper class to handle definition, validation, and parsing of command line arguments"""
 
     args: Args
 
@@ -24,29 +20,26 @@ class ArgumentParserHelper:
             "--season",
             type=str,
             required=True,
-            help="Season (Year) to be assessed",
+            help="Season (Year) to be assessed, can be individual or 'all' to do 1897 to today",
         )
         self.parser.add_argument(
-            "-c",
-            "--clearcache",
+            "-d",
+            "--debug",
             action="store_true",
-            help="Clear cached files/resources for this season",
+            help="Enable debug logging to file",
         )
-
-        # log verbatims
-        logger.debug(f"Command line arguments: \n{' '.join(sys.argv[1:])}")
 
         self.args = self.process_args()
 
     def process_args(self) -> Args:
         parsed_args = self.parser.parse_args()
-        # log parsed
-        logger.debug(f"Command line arguments parsed: \n{parsed_args}")
         self.validate_season(parsed_args.season)
-        return Args(season=parsed_args.season, clearcache=parsed_args.clearcache)
+        return Args(season=parsed_args.season, debug=parsed_args.debug)
 
     def validate_season(self, season: str) -> None:
         """custom validator for 'season'"""
+        if season.lower() == "all":
+            return
         try:
             season_year = int(season)
             if season_year >= 1897:

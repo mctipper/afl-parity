@@ -1,31 +1,66 @@
-from helpers import ArgumentParserHelper, LoggerHelper
+from helpers import ArgumentParserHelper, LoggerHelper, OutputHelper
 from api.squiggle_api import SquiggleAPI
 from algo.dfs import DFS
+from render.infographic import Infographic
 from datetime import datetime
-
-# universal logging
-logger = LoggerHelper.setup(current_datetime=datetime.now())
+from typing import List
+import time
 
 
 def main() -> None:
+    start_time: float = time.time()
+    prev_checkpoint_time: float = start_time
     argument_parser_helper = ArgumentParserHelper()
 
-    squiggle_api = SquiggleAPI(argument_parser_helper.args.season)
-    squiggle_api.populate_data()
+    seasons: List[int]
+    if argument_parser_helper.args.season == "all":
+        FIRST_SEASON: int = 1897
+        CURRENT_SEASON: int = datetime.now().year
+        # CURRENT_SEASON: int = 1913
+        seasons = [yr for yr in range(FIRST_SEASON, CURRENT_SEASON + 1)]
+    else:
+        seasons = [int(argument_parser_helper.args.season)]
 
-    dfs = DFS(squiggle_api.season_results)
+    for season in seasons:
+        # universal logging
+        logger = LoggerHelper.setup(
+            current_datetime=datetime.now(),
+            logname=f"{season}_main",
+            output_file_debug=argument_parser_helper.args.debug,
+        )
 
-    dfs.process_season()
+        logger.info(f"\n\n{'*' * 8} Starting {season} {'*' * 8}\n")
 
-    print(
-        dfs.traversal_output.first_hamiltonian_cycle.hamiltonian_cycle_game_details_pprint()
-    )
+        squiggle_api = SquiggleAPI(season)
+        squiggle_api.populate_data()
+
+        dfs = DFS(squiggle_api.season_results, argument_parser_helper.args.debug)
+
+        dfs.process_season()
+
+        infographic = Infographic(
+            season_results=dfs.season_results, traversal_output=dfs.traversal_output
+        )
+        infographic.create_infographic()
+
+        checkpoint_time: float = time.time()
+
+        logger.info(
+            f"Season {season} in {((checkpoint_time - prev_checkpoint_time) / 60):.2f} minutes"
+        )
+
+        prev_checkpoint_time = checkpoint_time
+
+    OutputHelper.combine_all_json_outputs()
+
+    end_time: float = time.time()
+    logger.info(f"Complete in {((end_time - start_time) / 60):.2f} minutes")
 
 
 if __name__ == "__main__":
     # Big Tarp logging pattern
-    # try:
-    #     main()
-    # except Exception:
-    #     logger.exception("Fatal error in main()")
-    main()
+    try:
+        main_logger = LoggerHelper.setup(datetime.now(), "main")
+        main()
+    except Exception:
+        main_logger.exception("Fatal error in main()")

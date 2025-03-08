@@ -1,11 +1,15 @@
-from api.response_models import SeasonResults, GameResult
+from models import SeasonResults, GameResult
 from algo.data_structures import AdjacencyGraph, HamiltonianCycle, DFSTraversalOutput
+from helpers import LoggerHelper
 from typing import Set, List
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import os
+import json
+from pathlib import Path
+from datetime import datetime
 import logging
 import threading
-
-logger = logging.getLogger("main")
+import copy
 
 
 class DFS:
@@ -14,25 +18,31 @@ class DFS:
     traversal_output: DFSTraversalOutput
     dfs_steps: int = 0
     full_paths_not_hamiltonian: int = 0
-    hamiltonian_paths_found: int = 0
+    hamiltonian_cycles_found: int = 0
+    output_file_debug: bool = False
 
-    def __init__(self, season_results: SeasonResults) -> None:
+    def __init__(
+        self, season_results: SeasonResults, output_file_debug: bool = False
+    ) -> None:
         self.season_results = season_results
         self.adjacency_graph = AdjacencyGraph()
         self.traversal_output = DFSTraversalOutput()
+        self.output_file_debug = output_file_debug
+        self.logger = logging.getLogger(f"{self.season_results.season}_main")
 
-    def _build_adjacency_graph(self) -> None:
+    def _build_adjacency_graph(self, up_to_round: int) -> None:
+        """dynmically build adjacency graph up to the supplied round"""
         self.adjacency_graph = AdjacencyGraph()
         for round_results in self.season_results:
             for game_result in round_results:
-                if game_result.round > 9:  # temp
-                    continue
-                if game_result.winnerteamid:
-                    self.adjacency_graph.add_child_to_parent(
-                        game_result.winnerteamid, game_result.loserteamid
-                    )
+                if game_result.round <= up_to_round:
+                    if game_result.winnerteamid and game_result.loserteamid:
+                        self.adjacency_graph.add_child_to_parent(
+                            game_result.winnerteamid, game_result.loserteamid
+                        )
 
     def _validate_hamiltonian_cycle_possible(self) -> bool:
+        """helper method to first check all teams have either won or lost at least one game"""
         parents_count = len(self.adjacency_graph.parents)
         children_count = len(self.adjacency_graph.children)
         nteams = self.season_results.nteams
@@ -41,150 +51,204 @@ class DFS:
         else:
             return False
 
-    def _hamiltonian_cycle_permutation_logger(self) -> None:
-        """helper function to log permutation progress, just helpful for eyeballing/ensuring compute is progressing"""
-        thresholds: List[int] = [10, 100, 1000, 10000, 100000, 500000, 1000000]
-        log_this: bool = False
-
-        if self.dfs_steps > thresholds[-1]:
-            # exit early once largest reached
-            if self.dfs_steps % thresholds[-1] == 0:
-                log_this = True
-        else:
-            for threshold in thresholds:
-                if self.dfs_steps < threshold * 10:
-                    if self.dfs_steps % threshold == 0:
-                        log_this = True
-                    break
-
-        if log_this:
-            logger.info(
-                f"Thread: {threading.current_thread().name}\t| DFS Steps: {self.dfs_steps}\t| Hamiltonian Paths Found: {self.hamiltonian_paths_found}"
-            )
-
     def _dfs(
         self,
-        current_node: int,
+        cur_winner: int,
         visited: Set[int],
         path: List[int],
         games: List[GameResult],
-        start_node: int,
+        first_parent_in_path: int,
+        thread_logger: logging.Logger,
     ) -> None:
+        """recursive method to perform DFS. Exits early upon successfull hamiltonian cycle being found"""
         self.dfs_steps += 1
 
-        # propgress logging for sanity
-        self._hamiltonian_cycle_permutation_logger()
-
+        # once all teams have been visited, can inspect for hamiltonian cycle
         if len(visited) == len(self.adjacency_graph.adjacency_lists):
-            adjacency_list = self.adjacency_graph.get_adjacency_graph(current_node)
-            if adjacency_list and start_node in adjacency_list.children:
-                game = next(
-                    (
-                        game
-                        for game in self.season_results
-                        for game in game.results
-                        if game.winnerteamid == current_node
-                        and game.loserteamid == start_node
-                    ),
-                    None,
+            adjacency_list = self.adjacency_graph.get_adjacency_graph(cur_winner)
+            if adjacency_list and first_parent_in_path in adjacency_list.children:
+                thread_logger.debug("Found Hamiltonian Cycle")
+                game = self.season_results.get_first_game_result(
+                    cur_winner, first_parent_in_path
                 )
                 if game:
                     games.append(game)
                 cur_hamiltonian_cycle = HamiltonianCycle(
                     cycle=path.copy(), games=games.copy()
                 )
-                self.traversal_output.update_first_hamiltonian_cycle(
-                    cur_hamiltonian_cycle
-                )
-                self.hamiltonian_paths_found += 1
+                if self.traversal_output.first_hamiltonian_cycle:
+                    thread_logger.debug(
+                        f"Cur: {cur_hamiltonian_cycle.max_date} Current First: {self.traversal_output.first_hamiltonian_cycle.max_date}"
+                    )
+                # determine if update call need to be made to first_cycle
+                if (
+                    not self.traversal_output.first_hamiltonian_cycle
+                    or cur_hamiltonian_cycle.max_date
+                    < self.traversal_output.first_hamiltonian_cycle.max_date
+                ):
+                    logger_msg: str
+                    if self.traversal_output.first_hamiltonian_cycle:
+                        self.logger.debug(
+                            f"Current: {self.traversal_output.first_hamiltonian_cycle.max_date} | New: {cur_hamiltonian_cycle.max_date}"
+                        )
+                        logger_msg = "Updated Hamiltonian Cycle"
+                    else:
+                        logger_msg = "First Hamiltonian Cycle"
+                    # this method double-validates if applicable to update, as a safety
+                    self.traversal_output.update_first_hamiltonian_cycle(
+                        cur_hamiltonian_cycle
+                    )
+                    self.logger.info(
+                        f"{threading.current_thread().name.ljust(24)} {path[0]}_{path[1]} | {logger_msg} | {self.traversal_output.first_hamiltonian_cycle.max_date} | {self.traversal_output.first_hamiltonian_cycle.cycle}"  # type: ignore[union-attr]
+                    )
+                    thread_logger.debug(logger_msg)
+                else:
+                    thread_logger.debug("Did not update the first Hamiltonian Cycle")
+                self.hamiltonian_cycles_found += 1
+                # remove appended game upon successful hamiltonian cycle discovery ( as this game.append is done outside of my cur_loser loop below)
+                games.pop()
             else:
                 self.full_paths_not_hamiltonian += 1
             return
 
-        adjacency_list = self.adjacency_graph.get_adjacency_graph(current_node)
+        # gets the losers for the current winner
+        adjacency_list = self.adjacency_graph.get_adjacency_graph(cur_winner)
         if not adjacency_list:
+            # this should never occur...
             return
 
-        for neighbor in adjacency_list.children:
-            if neighbor not in visited:
-                visited.add(neighbor)
-                path.append(neighbor)
-                game = next(
-                    (
-                        game
-                        for game in self.season_results
-                        for game in game.results
-                        if game.winnerteamid == current_node
-                        and game.loserteamid == neighbor
-                    ),
-                    None,
-                )
+        for cur_loser in adjacency_list.children:
+            if cur_loser not in visited:
+                visited.add(cur_loser)
+                path.append(cur_loser)
+                game = self.season_results.get_first_game_result(cur_winner, cur_loser)
                 if game:
                     games.append(game)
-                self._dfs(neighbor, visited, path, games, start_node)
+                thread_logger.debug(
+                    f"games: {len(games)} path: {len(path)}\t{'Fwd:'.ljust(8)} {path}"
+                )
+                self._dfs(
+                    cur_loser, visited, path, games, first_parent_in_path, thread_logger
+                )
+                # traversal ended - backtrack
                 path.pop()
-                if game:
-                    games.pop()
-                visited.remove(neighbor)
+                games.pop()
+                thread_logger.debug(
+                    f"games: {len(games)} path: {len(path)}\t{'Back:'.ljust(8)} {path}"
+                )
+                # only removing neighbour prevents threads overlapping from largest_parent-child originality
+                visited.remove(cur_loser)
+            else:
+                # explicit "do nothing" the cur_loser already visited in this path
+                pass
 
-    def _find_hamiltonian_cycles(self) -> None:
-        with ThreadPoolExecutor() as executor:
+    def _find_hamiltonian_cycles(self, up_to_round: int) -> None:
+        """setup threads to process the dfs search for hamiltonian cycles"""
+        cpu_count: int = os.cpu_count() or 1  # mypy annoyances with max() function
+        with ThreadPoolExecutor(max_workers=max(cpu_count - 2, 1)) as executor:
             futures = []
-            largest_adjacency_list_parent = (
-                self.adjacency_graph.parents_with_most_children[0]
+            # queue up all the parents with the most children - more threads means more powah
+            largest_adjacency_list_parents = (
+                self.adjacency_graph.parents_with_most_children
             )
-            adjacency_list = self.adjacency_graph.get_adjacency_graph(
-                largest_adjacency_list_parent
-            )
-            for child in adjacency_list.children:
-                start_node = child
-                visited = {largest_adjacency_list_parent, start_node}
-                path = [largest_adjacency_list_parent, start_node]
-                games = []
-                game = next(
-                    (
-                        game
-                        for game in self.season_results
-                        for game in game.results
-                        if game.winnerteamid == largest_adjacency_list_parent
-                        and game.loserteamid == child
-                    ),
-                    None,
+            for largest_parent in largest_adjacency_list_parents:
+                adjacency_list = self.adjacency_graph.get_adjacency_graph(
+                    largest_parent
                 )
-                if game:
-                    games.append(game)
-                futures.append(
-                    executor.submit(
-                        self._dfs,
-                        start_node,
-                        visited,
-                        path,
-                        games,
-                        largest_adjacency_list_parent,
+                self.logger.debug(
+                    f"Largest parent {largest_parent} with children {adjacency_list.children}"  # type: ignore[union-attr]
+                )
+                # one thread per largest_parent-child relationship
+                for child in adjacency_list.children:  # type: ignore[union-attr]
+                    # setup to mimick the 'first step' of the dfs search, allowing this parallel action to happen
+                    visited_copy = copy.deepcopy({largest_parent, child})
+                    path_copy = copy.deepcopy([largest_parent, child])
+                    games_copy = copy.deepcopy([])
+                    game = self.season_results.get_first_game_result(
+                        largest_parent, child
                     )
-                )
+                    if game:
+                        games_copy.append(game)
+                    self.logger.debug(
+                        f"Appending thread for {largest_parent} and {child}"
+                    )
+                    thread_logger = LoggerHelper.setup(
+                        datetime.now(),
+                        f"{self.season_results.season}_R{up_to_round}_{largest_parent}_{child}",
+                        self.output_file_debug,
+                    )
+                    futures.append(
+                        executor.submit(
+                            self._dfs,
+                            child,
+                            visited_copy,
+                            path_copy,
+                            games_copy,
+                            largest_parent,
+                            thread_logger,
+                        )
+                    )
 
+            # smash it out
             for future in as_completed(futures):
+                self.logger.info(
+                    f"Season: {self.season_results.season}\t | DFS Steps: {self.dfs_steps}\t| Hamiltonian Cycles Found: {self.hamiltonian_cycles_found}"
+                )
                 future.result()
 
-    def process_season(self) -> None:
-        """Sequentially (by round) build adjacency graph and traverse each as we go."""
-        self._build_adjacency_graph()
-        if self._validate_hamiltonian_cycle_possible():
-            self.dfs_steps = 0
-            self.full_paths_not_hamiltonian = 0
-            self._find_hamiltonian_cycles()
-            self.traversal_output.total_dfs_steps = self.dfs_steps
-            self.traversal_output.total_full_paths_not_hamiltonian = (
-                self.full_paths_not_hamiltonian
-            )
-            self.traversal_output.total_hamiltonian_paths = self.hamiltonian_paths_found
-            logger.info(self.traversal_output)
-            if self.traversal_output.first_hamiltonian_cycle:
-                logger.info("Hamiltonian Cycle Found")
-                logger.info(self.traversal_output.first_hamiltonian_cycle.cycle_names)
-                logger.info(
-                    self.traversal_output.first_hamiltonian_cycle.hamiltonian_cycle_game_details_pprint()
+    def _save_output_to_file(self) -> None:
+        """save the traversal output to a json file in the output directory"""
+        try:
+            project_root: Path = Path(__file__).parents[2]  # yueck
+
+            output_dir: Path = project_root / "output" / str(self.season_results.season)
+            output_dir.mkdir(parents=True, exist_ok=True)
+            output_file: Path = output_dir / "dfs_traversal_output.json"
+
+            with open(output_file, "w") as f:
+                json.dump(
+                    json.loads(self.traversal_output.model_dump_json()), f, indent=2
                 )
+
+            self.logger.info(f"Traversal results stored in {output_file}")
+
+        except Exception as e:
+            self.logger.error(f"Failed to save output: {e}")
+
+    def process_season(self) -> None:
+        """lets gooooo"""
+        # iterate over round in sequential order to prevent unecessary compute/searching
+        for round in self.season_results.rounds_list:
+            self._build_adjacency_graph(up_to_round=round)
+
+            if self._validate_hamiltonian_cycle_possible():
+                self.logger.info(f"Begin search for round {round}")
+                self.dfs_steps = 0
+                self.full_paths_not_hamiltonian = 0
+                self._find_hamiltonian_cycles(up_to_round=round)
+                self.traversal_output.total_dfs_steps = self.dfs_steps
+                self.traversal_output.total_full_paths_not_hamiltonian = (
+                    self.full_paths_not_hamiltonian
+                )
+                self.traversal_output.total_hamiltonian_cycles = (
+                    self.hamiltonian_cycles_found
+                )
+                self.logger.info(self.traversal_output)
+                if self.traversal_output.first_hamiltonian_cycle:
+                    self.logger.info("Hamiltonian Cycle Found")
+                    self.logger.info(
+                        self.traversal_output.first_hamiltonian_cycle.cycle_names
+                    )
+                    self.logger.info(
+                        self.traversal_output.first_hamiltonian_cycle.hamiltonian_cycle_game_details_pprint()
+                    )
+                    break
+                else:
+                    self.logger.info("Hamiltonian Cycle Not Found")
             else:
-                logger.info("Hamiltonian Cycle Not Found")
+                self.logger.info(
+                    f"Round {round}: Hamiltonian Cycle is not possible, team(s) without wins or losses present"
+                )
+
+        # save resultsaaahhh
+        self._save_output_to_file()

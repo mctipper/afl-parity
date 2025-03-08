@@ -7,7 +7,7 @@ from algo.data_structures import HamiltonianCycle
 class DFSTraversalOutput(BaseModel):
     total_dfs_steps: int = 0
     total_full_paths_not_hamiltonian: int = 0
-    total_hamiltonian_paths: int = 0
+    total_hamiltonian_cycles: int = 0
     first_hamiltonian_cycle: Optional[HamiltonianCycle] = None
 
     def update_first_hamiltonian_cycle(self, new_cycle: HamiltonianCycle) -> None:
@@ -21,7 +21,7 @@ class DFSTraversalOutput(BaseModel):
     def __str__(self) -> str:
         return f"total_dfs_steps={self.total_dfs_steps} total_full_paths_not_hamiltonian={self.total_full_paths_not_hamiltonian}"
 
-    def model_dump_json(self) -> str:
+    def model_dump_json(self) -> str:  # type: ignore[override]
         data = self.model_dump()
         if self.first_hamiltonian_cycle:
             data["first_hamiltonian_cycle"] = json.loads(

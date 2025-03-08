@@ -1,11 +1,9 @@
 from datetime import datetime
 import requests
+from pathlib import Path
 from typing import Dict, Any
-from api.response_models import SeasonResults, GameResult, Team
-
+from models import SeasonResults, GameResult, Team
 import logging
-
-logger = logging.getLogger("main")
 
 
 class APIRequestError(Exception):
@@ -20,12 +18,14 @@ class APIRequestError(Exception):
 
 
 class APIResponseTypeError(Exception):
-    """Custom exception for unexpected API response types"""
+    """generic exception for unexpected API response types, probs wont happen"""
 
     pass
 
 
 class SquiggleAPI:
+    """thx squiggle this is awesome API v helpful 10/10"""
+
     API_URL: str = "https://api.squiggle.com.au/"
     RESOURCE_URL: str = "https://squiggle.com.au"
     headers: Dict[str, Any] = {"User-Agent": "dummy@email.com"}
@@ -38,6 +38,7 @@ class SquiggleAPI:
         )
         self.team_data_url = f"{self.API_URL}?q=teams;year={str(self.season)}"
         self.season_results = SeasonResults(season=season, round_results={}, teams={})
+        self.logger = logging.getLogger(f"{self.season}_main")
 
     def set_header(self, key: str, value: Any) -> None:
         self.headers[key] = value
@@ -47,22 +48,22 @@ class SquiggleAPI:
             self.headers[k] = v
 
     def __get_api_response(self, url: str) -> Any:
-        """Helper method to get data from the API"""
+        """helper method to get data from the API"""
         response = requests.get(url, headers=self.headers)
 
         if response.status_code >= 400:
             # response failed
-            logger.error(f"{url} - {response.status_code} - {response.reason}")
+            self.logger.error(f"{url} - {response.status_code} - {response.reason}")
             raise APIRequestError(
                 f"API request failed with status code {response.status_code}",
                 response.raise_for_status(),
             )
         elif response.status_code >= 300:
             # response redirected, can continue but logging event
-            logger.info(f"{url} - {response.status_code} - {response.reason}")
+            self.logger.info(f"{url} - {response.status_code} - {response.reason}")
         else:
             # response successful
-            logger.debug(f"{url} - {response.status_code} - {response.reason}")
+            self.logger.debug(f"{url} - {response.status_code} - {response.reason}")
 
         # parse the data into json
         resp_content_type: str = response.headers["Content-Type"]
@@ -75,8 +76,8 @@ class SquiggleAPI:
 
         return data
 
-    def populate_teams(self) -> None:
-        """ """
+    def _populate_teams(self) -> None:
+        """get team data from squiggs"""
 
         team_data: Any = self.__get_api_response(self.team_data_url)
 
@@ -90,8 +91,8 @@ class SquiggleAPI:
 
             self.season_results.add_team(cur_team)
 
-    def populate_season_results(self) -> None:
-        """ """
+    def _populate_season_results(self) -> None:
+        """get seaosn result data from squiggs"""
 
         season_result_data: Any = self.__get_api_response(self.season_result_url)
 
@@ -115,6 +116,30 @@ class SquiggleAPI:
 
             self.season_results.add_game_result(cur_game)
 
+    def _download_logos(self) -> None:
+        """download the logos from squiggs"""
+        try:
+            project_root: Path = Path(__file__).parents[2]  # yueck
+
+            output_dir: Path = project_root / "output" / "logos"
+            output_dir.mkdir(parents=True, exist_ok=True)
+
+            for team in self.season_results.team_list:
+                output_file: Path = output_dir / team.logo_filename
+
+                if not output_file.exists():
+                    response = requests.get(team.logo_url)
+                    response.raise_for_status()
+                    with open(output_file, "wb") as f:
+                        f.write(response.content)
+                    self.logger.info(
+                        f"Downloaded logo for {team.name} in season {self.season}"
+                    )
+        except requests.exceptions.RequestException as re:
+            raise re
+
     def populate_data(self) -> None:
-        self.populate_teams()
-        self.populate_season_results()
+        """builder method, get all the goodies from squiggs"""
+        self._populate_teams()
+        self._populate_season_results()
+        self._download_logos()

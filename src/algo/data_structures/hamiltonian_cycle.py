@@ -1,11 +1,8 @@
 from pydantic import BaseModel
-from api.response_models import GameResult
+from models import GameResult
 from datetime import datetime
-from typing import List
+from typing import List, Dict, Any
 import json
-import logging
-
-logger = logging.getLogger("main")
 
 
 class HamiltonianCycle(BaseModel):
@@ -17,17 +14,19 @@ class HamiltonianCycle(BaseModel):
 
     @property
     def max_date(self) -> datetime:
-        return max(game.date for game in self.games)  # type: ignore
+        return max(game.date for game in self.games)
 
     @property
     def max_round(self) -> int:
-        return max(game.round for game in self.games)  # type: ignore
+        return max(game.round for game in self.games)
 
     @property
     def cycle_names(self) -> List[str]:
-        return [game.wteamname for game in self.games]
+        """apply team names to the hamiltonian cycle"""
+        return [game.wteamname for game in self.games if game.wteamname]
 
     def hamiltonian_cycle_game_details_pprint(self) -> str:
+        """just make the output look nice and legible"""
         result: str = "Hamiltonian Cycle Details\n"
         result += f"Rd. {self.max_round} - {self.max_date:%Y-%m-%d %H:%M:%S}\n"
         for teamid in self.cycle:
@@ -37,8 +36,11 @@ class HamiltonianCycle(BaseModel):
                     result += formatted_string
         return result
 
-    def model_dump_json(self) -> str:
-        data = self.model_dump(exclude={"games"})
-        data["games"] = [json.loads(game.model_dump_json()) for game in self.games]
+    def model_dump_json(self) -> str:  # type: ignore[override]
+        data: Dict[str, Any] = {}
+        data["cycle"] = self.cycle
         data["cycle_names"] = self.cycle_names
+        data["date"] = self.max_date
+        data["round"] = self.max_round
+        data["games"] = [json.loads(game.model_dump_json()) for game in self.games]
         return json.dumps(data, default=str)

@@ -3,7 +3,7 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": [
+    "configurations": [      
         {
             "name": "main.py (Manual Args Input)",
             "type": "debugpy",
@@ -13,12 +13,44 @@
             "args": "${command:pickArgs}"
         },
         {
+            "name": "main.py -s all",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "./src/main.py",
+            "console": "integratedTerminal",
+            "args": ["-s", "all"]
+        },
+        {
+            "name": "main.py -s 2018",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "./src/main.py",
+            "console": "integratedTerminal",
+            "args": ["-s", "2018"]
+        },
+        {
+            "name": "main.py -s 2000",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "./src/main.py",
+            "console": "integratedTerminal",
+            "args": ["-s", "2000"],
+        },
+        {
             "name": "main.py -s 2023",
             "type": "debugpy",
             "request": "launch",
             "program": "./src/main.py",
             "console": "integratedTerminal",
             "args": ["-s", "2023"]
+        },
+        {
+            "name": "main.py -s 2023 -d",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "./src/main.py",
+            "console": "integratedTerminal",
+            "args": ["-s", "2023", "-d"]
         },
         {
             "name": "main.py -s 2024",
@@ -34,15 +66,26 @@
             "request": "launch",
             "program": "./src/main.py",
             "console": "integratedTerminal",
-            "args": ["-s", "2025"]
+            "args": ["-s", "2025"],
+            "env": {
+                "LOG_LEVEL": "INFO"
+            }
         },
         {
-            "name": "main.py -s 2025 -c",
+            "name": "main.py -s 2025 -d",
             "type": "debugpy",
             "request": "launch",
             "program": "./src/main.py",
             "console": "integratedTerminal",
-            "args": ["-s", "2025", "-c"]
+            "args": ["-s", "2025", "-d"]
+        },
+        {
+            "name": "main.py -s 1912",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "./src/main.py",
+            "console": "integratedTerminal",
+            "args": ["-s", "1912"]
         },
         {
             "name": "main.py -s 1896",

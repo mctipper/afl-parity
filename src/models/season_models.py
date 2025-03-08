@@ -2,18 +2,19 @@ from pydantic import BaseModel
 from datetime import datetime
 from typing import List, Dict, Optional, Iterator
 import json
-import logging
-
-logger = logging.getLogger("main")
 
 
 class Team(BaseModel):
-    """the team model - api results for the team must be parsed into this format."""
+    """the team model - api results for the team must be parsed into this format"""
 
     id: int
     name: str
     abbrev: str
     logo_url: str
+
+    @property
+    def logo_filename(self) -> str:
+        return self.logo_url.split("/")[-1]
 
 
 class GameResult(BaseModel):
@@ -72,7 +73,7 @@ class GameResult(BaseModel):
             return self.ascore
         return None
 
-    def model_dump_json(self) -> str:
+    def model_dump_json(self) -> str:  # type: ignore[override]
         data = self.model_dump()
         data["loserteamid"] = self.loserteamid
         data["lteamname"] = self.lteamname
@@ -82,15 +83,17 @@ class GameResult(BaseModel):
 
 
 class RoundResults(BaseModel):
+    """as per title..."""
+
     round: int
     results: List[GameResult]
 
-    def __iter__(self) -> Iterator[GameResult]:
+    def __iter__(self) -> Iterator[GameResult]:  # type: ignore[override]
         return iter(self.results)
 
 
 class SeasonResults(BaseModel):
-    """individual season, with a list of GameResult objects for that season and
+    """individual season, with all the round results and games and
     also a list of Team objects that participated in that reason
     """
 
@@ -137,9 +140,23 @@ class SeasonResults(BaseModel):
         try:
             return self.round_results[round]
         except KeyError:
-            print(f"Round '{round}' not found in list '{self.rounds_list}'")
             return None
 
-    def __iter__(self) -> Iterator[RoundResults]:
+    def get_team(self, teamid: int) -> Optional[Team]:
+        try:
+            return self.teams[teamid]
+        except KeyError:
+            return None
+
+    def get_first_game_result(self, winner: int, loser: int) -> Optional[GameResult]:
+        first_game: Optional[GameResult] = None
+        for round_results in self.round_results.values():
+            for game in round_results:
+                if game.winnerteamid == winner and game.loserteamid == loser:
+                    if first_game is None or game.round < first_game.round:
+                        first_game = game
+        return first_game
+
+    def __iter__(self) -> Iterator[RoundResults]:  # type: ignore[override]
         for round_id in self.rounds_list:
             yield self.round_results[round_id]
