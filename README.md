@@ -50,12 +50,19 @@ We can pick the first team to begin the traverse from at the start of each round
 Again once a hamiltonian cycle has been found (which doesnt include the first game of the round), before traversing next game check if it occured after the current last occuring game in the known hamiltonian cycle. If it occured after, there is no way the addition of that game improve on the result, so it can be skipped.  
 While it is easy to count this as a single skipped step, by skipping these games it can prevent many hundreds or even thousands of pointless permutations.
 
+#### 6. Multi-Threadding
+As DFS is a linear search algorithm, it requires a bit of a nudge to benefit from parallel processing. One such method is by undertaking the 'first step' of a DFS search (ie. a BFS search, a single parent and all their children) and starting a thread for each pair. Have done it here by starting up a thread for the winner of the first match of the round. One of these pairs will include the result from the first match of the round, ensuring that if that particular thread finds a hamiltonian cycle, it will allow all threads to exit their traverses early as they will not be able to better it.  
+
+#### 6.1 Backtracking
+Prevent backtracking from going 'too far', when beginning with a path > 1 length, want to ensure path backtracking doesnt go beyond this point, causing different threads to eventualy compute the exact same permuations.  
+
 ### Efficiency Notes
 
-A good example of the benefits of these efficiencies were observed when traversing Season 2000. A hamiltonian cycle was above to be discovered in *_only 16 steps_*. This particular efficiency was mainly due to efficiencies 3 and 4, without these efficiences (i.e only using 1 and 2 from the above) it took _~610 million_ steps to find the same hamiltonian cycle.
+A good example of the benefits of these efficiencies were observed when traversing Season 2000. A hamiltonian cycle was above to be discovered in *_only 16 steps_*. This particular efficiency was mainly due to efficiencies 3 and 4, without these efficiences (i.e only using 1 and 2 from the above) it took _~610 million_ steps to find the same hamiltonian cycle (These counts are without any multi-threadding).
 
-While all the above greatly improve performance and reduce computation time for traversing, they do not guarentee it and still rely on some favourable qualities in order to be taken advantage of. The key thing to remember here is understanding the data, the outcomes, and the algorithms themselves allow you to provide neat little hacks and shortcuts to reach goals and outcomes quicker.
+All these efficiencies combined have resulting in it only taken a combined _~2.5 minutes_ to download the data, build the adjacency lists, traverse the graphs to find the first hamiltonian cycle of each season, and draw those awful infographics for all seasons from 1897 to 2024. My laptop isn't even that good really so this is all about massaging that algorithm until it's optimal.
 
+While all the above greatly improve performance and reduce computation time for traversing, they do not guarentee it and still rely on some favourable qualities in order to be taken advantage of. The key thing to remember here is understanding the data, the outcomes, and the algorithms themselves allow you to provide neat little hacks and shortcuts to reach goals and outcomes quicker. It is the combination of all the efficiencies that enable traversals to be done quickly, not just one individually or just throwing crazy parallel-epic-super-compute at it all.
 
 ## How to run
 
