@@ -35,7 +35,7 @@ push_to_github() {
   STATUS_AFTER=$(git status --porcelain)
 
   if [[ "$STATUS_BEFORE" != "$STATUS_AFTER" ]]; then
-    if check_hamiltonian_cycle; then
+    if check_first_hamiltonian_cycle_already_exists; then
       git commit -m "feed: automated push - hamiltonian cycle found for $YEAR"
     else
       git commit -m "feed: automated push for $YEAR traversal"
