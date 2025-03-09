@@ -21,3 +21,6 @@ done
 # run
 cd "$SCRIPT_DIR/../src"
 uv run --no-dev -q main.py --season "$SEASON" $DEBUG
+
+# universal read/write perms on output
+chmod -R ugo+rw /afl-parity/output

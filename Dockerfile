@@ -10,11 +10,12 @@ FROM debian:$DEBIAN_VERSION-slim
 COPY --from=uv /uv /uvx /bin/
 
 # copy files and take ownership
-WORKDIR /app
+WORKDIR /afl-parity
 COPY pyproject.toml .
 COPY uv.lock .
 COPY .python-version .
 COPY src/ ./src/
+COPY output/ ./output/
 COPY scripts/ ./scripts/
 
 # env variables
@@ -28,5 +29,8 @@ ENV PATH="/home/root/.venv/bin:$PATH"
 # install dependencies
 RUN uv sync --compile-bytecode --no-dev
 
-# leave docker running
-CMD ["tail", "-f", "/dev/null"]
+# Change permissions of the output directory
+RUN chmod -R 777 /afl-parity/output
+
+# run script
+CMD ["sh", "scripts/run.sh"]
