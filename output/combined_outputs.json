@@ -4654,13 +4654,5 @@
             "date": "2024-06-08 16:35:00",
             "round": 13
         }
-    },
-    "2025": {
-        "total_dfs_steps": 0,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 0,
-        "first_hamiltonian_cycle": null
     }
 }
