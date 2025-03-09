@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # globals
-BRANCH="feed"
+BRANCH="main"
 YEAR=$(date +"%Y")
-DOCKER_IMAGE_NAME="afl-parity"
+DOCKER_CONTAINER_NAME="afl-parity-container"
 
 # logging
 CURRENT_TIME=$(date +"%Y%m%d_%H%M%S")
-LOG_FILE="./.logs/${CURRENT_TIME}_${YEAR}_feed.log"
+LOG_FILE="./.logs/${CURRENT_TIME}_${YEAR}_run_docker.log"
 
 # directory management
 if [ ! -d "./output" ]; then
@@ -64,28 +64,36 @@ check_first_hamiltonian_cycle_already_exists() {
   fi
 }
 
-check_docker_image_exists() {
-  if docker image inspect "$IMAGE_NAME" > /dev/null 2>&1; then
-    return 0  # image already exists
+check_container_status() {
+  if docker ps --filter "name=$DOCKER_CONTAINER_NAME" | grep "$DOCKER_CONTAINER_NAME" > /dev/null 2>&1; then
+    echo "running"
+  elif docker ps -a --filter "name=$DOCKER_CONTAINER_NAME" | grep "$DOCKER_CONTAINER_NAME" > /dev/null 2>&1; then
+    echo "exists"
   else
-    return 1  # image does not exist
+    echo "not_exists"
   fi
 }
-
 
 if check_first_hamiltonian_cycle_already_exists; then
   log_with_datetime "First Hamiltonian Cycle Already found, no need to run"
 else
   log_with_datetime "No Hamiltonian Cycle for $YEAR yet found - proceeding"
-  # check if need to build
-  if check_docker_image_exists; then
+
+  status=$(check_container_status)
+  
+  if [ "$status" = "not_exists" ]; then
     log_with_datetime "Building Docker image..."
     docker-compose build
-  fi                  
-  # run via docker
-  docker-compose up | tee -a "$LOG_FILE"
-  # push any results
-  push_to_github
-  # log
-  log_with_datetime "Completed Run"
+  fi
+
+  if [ "$status" = "running" ]; then
+    echo "Container is running from previous execution, skipping"
+  else
+    # not_exists or exists - lets go (as not_exists will have run docker build up above)
+    docker-compose up | tee -a "$LOG_FILE"
+    # push any results
+    push_to_github
+    # log
+    log_with_datetime "Completed Run"
+  fi  
 fi
