@@ -1,104 +1,112 @@
 #!/bin/bash
 
-# Define the API endpoint
+# globals
 API_URL="https://api.squiggle.com.au/sse/test"
-# REPO_PATH="/path/to/your/repo"  # Path to your local GitHub repository
-# BRANCH="main"  # Git branch to push changes
+# BRANCH="main"
 BRANCH="feed"
 YEAR=$(date +"%Y")
 IMAGE_NAME="afl-parity"
-CONTROL_FILE="/tmp/api_feed_control"  # Control file to pause/resume the loop
+DOCKERBUILT=false
 
-# Function to push changes to GitHub
-push_to_github() {
-#   cd "$REPO_PATH"
-  git add ./output/$YEAR/*
-  git commit -m "feed: match completed for $YEAR"
-  git push origin "$BRANCH"
+# logging
+CURRENT_TIME=$(date +"%Y%m%d_%H%M%S")
+LOG_FILE="./.logs/${CURRENT_TIME}_${YEAR}_feed.log"
+
+# directory management
+if [ ! -d "./output" ]; then
+  echo "Creating ./output directory..."
+  mkdir ./output
+fi
+
+if [ ! -d "./.logs" ]; then
+  echo "Creating ./.logs directory..."
+  mkdir ./.logs
+fi
+
+log_with_datetime() {
+  local message="$1"
+  local current_datetime=$(date +"%Y-%m-%d %H:%M:%S")
+  echo "[$current_datetime] $message" | tee -a "$LOG_FILE"
 }
 
-# Function to check if "first_hamiltonian_cycle" is null
+push_to_github() {
+  # check for changes before/after add
+  STATUS_BEFORE=$(git status --porcelain)
+  git add ./output/
+  STATUS_AFTER=$(git status --porcelain)
+
+  if [[ "$STATUS_BEFORE" != "$STATUS_AFTER" ]]; then
+    git commit -m "feed: match completed for $YEAR"
+    git push origin "$BRANCH"
+    log_with_datetime "pushed git commit to $BRANCH"
+  else
+    log_with_datetime "no changes detected to output, skipping commit and push"
+  fi
+}
+
 check_hamiltonian_cycle() {
   FILE_PATH="./output/$YEAR/${YEAR}_dfs_traversal_output.json"
   
-  # Check if the JSON file exists
+  # check if file exists and if so insepct if a hamiltonian cycle is present
+  # to prevent pointless traversing again and again...
   if [[ -f "$FILE_PATH" ]]; then
     FIRST_HAMILTONIAN_CYCLE=$(jq '.first_hamiltonian_cycle' "$FILE_PATH")
     if [[ "$FIRST_HAMILTONIAN_CYCLE" == "null" ]]; then
-      echo "FirstCycleIsNull"
       return 0  # "first_hamiltonian_cycle" is null
     else
-      echo "FirstCycleNotNull"
       return 1  # "first_hamiltonian_cycle" is not null
     fi
   else
-    echo "JSON file does not exist"
     return 0  # JSON file does not exist
   fi
 }
 
-# Function to build the Docker image if it doesn't exist
-build_docker_image_if_needed() {
-  if ! docker image inspect "$IMAGE_NAME" > /dev/null 2>&1; then
-    echo "Docker image not found. Building Docker image..."
-    docker-compose build
-  else
-    echo "Docker image already exists. No need to build."
+# main loop
+wget -q -O- "$API_URL" | while read -r line; do
+  # get the "event" line
+  if [[ "$line" == event:* ]]; then
+    EVENT_TYPE=$(echo "$line" | sed -e 's/event: //')
+    log_with_datetime "Event Type: $EVENT_TYPE"
   fi
-}
+  
+    # check if event:complete
+#   if [[ "$EVENT_TYPE" == event:complete ]]; then
+  if [[ "$EVENT_TYPE" == event:score ]]; then
+    # Read the next lines to get the data payload
+    read -r id_line
+    read -r data_line
 
-# Create the control file to allow the loop to run
-echo "RUN" > "$CONTROL_FILE"
+    # insepcting the data_line content
+    if [[ "$data_line" == data:* ]]; then
+      PAYLOAD=$(echo "$data_line" | sed -e 's/data: //')
+      log_with_datetime "Payload: $PAYLOAD"
 
-# Use wget to handle the SSE stream and output the complete events
-wget -qO- "$API_URL" | while read -r line; do
-  # Check the control file to see if the loop should pause
-  if [[ $(cat "$CONTROL_FILE") == "PAUSE" ]]; then
-    echo "Pausing API feed loop..."
-    while [[ $(cat "$CONTROL_FILE") == "PAUSE" ]]; do
-      sleep 1
-    done
-    echo "Resuming API feed loop..."
-  fi
+      # when a game is completed, trigger the script
+      COMPLETE=$(echo "$PAYLOAD" | grep -o '"complete":[0-9]*' | awk -F: '{print $2}')
+      COMPLETE=$((COMPLETE))  # converts to integer
+        # if [[ "$COMPLETE" -eq 100 ]]; then
+        if [[ "$COMPLETE" -gt 1 ]]; then
+            log_with_datetime "Game completed - running script"
 
-  # Check if the line starts with "data:"
-  if [[ "$line" == data:* ]]; then
-    PAYLOAD=$(echo "$line" | sed -e 's/data: //')
-    echo "Payload: $PAYLOAD"
+            if check_hamiltonian_cycle; then
+                echo "check_hamiltonian_cycle"
+                # build before run
+                if [ "$DOCKERBUILT" = false ]; then
+                    log_with_datetime "Building Docker image..."
+                    docker-compose build
+                    DOCKERBUILT=true
+                fi
+                                
+                # run via docker
+                docker-compose up
 
-    # Check the "complete" value and trigger events with text for each value
-    # COMPLETE=$(echo "$PAYLOAD" | grep -o '"complete":[0-9]*' | awk -F: '{print $2}')
-    COMPLETE=$(echo "$PAYLOAD" | grep -o '"team":[0-9]*' | awk -F: '{print $2}')
-    COMPLETE=$((COMPLETE))  # Convert to integer
-    # if [[ "$COMPLETE" -eq 100 ]]; then
-    if [[ "$COMPLETE" -gt 1 ]]; then
-      echo "Special Event Triggered: Complete equals '$COMPLETE'"
-      echo "Special text for complete=$COMPLETE"
+                # push any results
+                push_to_github
 
-      # Check if "first_hamiltonian_cycle" is null before running Docker container
-      if check_hamiltonian_cycle; then
-        echo "Run Docker!"
-        # Pause the loop
-        echo "PAUSE" > "$CONTROL_FILE"
-
-        # Check if build needed
-        build_docker_image_if_needed
-        # Trigger the Docker container
-        docker-compose up
-
-        # Resume the loop
-        echo "RUN" > "$CONTROL_FILE"
-
-        # Push the results to GitHub
-        push_to_github
-      else
-        echo "Skipping Docker container run: 'first_hamiltonian_cycle' is not null or JSON file does not exist"
-      fi
+                # log
+                log_with_datetime "Completed Run"
+            fi
+        fi
     fi
-  fi
-
-  # Print a separator after each complete event
-  if [[ "$line" == "" ]]; then
-    echo "-----------------------------"
   fi
 done
