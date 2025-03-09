@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # globals
-API_URL="https://api.squiggle.com.au/sse/test"
+TEST_API_URL="https://api.squiggle.com.au/sse/test"
+API_URL="https://api.squiggle.com.au/sse/events"
 BRANCH="feed"
 YEAR=$(date +"%Y")
 IMAGE_NAME="afl-parity"
