@@ -3,13 +3,16 @@
 # globals
 BRANCH="main"
 YEAR=$(date +"%Y")
-DOCKER_CONTAINER_NAME="afl-parity-container"
 
 # dir
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 BASE_DIR="$SCRIPT_DIR/.."
 LOG_DIR="$BASE_DIR/.logs"
 OUTPUT_DIR="$BASE_DIR/output"
+
+# docker
+DOCKER_CONTAINER_NAME="afl-parity-container"
+DOCKER_COMPOSE_FILE="$BASE_DIR/docker-compose.yml"
 
 # logging
 CURRENT_TIME=$(date +"%Y%m%d_%H%M%S")
@@ -91,14 +94,14 @@ else
   
   if [ "$status" = "not_exists" ]; then
     log_with_datetime "Building Docker image..."
-    docker-compose build
+    docker-compose -f "$DOCKER_COMPOSE_FILE" build
   fi
 
   if [ "$status" = "running" ]; then
     echo "Container is running from previous execution, skipping"
   else
     # not_exists or exists - lets go (as not_exists will have run docker build up above)
-    docker-compose up | tee -a "$LOG_FILE"
+    docker-compose -f "$DOCKER_COMPOSE_FILE" up | tee -a "$LOG_FILE"
     # push any results
     push_to_github
     # log
