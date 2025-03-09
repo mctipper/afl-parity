@@ -31,6 +31,7 @@ log_with_datetime() {
 
 push_to_github() {
   # check for changes before/after add
+  git pull origin $BRANCH
   STATUS_BEFORE=$(git status --porcelain)
   git add ./output/
   STATUS_AFTER=$(git status --porcelain)
