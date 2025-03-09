@@ -74,7 +74,13 @@ There is also a generic `Dockerfile` outside of the devcontainer which can be us
 
 ### Execution
 
-A helper script can be found in `scripts/run.sh`. Need to provide argument after to indicate which season want to perform a hamilton cycle search on. So for season 2023 would use:
+A helper script can be found in `scripts/run.sh`. By default it just runs for this current year, downloading the game results and running a traversal.
+
+```
+sh scripts/run.sh
+```
+
+Can provide argument after to indicate which season want to perform a hamilton cycle search on. So for season 2023 would use:
 ```
 sh scripts/run.sh -s 2023
 ```
@@ -85,3 +91,9 @@ sh scripts/run.sh -s all
 ```
 
 There is also a `-d` switch to provide debug logs, which contain every step of the search... yeah they get kinda big... probs best not to run this with the `-s all` switch.
+
+### Feed
+
+A feed script has been setup to make use of squiggles SSE feed. When "game completed" responses are detected, it downloads the latest data and then attempts a traversal. Changes are pushed to the `feed` branch of this repo automatically.
+
+The script can be triggered using `scripts/feed.sh`. It continues to run until exited manually (or unhandled error...)
