@@ -30,7 +30,7 @@ ENV PATH="/home/root/.venv/bin:$PATH"
 RUN uv sync --compile-bytecode --no-dev
 
 # Change permissions of the output directory
-RUN chmod -R 777 /afl-parity/output
+RUN chmod -R ugo+rw /afl-parity/output
 
 # run script
-CMD ["sh", "scripts/run.sh"]
+CMD ["sh", "scripts/run_local.sh"]

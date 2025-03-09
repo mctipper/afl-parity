@@ -1,9 +1,9 @@
 services:
   afl-parity:
-    image: afl-parity
     build:
       context: .
       dockerfile: Dockerfile
+    image: afl-parity:latest
     volumes:
       - ./output:/afl-parity/output
       - ./.logs:/afl-parity/.logs

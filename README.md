@@ -70,30 +70,28 @@ Easiest is with `vscode devcontainers`. Just need to open this repo in a devcont
 
 Otherwise can use [uv](https://github.com/astral-sh/uv) for python versioning and environment management locally or however you like really. Just use `uv` its great.  
 
-There is also a generic `Dockerfile` outside of the devcontainer which can be used to spin up a dedicated container too if wanting. 
+There are two pre-configured ways to run a traversal, both with shell scripts. One of them just runs it locally or within the devcontainer, another will build and run within a separate container (not a devcontainer) before shutting down the container after execution (more detail below).
 
-### Execution
+### Local Execution
 
-A helper script can be found in `scripts/run.sh`. By default it just runs for this current year, downloading the game results and running a traversal.
+A helper script can be found in `scripts/run_local.sh`. By default it just runs for this current year, downloading the game results and running a traversal.
 
 ```
-sh scripts/run.sh
+sh scripts/run_local.sh
 ```
 
 Can provide argument after to indicate which season want to perform a hamilton cycle search on. So for season 2023 would use:
 ```
-sh scripts/run.sh -s 2023
+sh scripts/run_local.sh -s 2023
 ```
 
 To run all seasons sequentially:
 ```
-sh scripts/run.sh -s all
+sh scripts/run_local.sh -s all
 ```
 
 There is also a `-d` switch to provide debug logs, which contain every step of the search... yeah they get kinda big... probs best not to run this with the `-s all` switch.
 
-### Feed
+### Dockerised Execution
 
-A feed script has been setup to make use of squiggles SSE feed. When "game completed" responses are detected, it downloads the latest data and then attempts a traversal. Changes are pushed to the `feed` branch of this repo automatically.
-
-The script can be triggered using `scripts/feed.sh`. It continues to run until exited manually (or unhandled error...)
+Provides a few extra steps to the above - the `scripts/run_docker.sh` script will build a new image, spin up a container, and then run the script. If there is an output, it will also automatically push the results to the `feed` branch of this repo (assumes all github credentials have been configured globally etc). It has been hard coded to only download / traverse the current year, main purpose of this script is for cronjob to just run at certain intervals a few times each weekend just to see if we've got a hamiltonian cycle or not. Had a crack at Squiggles Event Feed also but found it was a bit flakey to maintain a connection (plus dont need to compute this stuff within seconds of each game finishing.... but is possible if wanting)
