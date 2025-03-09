@@ -64,46 +64,48 @@ check_hamiltonian_cycle() {
 }
 
 # main loop
-wget -q -O- "$API_URL" | while read -r line; do
-  # get the "event" line
-  if [[ "$line" == event:* ]]; then
-    EVENT_TYPE=$(echo "$line" | sed -e 's/event: //')
-    log_with_datetime "Event Type: $EVENT_TYPE"
-  fi
+while true; do
+  wget -q -O- "$API_URL" | while read -r line; do
+    # get the "event" line
+    if [[ "$line" == event:* ]]; then
+      EVENT_TYPE=$(echo "$line" | sed -e 's/event: //')
+      log_with_datetime "Event Type: $EVENT_TYPE"
+    fi
+    
+    # check if event:complete
+    if [[ "$EVENT_TYPE" == event:complete ]]; then
+      # Read the next lines to get the data payload
+      read -r id_line
+      read -r data_line
   
-  # check if event:complete
-  if [[ "$EVENT_TYPE" == event:complete ]]; then
-    # Read the next lines to get the data payload
-    read -r id_line
-    read -r data_line
-
-    # insepcting the data_line content
-    if [[ "$data_line" == data:* ]]; then
-      PAYLOAD=$(echo "$data_line" | sed -e 's/data: //')
-      log_with_datetime "Payload: $PAYLOAD"
-
-      # when a game is completed, trigger the script
-      COMPLETE=$(echo "$PAYLOAD" | grep -o '"complete":[0-9]*' | awk -F: '{print $2}')
-      COMPLETE=$((COMPLETE))  # converts to integer
-      if [[ "$COMPLETE" -eq 100 ]]; then
-        log_with_datetime "Game completed - running script"
-        if check_hamiltonian_cycle; then
-          echo "check_hamiltonian_cycle"
-          # build before run
-          if [ "$DOCKERBUILT" = false ]; then
-            log_with_datetime "Building Docker image..."
-            docker-compose build
-            DOCKERBUILT=true
+      # insepcting the data_line content
+      if [[ "$data_line" == data:* ]]; then
+        PAYLOAD=$(echo "$data_line" | sed -e 's/data: //')
+        log_with_datetime "Payload: $PAYLOAD"
+  
+        # when a game is completed, trigger the script
+        COMPLETE=$(echo "$PAYLOAD" | grep -o '"complete":[0-9]*' | awk -F: '{print $2}')
+        COMPLETE=$((COMPLETE))  # converts to integer
+        if [[ "$COMPLETE" -eq 100 ]]; then
+          log_with_datetime "Game completed - running script"
+          if check_hamiltonian_cycle; then
+            echo "check_hamiltonian_cycle"
+            # build before run
+            if [ "$DOCKERBUILT" = false ]; then
+              log_with_datetime "Building Docker image..."
+              docker-compose build
+              DOCKERBUILT=true
+            fi
+                              
+            # run via docker
+            docker-compose up
+            # push any results
+            push_to_github
+            # log
+            log_with_datetime "Completed Run"
           fi
-                            
-          # run via docker
-          docker-compose up
-          # push any results
-          push_to_github
-          # log
-          log_with_datetime "Completed Run"
         fi
       fi
     fi
-  fi
+  done
 done
