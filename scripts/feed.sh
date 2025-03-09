@@ -57,7 +57,7 @@ check_hamiltonian_cycle() {
       return 1  # "first_hamiltonian_cycle" is not null
     fi
   else
-    return 0  # JSON file does not exist
+    return 0  # json file does not exist
   fi
 }
 
