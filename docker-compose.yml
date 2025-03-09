@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: afl-parity
+    image: afl-parity:local
     volumes:
       - ./output:/afl-parity/output
       - ./.logs:/afl-parity/.logs
