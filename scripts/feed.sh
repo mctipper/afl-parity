@@ -2,7 +2,6 @@
 
 # globals
 API_URL="https://api.squiggle.com.au/sse/test"
-# BRANCH="main"
 BRANCH="feed"
 YEAR=$(date +"%Y")
 IMAGE_NAME="afl-parity"
@@ -70,9 +69,8 @@ wget -q -O- "$API_URL" | while read -r line; do
     log_with_datetime "Event Type: $EVENT_TYPE"
   fi
   
-    # check if event:complete
-#   if [[ "$EVENT_TYPE" == event:complete ]]; then
-  if [[ "$EVENT_TYPE" == event:score ]]; then
+  # check if event:complete
+  if [[ "$EVENT_TYPE" == event:complete ]]; then
     # Read the next lines to get the data payload
     read -r id_line
     read -r data_line
@@ -85,29 +83,25 @@ wget -q -O- "$API_URL" | while read -r line; do
       # when a game is completed, trigger the script
       COMPLETE=$(echo "$PAYLOAD" | grep -o '"complete":[0-9]*' | awk -F: '{print $2}')
       COMPLETE=$((COMPLETE))  # converts to integer
-        # if [[ "$COMPLETE" -eq 100 ]]; then
-        if [[ "$COMPLETE" -gt 1 ]]; then
-            log_with_datetime "Game completed - running script"
-
-            if check_hamiltonian_cycle; then
-                echo "check_hamiltonian_cycle"
-                # build before run
-                if [ "$DOCKERBUILT" = false ]; then
-                    log_with_datetime "Building Docker image..."
-                    docker-compose build
-                    DOCKERBUILT=true
-                fi
-                                
-                # run via docker
-                docker-compose up
-
-                # push any results
-                push_to_github
-
-                # log
-                log_with_datetime "Completed Run"
-            fi
+      if [[ "$COMPLETE" -eq 100 ]]; then
+        log_with_datetime "Game completed - running script"
+        if check_hamiltonian_cycle; then
+          echo "check_hamiltonian_cycle"
+          # build before run
+          if [ "$DOCKERBUILT" = false ]; then
+            log_with_datetime "Building Docker image..."
+            docker-compose build
+            DOCKERBUILT=true
+          fi
+                            
+          # run via docker
+          docker-compose up
+          # push any results
+          push_to_github
+          # log
+          log_with_datetime "Completed Run"
         fi
+      fi
     fi
   fi
 done
