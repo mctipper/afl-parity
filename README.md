@@ -41,27 +41,27 @@ Obvious one first: every team has either won or lost at least one match. No poin
 By checking results by round, there are less permutations to traverse and thus the first hamiltonian cycle will be quicker to reveal itself.  
 Most beneficial when it happens to occur 'earlier' in the season, and the benefits on this sequential approach are reduced when it occurs later in the season.
 
-#### 3. First game of the round
-Once a hamiltonian cycle has been found, check if the first game of the round is part of the cycle. If so, can exit early as there is no possible way to find an 'earlier' hamiltonian cycle  
+#### 3. First outcome for a team
+By checking if that particular round include the first win or loss for a particular team, start the search with that winner. Any hamiltonian cycles found using that game cannot be bettered and can exit early.
 
 #### 4. Start each round with the first game of the round
-We can pick the first team to begin the traverse from at the start of each round traversal, so it makes sense to start with a team that played in the first game of the round - that way if a hamiltonian cycle is to be found, it will allow for early exits to occur.
+Should a 'first outcome' not be apparent in that round, might as well start with the winner of first game of the round, if that permutation containing the first game of the round results in a hamiltonian cycle, then the result cannot be bettered and can exit early - else can just use all that teams than won the first matches of the round as a base parent (plural because there can be multiple simulatious 'first games of the round')
 
 #### 5. Game occured after current hamiltonian cycle  
-Again once a hamiltonian cycle has been found (which doesnt include the first game of the round), before traversing next game check if it occured after the current last occuring game in the known hamiltonian cycle. If it occured after, there is no way the addition of that game improve on the result, so it can be skipped.  
+Again once a hamiltonian cycle has been found (which doesnt include the first game of the round, or a first event), before traversing next game check if it occured after the current last occuring game in the known hamiltonian cycle. If it occured after, there is no way the addition of that game improve on the result, so it can be skipped.  
 While it is easy to count this as a single skipped step, by skipping these games it can prevent many hundreds or even thousands of pointless permutations.
 
 #### 6. Multi-Threadding
-As DFS is a linear search algorithm, it requires a bit of a nudge to benefit from parallel processing. One such method is by undertaking the 'first step' of a DFS search (ie. a BFS search, a single parent and all their children) and starting a thread for each pair. Have done it here by starting up a thread for the winner of the first match of the round. One of these pairs will include the result from the first match of the round, ensuring that if that particular thread finds a hamiltonian cycle, it will allow all threads to exit their traverses early as they will not be able to better it.  
+As DFS is a linear search algorithm, it requires a bit of a nudge to benefit from parallel processing. One such method is by undertaking the 'first step' of a DFS search (ie. a BFS search, a single parent and all their children) and starting a thread for each pair. While we have multiple possible early exit strategies, searching in parallel is always a good idea as it allows for none early-exit outcomes to be found sooner.  
 
-#### 6.1 Backtracking
+#### 7. Backtrack-limiting
 Prevent backtracking from going 'too far', when beginning with a path > 1 length, want to ensure path backtracking doesnt go beyond this point, causing different threads to eventualy compute the exact same permuations.  
 
 ### Efficiency Notes
 
-A good example of the benefits of these efficiencies were observed when traversing Season 2000. A hamiltonian cycle was above to be discovered in *_only 16 steps_*. This particular efficiency was mainly due to efficiencies 3 and 4, without these efficiences (i.e only using 1 and 2 from the above) it took _~610 million_ steps to find the same hamiltonian cycle (These counts are without any multi-threadding).
+A good example of the benefits of these efficiencies were observed when traversing Season 2000. A hamiltonian cycle was above to be discovered in ~2 seconds. This particular efficiency was mainly due to efficiency #3, without which (i.e only using 1 and 2 from the above) it took _~610 million_ steps and nearly 2 hours to find the same hamiltonian cycle.
 
-All these efficiencies combined have resulting in it only taken a combined _~2.5 minutes_ to download the data, build the adjacency lists, traverse the graphs to find the first hamiltonian cycle of each season, and draw those awful infographics for all seasons from 1897 to 2024. My laptop isn't even that good really so this is all about massaging that algorithm until it's optimal.
+All these efficiencies combined have resulting in it only taken a combined _~4 minutes and 25 seconds_ to download the data, build the adjacency lists, traverse the graphs to find the first hamiltonian cycle of each season, and draw those awful infographics for all seasons from 1897 to 2024. My laptop isn't even that good really so this is all about massaging that algorithm until it's optimal for a particular use-case. Make the most of restrictions and conditions _they actually simplify_ things.
 
 While all the above greatly improve performance and reduce computation time for traversing, they do not guarentee it and still rely on some favourable qualities in order to be taken advantage of. The key thing to remember here is understanding the data, the outcomes, and the algorithms themselves allow you to provide neat little hacks and shortcuts to reach goals and outcomes quicker. It is the combination of all the efficiencies that enable traversals to be done quickly, not just one individually or just throwing crazy parallel-epic-super-compute at it all.
 

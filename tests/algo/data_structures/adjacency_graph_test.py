@@ -31,20 +31,6 @@ def test_adjacency_graph_children():
     assert adjacency_graph.children == {2, 3, 4}
 
 
-def test_parents_with_least_children():
-    adjacency_list1 = AdjacencyList(parent=1, children={2})
-    adjacency_list2 = AdjacencyList(parent=2, children={3, 4})
-    adjacency_graph = AdjacencyGraph(adjacency_lists=[adjacency_list1, adjacency_list2])
-    assert adjacency_graph.parents_with_least_children == [1]
-
-
-def test_parents_with_most_children():
-    adjacency_list1 = AdjacencyList(parent=1, children={2})
-    adjacency_list2 = AdjacencyList(parent=2, children={3, 4})
-    adjacency_graph = AdjacencyGraph(adjacency_lists=[adjacency_list1, adjacency_list2])
-    assert adjacency_graph.parents_with_most_children == [2]
-
-
 def test_get_adjacency_graph():
     adjacency_list1 = AdjacencyList(parent=1, children={2})
     adjacency_list2 = AdjacencyList(parent=2, children={3, 4})

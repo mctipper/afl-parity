@@ -1,69 +1,33 @@
 {
-  "total_dfs_steps": 49,
+  "total_dfs_steps": 26,
   "total_skipped_steps": 0,
   "early_exit": true,
-  "total_full_paths_not_hamiltonian": 4,
+  "total_full_paths_not_hamiltonian": 1,
   "total_hamiltonian_cycles": 1,
   "first_hamiltonian_cycle": {
     "cycle": [
-      4,
-      19,
       16,
       7,
       3,
       15,
       11,
-      5
+      5,
+      4,
+      19
     ],
     "cycle_names": [
-      "Collingwood",
-      "Fitzroy",
       "Sydney",
       "Geelong",
       "Carlton",
       "St Kilda",
       "Melbourne",
-      "Essendon"
+      "Essendon",
+      "Collingwood",
+      "Fitzroy"
     ],
     "date": "1900-05-26 15:00:00",
     "round": 5,
     "games": [
-      {
-        "id": 24969,
-        "round": 1,
-        "roundname": "Round 1",
-        "hteamid": 4,
-        "ateamid": 19,
-        "hscore": 67,
-        "ascore": 46,
-        "winnerteamid": 4,
-        "hteamname": "Collingwood",
-        "ateamname": "Fitzroy",
-        "wteamname": "Collingwood",
-        "date": "1900-05-05 15:00:00",
-        "loserteamid": 19,
-        "lteamname": "Fitzroy",
-        "wscore": 67,
-        "lscore": 46
-      },
-      {
-        "id": 25003,
-        "round": 4,
-        "roundname": "Round 4",
-        "hteamid": 19,
-        "ateamid": 16,
-        "hscore": 55,
-        "ascore": 22,
-        "winnerteamid": 19,
-        "hteamname": "Fitzroy",
-        "ateamname": "Sydney",
-        "wteamname": "Fitzroy",
-        "date": "1900-05-24 15:00:00",
-        "loserteamid": 16,
-        "lteamname": "Sydney",
-        "wscore": 55,
-        "lscore": 22
-      },
       {
         "id": 25008,
         "round": 5,
@@ -171,6 +135,42 @@
         "lteamname": "Collingwood",
         "wscore": 85,
         "lscore": 16
+      },
+      {
+        "id": 24969,
+        "round": 1,
+        "roundname": "Round 1",
+        "hteamid": 4,
+        "ateamid": 19,
+        "hscore": 67,
+        "ascore": 46,
+        "winnerteamid": 4,
+        "hteamname": "Collingwood",
+        "ateamname": "Fitzroy",
+        "wteamname": "Collingwood",
+        "date": "1900-05-05 15:00:00",
+        "loserteamid": 19,
+        "lteamname": "Fitzroy",
+        "wscore": 67,
+        "lscore": 46
+      },
+      {
+        "id": 25003,
+        "round": 4,
+        "roundname": "Round 4",
+        "hteamid": 19,
+        "ateamid": 16,
+        "hscore": 55,
+        "ascore": 22,
+        "winnerteamid": 19,
+        "hteamname": "Fitzroy",
+        "ateamname": "Sydney",
+        "wteamname": "Fitzroy",
+        "date": "1900-05-24 15:00:00",
+        "loserteamid": 16,
+        "lteamname": "Sydney",
+        "wscore": 55,
+        "lscore": 22
       }
     ]
   }

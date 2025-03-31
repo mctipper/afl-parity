@@ -1,11 +1,12 @@
 {
-  "total_dfs_steps": 5818,
+  "total_dfs_steps": 7342,
   "total_skipped_steps": 0,
   "early_exit": true,
-  "total_full_paths_not_hamiltonian": 56,
+  "total_full_paths_not_hamiltonian": 72,
   "total_hamiltonian_cycles": 1,
   "first_hamiltonian_cycle": {
     "cycle": [
+      4,
       14,
       19,
       11,
@@ -16,10 +17,10 @@
       12,
       16,
       18,
-      5,
-      4
+      5
     ],
     "cycle_names": [
+      "Collingwood",
       "Richmond",
       "Fitzroy",
       "Melbourne",
@@ -30,12 +31,29 @@
       "North Melbourne",
       "Sydney",
       "Western Bulldogs",
-      "Essendon",
-      "Collingwood"
+      "Essendon"
     ],
     "date": "1945-06-23 14:30:00",
     "round": 10,
     "games": [
+      {
+        "id": 30045,
+        "round": 9,
+        "roundname": "Round 9",
+        "hteamid": 4,
+        "ateamid": 14,
+        "hscore": 90,
+        "ascore": 61,
+        "winnerteamid": 4,
+        "hteamname": "Collingwood",
+        "ateamname": "Richmond",
+        "wteamname": "Collingwood",
+        "date": "1945-06-16 14:30:00",
+        "loserteamid": 14,
+        "lteamname": "Richmond",
+        "wscore": 90,
+        "lscore": 61
+      },
       {
         "id": 30029,
         "round": 10,
@@ -233,24 +251,6 @@
         "lteamname": "Collingwood",
         "wscore": 88,
         "lscore": 87
-      },
-      {
-        "id": 30045,
-        "round": 9,
-        "roundname": "Round 9",
-        "hteamid": 4,
-        "ateamid": 14,
-        "hscore": 90,
-        "ascore": 61,
-        "winnerteamid": 4,
-        "hteamname": "Collingwood",
-        "ateamname": "Richmond",
-        "wteamname": "Collingwood",
-        "date": "1945-06-16 14:30:00",
-        "loserteamid": 14,
-        "lteamname": "Richmond",
-        "wscore": 90,
-        "lscore": 61
       }
     ]
   }

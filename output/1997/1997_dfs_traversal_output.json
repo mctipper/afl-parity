@@ -1,11 +1,13 @@
 {
-  "total_dfs_steps": 989,
+  "total_dfs_steps": 946,
   "total_skipped_steps": 0,
-  "early_exit": true,
-  "total_full_paths_not_hamiltonian": 4,
+  "early_exit": false,
+  "total_full_paths_not_hamiltonian": 0,
   "total_hamiltonian_cycles": 1,
   "first_hamiltonian_cycle": {
     "cycle": [
+      4,
+      5,
       13,
       7,
       17,
@@ -19,11 +21,11 @@
       6,
       10,
       2,
-      15,
-      4,
-      5
+      15
     ],
     "cycle_names": [
+      "Collingwood",
+      "Essendon",
       "Port Adelaide",
       "Geelong",
       "West Coast",
@@ -37,13 +39,47 @@
       "Fremantle",
       "Hawthorn",
       "Brisbane Lions",
-      "St Kilda",
-      "Collingwood",
-      "Essendon"
+      "St Kilda"
     ],
     "date": "1997-04-26 14:10:00",
     "round": 5,
     "games": [
+      {
+        "id": 22025,
+        "round": 5,
+        "roundname": "Round 5",
+        "hteamid": 5,
+        "ateamid": 4,
+        "hscore": 70,
+        "ascore": 99,
+        "winnerteamid": 4,
+        "hteamname": "Essendon",
+        "ateamname": "Collingwood",
+        "wteamname": "Collingwood",
+        "date": "1997-04-25 14:10:00",
+        "loserteamid": 5,
+        "lteamname": "Essendon",
+        "wscore": 99,
+        "lscore": 70
+      },
+      {
+        "id": 22091,
+        "round": 2,
+        "roundname": "Round 2",
+        "hteamid": 13,
+        "ateamid": 5,
+        "hscore": 60,
+        "ascore": 93,
+        "winnerteamid": 5,
+        "hteamname": "Port Adelaide",
+        "ateamname": "Essendon",
+        "wteamname": "Essendon",
+        "date": "1997-04-06 15:10:00",
+        "loserteamid": 13,
+        "lteamname": "Port Adelaide",
+        "wscore": 93,
+        "lscore": 60
+      },
       {
         "id": 22121,
         "round": 3,
@@ -295,42 +331,6 @@
         "lteamname": "Collingwood",
         "wscore": 125,
         "lscore": 118
-      },
-      {
-        "id": 22025,
-        "round": 5,
-        "roundname": "Round 5",
-        "hteamid": 5,
-        "ateamid": 4,
-        "hscore": 70,
-        "ascore": 99,
-        "winnerteamid": 4,
-        "hteamname": "Essendon",
-        "ateamname": "Collingwood",
-        "wteamname": "Collingwood",
-        "date": "1997-04-25 14:10:00",
-        "loserteamid": 5,
-        "lteamname": "Essendon",
-        "wscore": 99,
-        "lscore": 70
-      },
-      {
-        "id": 22091,
-        "round": 2,
-        "roundname": "Round 2",
-        "hteamid": 13,
-        "ateamid": 5,
-        "hscore": 60,
-        "ascore": 93,
-        "winnerteamid": 5,
-        "hteamname": "Port Adelaide",
-        "ateamname": "Essendon",
-        "wteamname": "Essendon",
-        "date": "1997-04-06 15:10:00",
-        "loserteamid": 13,
-        "lteamname": "Port Adelaide",
-        "wscore": 93,
-        "lscore": 60
       }
     ]
   }

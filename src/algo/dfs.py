@@ -1,7 +1,7 @@
 from models import SeasonResults
 from helpers import LoggerHelper
 from algo.data_structures import AdjacencyGraph, HamiltonianCycle, DFSTraversalOutput
-from typing import List
+from typing import List, Optional
 from datetime import datetime
 import json
 from pathlib import Path
@@ -16,7 +16,8 @@ class DFS:
     adjacency_graph: AdjacencyGraph
     traversal_output: DFSTraversalOutput
     early_exit: bool = False
-    early_exit_date: datetime
+    early_exit_date: Optional[datetime] = None
+    thread_pairs: List[List[int]] = []
     dfs_steps: int = 0
     skipped_steps: int = 0
     full_paths_not_hamiltonian: int = 0
@@ -140,7 +141,8 @@ class DFS:
                     thread_logger.debug(logger_msg)
                     if self.traversal_output.first_hamiltonian_cycle:
                         if (
-                            self.traversal_output.first_hamiltonian_cycle.max_date
+                            self.early_exit_date
+                            and self.traversal_output.first_hamiltonian_cycle.max_date
                             <= self.early_exit_date
                         ):
                             self.early_exit = True
@@ -148,7 +150,7 @@ class DFS:
                             # the first game of the round is already part of the hamiltonian path, we
                             # can stop travesing now but just escaping the queued recursions early
                             self.logger.info(
-                                f"Hamiltonian Cycle includes first game this round can early exit: {self.traversal_output.first_hamiltonian_cycle.max_date} <= {self.early_exit_date}"
+                                f"Hamiltonian Cycle includes early exit condition: {self.traversal_output.first_hamiltonian_cycle.max_date} <= {self.early_exit_date}"
                             )
                             return
                 else:
@@ -199,33 +201,93 @@ class DFS:
                 # explicit "do nothing" the cur_loser already visited in this path
                 pass
 
+    def _find_pairs_for_early_exit_strategy(self, cur_round: int) -> None:
+        cur_round_results = self.season_results.get_round_results(cur_round)
+        self.early_exit_date = None  # reset
+        self.thread_pairs = []  # reset
+
+        if (
+            self.adjacency_graph.parents_with_one_child
+            or self.adjacency_graph.children_with_one_parent
+        ):
+            # we have a game that was the first win for a team(s) - that is our target "early exit" date
+            if self.adjacency_graph.parents_with_one_child:
+                for this_parent in self.adjacency_graph.parents_with_one_child:
+                    for game in cur_round_results:
+                        if (
+                            game.winnerteamid
+                            and game.loserteamid
+                            and game.winnerteamid == this_parent
+                        ):
+                            if (
+                                not self.early_exit_date
+                                or game.date < self.early_exit_date
+                            ):
+                                self.early_exit_date = game.date
+                                self.thread_pairs.append(
+                                    [game.winnerteamid, game.loserteamid]
+                                )
+
+                            break  # can break here, only one game per round will match this
+
+            # we have a game that was the lost for a team(s) - that is our target "early exit" date
+            # this is also always checked in case both happen in the same round
+            if self.adjacency_graph.children_with_one_parent:
+                for this_child in self.adjacency_graph.children_with_one_parent:
+                    for game in cur_round_results:
+                        if (
+                            game.winnerteamid
+                            and game.loserteamid
+                            and game.loserteamid == this_child
+                        ):
+                            if (
+                                not self.early_exit_date
+                                or game.date < self.early_exit_date
+                            ):
+                                self.early_exit_date = game.date
+                                self.thread_pairs.append(
+                                    [game.winnerteamid, game.loserteamid]
+                                )
+                            break  # can break here, only one game per round will match this
+
+        if not self.early_exit_date:
+            # better off using the first game of the round as the early-exit strategy
+            for game in cur_round_results:
+                if game and game.winnerteamid and game.loserteamid:  # ensure not a draw
+                    if not self.early_exit_date or game.date <= self.early_exit_date:
+                        self.early_exit_date = game.date
+                        self.thread_pairs.append([game.winnerteamid, game.loserteamid])
+                        return  # only want the first game
+
     def _find_hamiltonian_cycles(self, cur_round: int) -> None:
         """setup and start dfs search for hamiltonian cycles"""
         cpu_count: int = os.cpu_count() or 1  # mypy annoyances with max() function
-        # use the first game of the current round to get starting point
-        cur_round_results = self.season_results.get_round_results(cur_round)
-        # loop over the games of this round until we get one with a winner (ie. no draws)
-        for game_result in cur_round_results:  # type: ignore
-            if game_result and game_result.winnerteamid:
-                self.early_exit_date = game_result.date
 
         with ThreadPoolExecutor(max_workers=max(cpu_count - 2, 1)) as executor:
             futures = []
-            parents = [game_result.winnerteamid, game_result.loserteamid]
-            for parent in parents:
-                adjacency_list = self.adjacency_graph.get_adjacency_graph(parent)  # type: ignore
-                # one thread per parent-child relationship
-                for child in adjacency_list.children:  # type: ignore[union-attr]
-                    # setup to mimick the 'first step' of the dfs search, allowing this parallel action to happen
-                    path_copy = copy.deepcopy([parent, child])
-                    thread_logger = LoggerHelper.setup(
-                        datetime.now(),
-                        f"{self.season_results.season}_R{cur_round}_{parent}_{child}",
-                        self.output_file_debug,
-                    )
-                    futures.append(
-                        executor.submit(self._dfs, child, path_copy, thread_logger)  # type: ignore
-                    )
+            # one thread per parent-child relationship, by appending to the pre-determined ones
+            for parent_child in self.thread_pairs:
+                parent = parent_child[0]
+                child = parent_child[1]
+                children = self.adjacency_graph.get_children_for_parent(parent)
+                for child in children:
+                    new_tp: List[int] = [parent, child]
+                    if new_tp not in self.thread_pairs:
+                        self.thread_pairs.append(new_tp)
+
+            for bp in self.thread_pairs:
+                # setup to mimick the 'first step' of the dfs search, allowing this parallel action to happen
+                parent = bp[0]
+                child = bp[1]
+                path_copy = copy.deepcopy([parent, child])
+                thread_logger = LoggerHelper.setup(
+                    datetime.now(),
+                    f"{self.season_results.season}_R{cur_round}_{parent}_{child}",
+                    self.output_file_debug,
+                )
+                futures.append(
+                    executor.submit(self._dfs, child, path_copy, thread_logger)
+                )
             # smash it out
             for future in as_completed(futures):
                 if not self.early_exit:
@@ -242,6 +304,7 @@ class DFS:
             self._build_adjacency_graph(cur_round=cur_round)
 
             if self._validate_hamiltonian_cycle_possible():
+                self._find_pairs_for_early_exit_strategy(cur_round=cur_round)
                 self._find_hamiltonian_cycles(cur_round=cur_round)
 
                 self.traversal_output.total_dfs_steps = self.dfs_steps

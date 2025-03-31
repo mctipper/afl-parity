@@ -136,20 +136,20 @@ class SeasonResults(BaseModel):
         if cur_team.id not in self.teams:
             self.teams[cur_team.id] = cur_team
 
-    def get_round_results(self, round: int) -> Optional[RoundResults]:
+    def get_round_results(self, round: int) -> RoundResults:
         try:
             return self.round_results[round]
         except KeyError:
-            return None
+            raise KeyError(f"Cannot find round {round}")
 
-    def get_team(self, teamid: int) -> Optional[Team]:
+    def get_team(self, teamid: int) -> Team:
         try:
             return self.teams[teamid]
         except KeyError:
-            return None
-        
+            raise KeyError(f"Cannot find team {teamid}")
+
     def remove_unused_teams(self) -> None:
-        """ some teams still exist but did not play any games that particular season (mainly
+        """some teams still exist but did not play any games that particular season (mainly
         due to those world war things). This method removes those which permits parity searches
         to execute correctly"""
         referenced_team_ids = set()
@@ -163,7 +163,7 @@ class SeasonResults(BaseModel):
             for team_id, team in self.teams.items()
             if team_id in referenced_team_ids
         }
-        
+
     def get_first_game_result_between_teams(
         self, winner: int, loser: int
     ) -> Optional[GameResult]:

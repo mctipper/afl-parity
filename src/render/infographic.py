@@ -93,7 +93,7 @@ class Infographic:
                     # if reached end of list, return first in list
                     cur_loser = hamiltonian_cycle[0]
 
-                cur_team: Team = self.season_results.get_team(cur_winner)  # type: ignore[assignment]
+                cur_team: Team = self.season_results.get_team(cur_winner)
 
                 # the Fitzroy.png image is huge for some reason, so prefer just to use a different one than resizing annoyances
                 # the 1990 logo isnt actually referenced until 1994

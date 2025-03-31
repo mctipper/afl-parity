@@ -21,12 +21,28 @@
             "args": ["-s", "all"]
         },
         {
-            "name": "main.py -s 2018",
+            "name": "main.py -s 1991",
             "type": "debugpy",
             "request": "launch",
             "program": "./src/main.py",
             "console": "integratedTerminal",
-            "args": ["-s", "2018"]
+            "args": ["-s", "1991"]
+        },
+        {
+            "name": "main.py -s 1993",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "./src/main.py",
+            "console": "integratedTerminal",
+            "args": ["-s", "1993"]
+        },
+        {
+            "name": "main.py -s 1916",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "./src/main.py",
+            "console": "integratedTerminal",
+            "args": ["-s", "1916"]
         },
         {
             "name": "main.py -s 2000",
@@ -35,6 +51,14 @@
             "program": "./src/main.py",
             "console": "integratedTerminal",
             "args": ["-s", "2000"],
+        },
+        {
+            "name": "main.py -s 1906 -d",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "./src/main.py",
+            "console": "integratedTerminal",
+            "args": ["-s", "1906", "-d"],
         },
         {
             "name": "main.py -s 2023",

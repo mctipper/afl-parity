@@ -1,11 +1,13 @@
 {
-  "total_dfs_steps": 14,
+  "total_dfs_steps": 10,
   "total_skipped_steps": 0,
   "early_exit": true,
-  "total_full_paths_not_hamiltonian": 1,
+  "total_full_paths_not_hamiltonian": 0,
   "total_hamiltonian_cycles": 1,
   "first_hamiltonian_cycle": {
     "cycle": [
+      15,
+      5,
       3,
       10,
       4,
@@ -14,11 +16,11 @@
       16,
       14,
       18,
-      19,
-      15,
-      5
+      19
     ],
     "cycle_names": [
+      "St Kilda",
+      "Essendon",
       "Carlton",
       "Hawthorn",
       "Collingwood",
@@ -27,13 +29,47 @@
       "Sydney",
       "Richmond",
       "Western Bulldogs",
-      "Fitzroy",
-      "St Kilda",
-      "Essendon"
+      "Fitzroy"
     ],
     "date": "1942-07-04 14:30:00",
     "round": 9,
     "games": [
+      {
+        "id": 29736,
+        "round": 9,
+        "roundname": "Round 9",
+        "hteamid": 15,
+        "ateamid": 5,
+        "hscore": 45,
+        "ascore": 39,
+        "winnerteamid": 15,
+        "hteamname": "St Kilda",
+        "ateamname": "Essendon",
+        "wteamname": "St Kilda",
+        "date": "1942-07-04 14:30:00",
+        "loserteamid": 5,
+        "lteamname": "Essendon",
+        "wscore": 45,
+        "lscore": 39
+      },
+      {
+        "id": 29760,
+        "round": 3,
+        "roundname": "Round 3",
+        "hteamid": 5,
+        "ateamid": 3,
+        "hscore": 75,
+        "ascore": 70,
+        "winnerteamid": 5,
+        "hteamname": "Essendon",
+        "ateamname": "Carlton",
+        "wteamname": "Essendon",
+        "date": "1942-05-23 14:45:00",
+        "loserteamid": 3,
+        "lteamname": "Carlton",
+        "wscore": 75,
+        "lscore": 70
+      },
       {
         "id": 29734,
         "round": 9,
@@ -195,42 +231,6 @@
         "lteamname": "St Kilda",
         "wscore": 97,
         "lscore": 72
-      },
-      {
-        "id": 29736,
-        "round": 9,
-        "roundname": "Round 9",
-        "hteamid": 15,
-        "ateamid": 5,
-        "hscore": 45,
-        "ascore": 39,
-        "winnerteamid": 15,
-        "hteamname": "St Kilda",
-        "ateamname": "Essendon",
-        "wteamname": "St Kilda",
-        "date": "1942-07-04 14:30:00",
-        "loserteamid": 5,
-        "lteamname": "Essendon",
-        "wscore": 45,
-        "lscore": 39
-      },
-      {
-        "id": 29760,
-        "round": 3,
-        "roundname": "Round 3",
-        "hteamid": 5,
-        "ateamid": 3,
-        "hscore": 75,
-        "ascore": 70,
-        "winnerteamid": 5,
-        "hteamname": "Essendon",
-        "ateamname": "Carlton",
-        "wteamname": "Essendon",
-        "date": "1942-05-23 14:45:00",
-        "loserteamid": 3,
-        "lteamname": "Carlton",
-        "wscore": 75,
-        "lscore": 70
       }
     ]
   }

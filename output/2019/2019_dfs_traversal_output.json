@@ -1,11 +1,13 @@
 {
-  "total_dfs_steps": 1783,
+  "total_dfs_steps": 195,
   "total_skipped_steps": 0,
-  "early_exit": true,
-  "total_full_paths_not_hamiltonian": 6,
+  "early_exit": false,
+  "total_full_paths_not_hamiltonian": 0,
   "total_hamiltonian_cycles": 1,
   "first_hamiltonian_cycle": {
     "cycle": [
+      3,
+      18,
       10,
       12,
       1,
@@ -21,11 +23,11 @@
       14,
       13,
       11,
-      16,
-      3,
-      18
+      16
     ],
     "cycle_names": [
+      "Carlton",
+      "Western Bulldogs",
       "Hawthorn",
       "North Melbourne",
       "Adelaide",
@@ -41,13 +43,47 @@
       "Richmond",
       "Port Adelaide",
       "Melbourne",
-      "Sydney",
-      "Carlton",
-      "Western Bulldogs"
+      "Sydney"
     ],
     "date": "2019-04-21 16:40:00",
     "round": 5,
     "games": [
+      {
+        "id": 3125,
+        "round": 5,
+        "roundname": "Round 5",
+        "hteamid": 18,
+        "ateamid": 3,
+        "hscore": 57,
+        "ascore": 101,
+        "winnerteamid": 3,
+        "hteamname": "Western Bulldogs",
+        "ateamname": "Carlton",
+        "wteamname": "Carlton",
+        "date": "2019-04-21 13:10:00",
+        "loserteamid": 18,
+        "lteamname": "Western Bulldogs",
+        "wscore": 101,
+        "lscore": 57
+      },
+      {
+        "id": 3069,
+        "round": 2,
+        "roundname": "Round 2",
+        "hteamid": 10,
+        "ateamid": 18,
+        "hscore": 87,
+        "ascore": 106,
+        "winnerteamid": 18,
+        "hteamname": "Hawthorn",
+        "ateamname": "Western Bulldogs",
+        "wteamname": "Western Bulldogs",
+        "date": "2019-03-31 15:20:00",
+        "loserteamid": 10,
+        "lteamname": "Hawthorn",
+        "wscore": 106,
+        "lscore": 87
+      },
       {
         "id": 3104,
         "round": 3,
@@ -335,42 +371,6 @@
         "lteamname": "Carlton",
         "wscore": 93,
         "lscore": 74
-      },
-      {
-        "id": 3125,
-        "round": 5,
-        "roundname": "Round 5",
-        "hteamid": 18,
-        "ateamid": 3,
-        "hscore": 57,
-        "ascore": 101,
-        "winnerteamid": 3,
-        "hteamname": "Western Bulldogs",
-        "ateamname": "Carlton",
-        "wteamname": "Carlton",
-        "date": "2019-04-21 13:10:00",
-        "loserteamid": 18,
-        "lteamname": "Western Bulldogs",
-        "wscore": 101,
-        "lscore": 57
-      },
-      {
-        "id": 3069,
-        "round": 2,
-        "roundname": "Round 2",
-        "hteamid": 10,
-        "ateamid": 18,
-        "hscore": 87,
-        "ascore": 106,
-        "winnerteamid": 18,
-        "hteamname": "Hawthorn",
-        "ateamname": "Western Bulldogs",
-        "wteamname": "Western Bulldogs",
-        "date": "2019-03-31 15:20:00",
-        "loserteamid": 10,
-        "lteamname": "Hawthorn",
-        "wscore": 106,
-        "lscore": 87
       }
     ]
   }

@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Set, List, Optional
+from typing import Set, List, Optional, Dict
 
 
 class AdjacencyList(BaseModel):
@@ -29,30 +29,50 @@ class AdjacencyGraph(BaseModel):
         }
 
     @property
-    def parents_with_least_children(self) -> List[int]:
+    def parents_with_one_child(self) -> Optional[List[int]]:
         if not self.adjacency_lists:
             return []
-        min_children_n = min(
-            adjacency_list.children_n for adjacency_list in self.adjacency_lists
-        )
         return [
             adjacency_list.parent
             for adjacency_list in self.adjacency_lists
-            if adjacency_list.children_n == min_children_n
+            if adjacency_list.children_n == 1
         ]
 
     @property
-    def parents_with_most_children(self) -> List[int]:
-        if not self.adjacency_lists:
+    def children_with_one_parent(self) -> Optional[List[int]]:
+        """
+        Finds the children with the least number of parents.
+        """
+        # Create a dictionary to count how many parents each child has
+        child_count: Dict[int, int] = {}
+
+        # Iterate over all adjacency lists
+        for adjacency_list in self.adjacency_lists:
+            for child in adjacency_list.children:
+                # increment the count for each child
+                child_count[child] = child_count.get(child, 0) + 1
+
+        if not child_count:
             return []
-        max_children_n = max(
-            adjacency_list.children_n for adjacency_list in self.adjacency_lists
-        )
-        return [
-            adjacency_list.parent
-            for adjacency_list in self.adjacency_lists
-            if adjacency_list.children_n == max_children_n
-        ]
+
+        # Find all children with the minimum parent count
+        return [child for child, count in child_count.items() if count == 1]
+
+    def get_parents_of_child(self, target_child: int) -> List[int]:
+        parents: List[int] = []
+
+        for adjacency_list in self.adjacency_lists:
+            for child in adjacency_list.children:
+                if child == target_child:
+                    parents.append(adjacency_list.parent)
+
+        return parents
+
+    def get_children_for_parent(self, target_parent: int) -> set[int]:
+        adjacency_list = self.get_adjacency_graph(target_parent)
+        if adjacency_list:
+            return adjacency_list.children
+        return Set()
 
     def get_adjacency_graph(self, parent: int) -> Optional[AdjacencyList]:
         for adjacency_list in self.adjacency_lists:
