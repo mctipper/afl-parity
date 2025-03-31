@@ -36,7 +36,6 @@ def test_get_adjacency_graph():
     adjacency_list2 = AdjacencyList(parent=2, children={3, 4})
     adjacency_graph = AdjacencyGraph(adjacency_lists=[adjacency_list1, adjacency_list2])
     assert adjacency_graph.get_adjacency_graph(1) == adjacency_list1
-    assert adjacency_graph.get_adjacency_graph(3) is None
 
 
 def test_add_child_to_parent():

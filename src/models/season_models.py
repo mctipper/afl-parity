@@ -83,8 +83,6 @@ class GameResult(BaseModel):
 
 
 class RoundResults(BaseModel):
-    """as per title..."""
-
     round: int
     results: List[GameResult]
 
@@ -166,14 +164,12 @@ class SeasonResults(BaseModel):
 
     def get_first_game_result_between_teams(
         self, winner: int, loser: int
-    ) -> Optional[GameResult]:
-        first_game: Optional[GameResult] = None
+    ) -> GameResult:
         for round_results in self.round_results.values():
             for game in round_results:
                 if game.winnerteamid == winner and game.loserteamid == loser:
-                    if first_game is None or game.round < first_game.round:
-                        first_game = game
-        return first_game
+                    return game
+        raise ValueError(f'Unable to find game where {winner} defeated {loser}')
 
     def __iter__(self) -> Iterator[RoundResults]:  # type: ignore[override]
         for round_id in self.rounds_list:
