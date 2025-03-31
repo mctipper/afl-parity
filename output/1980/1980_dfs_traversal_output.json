@@ -1,5 +1,5 @@
 {
-  "total_dfs_steps": 1379,
+  "total_dfs_steps": 1296,
   "total_skipped_steps": 0,
   "early_exit": true,
   "total_full_paths_not_hamiltonian": 32,

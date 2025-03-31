@@ -1,13 +1,11 @@
 {
-  "total_dfs_steps": 613,
+  "total_dfs_steps": 434,
   "total_skipped_steps": 0,
   "early_exit": true,
-  "total_full_paths_not_hamiltonian": 14,
-  "total_hamiltonian_cycles": 3,
+  "total_full_paths_not_hamiltonian": 9,
+  "total_hamiltonian_cycles": 1,
   "first_hamiltonian_cycle": {
     "cycle": [
-      5,
-      4,
       16,
       14,
       19,
@@ -17,11 +15,11 @@
       3,
       7,
       10,
-      11
+      11,
+      5,
+      4
     ],
     "cycle_names": [
-      "Essendon",
-      "Collingwood",
       "Sydney",
       "Richmond",
       "Fitzroy",
@@ -31,47 +29,13 @@
       "Carlton",
       "Geelong",
       "Hawthorn",
-      "Melbourne"
+      "Melbourne",
+      "Essendon",
+      "Collingwood"
     ],
     "date": "1957-05-18 14:15:00",
     "round": 5,
     "games": [
-      {
-        "id": 31402,
-        "round": 1,
-        "roundname": "Round 1",
-        "hteamid": 4,
-        "ateamid": 5,
-        "hscore": 58,
-        "ascore": 93,
-        "winnerteamid": 5,
-        "hteamname": "Collingwood",
-        "ateamname": "Essendon",
-        "wteamname": "Essendon",
-        "date": "1957-04-20 14:15:00",
-        "loserteamid": 4,
-        "lteamname": "Collingwood",
-        "wscore": 93,
-        "lscore": 58
-      },
-      {
-        "id": 31482,
-        "round": 4,
-        "roundname": "Round 4",
-        "hteamid": 4,
-        "ateamid": 16,
-        "hscore": 93,
-        "ascore": 83,
-        "winnerteamid": 4,
-        "hteamname": "Collingwood",
-        "ateamname": "Sydney",
-        "wteamname": "Collingwood",
-        "date": "1957-05-11 14:15:00",
-        "loserteamid": 16,
-        "lteamname": "Sydney",
-        "wscore": 93,
-        "lscore": 83
-      },
       {
         "id": 31419,
         "round": 3,
@@ -251,6 +215,42 @@
         "lteamname": "Essendon",
         "wscore": 86,
         "lscore": 41
+      },
+      {
+        "id": 31402,
+        "round": 1,
+        "roundname": "Round 1",
+        "hteamid": 4,
+        "ateamid": 5,
+        "hscore": 58,
+        "ascore": 93,
+        "winnerteamid": 5,
+        "hteamname": "Collingwood",
+        "ateamname": "Essendon",
+        "wteamname": "Essendon",
+        "date": "1957-04-20 14:15:00",
+        "loserteamid": 4,
+        "lteamname": "Collingwood",
+        "wscore": 93,
+        "lscore": 58
+      },
+      {
+        "id": 31482,
+        "round": 4,
+        "roundname": "Round 4",
+        "hteamid": 4,
+        "ateamid": 16,
+        "hscore": 93,
+        "ascore": 83,
+        "winnerteamid": 4,
+        "hteamname": "Collingwood",
+        "ateamname": "Sydney",
+        "wteamname": "Collingwood",
+        "date": "1957-05-11 14:15:00",
+        "loserteamid": 16,
+        "lteamname": "Sydney",
+        "wscore": 93,
+        "lscore": 83
       }
     ]
   }

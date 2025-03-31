@@ -1,9 +1,9 @@
 {
-  "total_dfs_steps": 1478,
+  "total_dfs_steps": 989,
   "total_skipped_steps": 0,
   "early_exit": true,
-  "total_full_paths_not_hamiltonian": 10,
-  "total_hamiltonian_cycles": 2,
+  "total_full_paths_not_hamiltonian": 4,
+  "total_hamiltonian_cycles": 1,
   "first_hamiltonian_cycle": {
     "cycle": [
       13,

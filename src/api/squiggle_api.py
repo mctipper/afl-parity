@@ -116,6 +116,12 @@ class SquiggleAPI:
 
             self.season_results.add_game_result(cur_game)
 
+    def _tidy_up_teams(self) -> None:
+        """ during the war years teams exist but were not able to play games, this method
+        removes those from the team list
+        """
+        self.season_results.remove_unused_teams()
+
     def _download_logos(self) -> None:
         """download the logos from squiggs"""
         try:
@@ -142,4 +148,5 @@ class SquiggleAPI:
         """builder method, get all the goodies from squiggs"""
         self._populate_teams()
         self._populate_season_results()
+        self._tidy_up_teams()
         self._download_logos()

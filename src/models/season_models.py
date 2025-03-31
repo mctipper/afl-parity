@@ -147,7 +147,23 @@ class SeasonResults(BaseModel):
             return self.teams[teamid]
         except KeyError:
             return None
+        
+    def remove_unused_teams(self) -> None:
+        """ some teams still exist but did not play any games that particular season (mainly
+        due to those world war things). This method removes those which permits parity searches
+        to execute correctly"""
+        referenced_team_ids = set()
+        for round_results in self.round_results.values():
+            for game in round_results.results:
+                referenced_team_ids.add(game.hteamid)
+                referenced_team_ids.add(game.ateamid)
 
+        self.teams = {
+            team_id: team
+            for team_id, team in self.teams.items()
+            if team_id in referenced_team_ids
+        }
+        
     def get_first_game_result_between_teams(
         self, winner: int, loser: int
     ) -> Optional[GameResult]:

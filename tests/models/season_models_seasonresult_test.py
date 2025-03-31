@@ -88,3 +88,36 @@ def test_season_results_iteration():
     assert len(rounds) == 1
     assert rounds[0].round == 1
     assert game in rounds[0].results
+
+
+def test_remove_unused_teams():
+    season_results = SeasonResults(season=2025, round_results={}, teams={})
+
+    team1 = Team(id=1, name="Team A", abbrev="TA", logo_url="url/team_a.png")
+    team2 = Team(id=2, name="Team B", abbrev="TB", logo_url="url/team_b.png")
+    team3 = Team(id=3, name="Team C", abbrev="TC", logo_url="url/team_c.png")
+    season_results.add_team(team1)
+    season_results.add_team(team2)
+    season_results.add_team(team3)
+
+    game = GameResult(
+        id=1,
+        round=1,
+        roundname="Round 1",
+        hteamid=1,
+        ateamid=2,
+        hscore=10,
+        ascore=20,
+        winnerteamid=2,
+        hteamname="Team A",
+        ateamname="Team B",
+        wteamname="Team B",
+        date=datetime(2025, 3, 10),
+    )
+    season_results.add_game_result(game)
+
+    season_results.remove_unused_teams()
+
+    assert 1 in season_results.teams
+    assert 2 in season_results.teams
+    assert 3 not in season_results.teams
