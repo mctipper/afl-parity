@@ -96,3 +96,7 @@ There is also a `-d` switch to provide debug logs, which contain every step of t
 ### Dockerised Execution
 
 Provides a few extra steps to the above - the `scripts/run_docker.sh` script will build a new image, spin up a container, and then run the script. If there is an output, it will also automatically push the results from `/output/<season>` to github (assumes all github credentials have been configured globally etc). It has been hard coded to only download / traverse the current year, main purpose of this script is for cronjob to just run at certain intervals a few times each weekend just to see if we've got a hamiltonian cycle or not. Had a crack at Squiggles Event Feed also but found it was a bit flakey to maintain a connection (plus dont need to compute this stuff within seconds of each game finishing.... but is possible if wanting)
+
+### Logs
+
+Logs are stored in the `.logs/` dir, with a single file per execution, named by DATE_TIME_LOGTYPE. There are 'main' logs which provide simple progress and outputs. If debug switch was provided, each individual thread gets it's own log output detailing _every step undertaken_ in the traversal. When `run_docker.sh` is run, this creates an additional 'run_docker' log so output can be inspected for non-code steps also.  
