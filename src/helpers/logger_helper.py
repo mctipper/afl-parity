@@ -54,7 +54,10 @@ class LoggerHelper:
         c_handler.setLevel(logging.INFO)
 
         # and now the file handler
-        logfilepath = app_root / f".logs/{current_datetime:%Y%m%d_%H%M%S}_{logname}.log"
+        logfilepath = (
+            app_root
+            / f".logs/{current_datetime:%Y%m%d}/{current_datetime:%Y%m%d_%H%M%S}_{logname}.log"
+        )
         if not logfilepath.parent.is_dir():
             logfilepath.parent.mkdir(parents=True, exist_ok=True)
 
