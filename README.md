@@ -1,9 +1,10 @@
 # AFL-Parity
 
-![Python 3.10.12](https://img.shields.io/badge/Python-3.10.12-blue)
-![uv 0.6.5](https://img.shields.io/badge/uv-0.6.5-purple)
-![Docker 4.38.0](https://img.shields.io/badge/Docker-4.38.0-blue)
-![docker-compose](https://img.shields.io/badge/dockercompose-2.32.4-blue)
+![Python 3.10.12](https://img.shields.io/badge/Python-3.10.12-4B8BBE)
+[![mypy 1.15.0](https://www.mypy-lang.org/static/mypy_badge.svg)](https://mypy-lang.org/)
+[![Linting: Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) 
+![Docker 4.38.0](https://img.shields.io/badge/Docker-4.38.0-0db7ed)
+![docker-compose](https://img.shields.io/badge/dockercompose-2.32.4-0db7ed)
 
 DFS search of AFL season to determine the when the first [hamiltonian cycle](https://en.wikipedia.org/wiki/Hamiltonian_path) occured each season (if at all).
 Makes use of [Squiggle's](https://api.squiggle.com.au/#section_bots) wonderful API to get data, many thanks Squiggle for provide such a neat service.  
