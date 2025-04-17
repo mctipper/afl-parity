@@ -1,5 +1,6 @@
+import aiohttp
+import asyncio
 from datetime import datetime
-import requests
 from pathlib import Path
 from typing import Dict, Any
 from models import SeasonResults, GameResult, Team
@@ -40,46 +41,33 @@ class SquiggleAPI:
         self.season_results = SeasonResults(season=season, round_results={}, teams={})
         self.logger = logging.getLogger(f"{self.season}_main")
 
-    def set_header(self, key: str, value: Any) -> None:
-        self.headers[key] = value
+    async def _get_api_response(self, url: str) -> Any:
+        """helper method to get data from the API asynchronously"""
+        async with aiohttp.ClientSession(headers=self.headers) as session:
+            async with session.get(url) as response:
+                if response.status >= 400:
+                    self.logger.error(f"{url} - {response.status} - {response.reason}")
+                    raise APIRequestError(
+                        f"API request failed with status code {response.status}",
+                        Exception(response.reason),
+                    )
+                elif response.status >= 300:
+                    self.logger.info(f"{url} - {response.status} - {response.reason}")
+                else:
+                    self.logger.debug(f"{url} - {response.status} - {response.reason}")
 
-    def update_headers(self, new_headers: Dict[str, Any]) -> None:
-        for k, v in new_headers.items():
-            self.headers[k] = v
+                if "json" in response.headers["Content-Type"]:
+                    return await response.json()
+                else:
+                    raise APIResponseTypeError(
+                        f"{response.headers['Content-Type']} is not a supported API response type"
+                    )
 
-    def __get_api_response(self, url: str) -> Any:
-        """helper method to get data from the API"""
-        response = requests.get(url, headers=self.headers)
+    async def _populate_teams(self) -> None:
+        """get team data from squiggs asynchronously"""
+        team_data: Any = await self._get_api_response(self.team_data_url)
 
-        if response.status_code >= 400:
-            # response failed
-            self.logger.error(f"{url} - {response.status_code} - {response.reason}")
-            raise APIRequestError(
-                f"API request failed with status code {response.status_code}",
-                response.raise_for_status(),
-            )
-        elif response.status_code >= 300:
-            # response redirected, can continue but logging event
-            self.logger.info(f"{url} - {response.status_code} - {response.reason}")
-        else:
-            # response successful
-            self.logger.debug(f"{url} - {response.status_code} - {response.reason}")
-
-        # parse the data into json
-        resp_content_type: str = response.headers["Content-Type"]
-        if "json" in resp_content_type:
-            data = response.json()
-        else:
-            raise APIResponseTypeError(
-                f"{response.headers['Content-Type']} is not an implemented API response type"
-            )
-
-        return data
-
-    def _populate_teams(self) -> None:
-        """get team data from squiggs"""
-
-        team_data: Any = self.__get_api_response(self.team_data_url)
+        self.logger.info("Received teams data from squiggle API successfully")
 
         for team in team_data["teams"]:
             cur_team = Team(
@@ -91,10 +79,13 @@ class SquiggleAPI:
 
             self.season_results.add_team(cur_team)
 
-    def _populate_season_results(self) -> None:
-        """get seaosn result data from squiggs"""
+        self.logger.info("Parsed teams data from squiggle API successfully")
 
-        season_result_data: Any = self.__get_api_response(self.season_result_url)
+    async def _populate_season_results(self) -> None:
+        """get season result data from squiggs asynchronously"""
+        season_result_data: Any = await self._get_api_response(self.season_result_url)
+
+        self.logger.info("Received season results data from squiggle API successfully")
 
         for game in season_result_data["games"]:
             cur_game = GameResult(
@@ -116,37 +107,57 @@ class SquiggleAPI:
 
             self.season_results.add_game_result(cur_game)
 
+        self.logger.info("Parsed teams data from squiggle API successfully")
+
     def _tidy_up_teams(self) -> None:
         """during the war years teams exist but were not able to play games, this method
         removes those from the team list
         """
+        before_teams_count: int = self.season_results.nteams
         self.season_results.remove_unused_teams()
+        after_teams_count: int = self.season_results.nteams
+        if after_teams_count < before_teams_count:
+            self.logger.info(
+                f"Removed {after_teams_count} teams from teams list for this season"
+            )
 
-    def _download_logos(self) -> None:
-        """download the logos from squiggs"""
+    async def _download_logos(self) -> None:
+        """download the logos from squiggs asynchronously"""
         try:
-            project_root: Path = Path(__file__).parents[2]  # yueck
-
+            project_root: Path = Path(__file__).parents[
+                2
+            ]  # yuck (but keeping this as is)
             output_dir: Path = project_root / "output" / "logos"
             output_dir.mkdir(parents=True, exist_ok=True)
 
-            for team in self.season_results.team_list:
+            async def download_logo(team: Team) -> None:
+                """download a single teams logo"""
                 output_file: Path = output_dir / team.logo_filename
-
                 if not output_file.exists():
-                    response = requests.get(team.logo_url)
-                    response.raise_for_status()
-                    with open(output_file, "wb") as f:
-                        f.write(response.content)
+                    async with aiohttp.ClientSession() as session:
+                        async with session.get(team.logo_url) as response:
+                            response.raise_for_status()
+                            with open(output_file, "wb") as f:
+                                f.write(await response.read())
                     self.logger.info(
                         f"Downloaded logo for {team.name} in season {self.season}"
                     )
-        except requests.exceptions.RequestException as re:
-            raise re
 
-    def populate_data(self) -> None:
-        """builder method, get all the goodies from squiggs"""
-        self._populate_teams()
-        self._populate_season_results()
+            tasks = [download_logo(team) for team in self.season_results.team_list]
+
+            await asyncio.gather(*tasks)
+
+            self.logger.info("Downloaded team logos from squiggle successfully")
+
+        except aiohttp.ClientError as e:
+            self.logger.error(f"An error occurred while downloading logos: {str(e)}")
+            raise e
+
+    async def populate_data(self) -> None:
+        """builder method, get all the goodies from squiggs asynchronously"""
+        # get the data
+        await asyncio.gather(self._populate_teams(), self._populate_season_results())
+        # small tidy-up
         self._tidy_up_teams()
-        self._download_logos()
+        # download logos of teams from that season
+        await self._download_logos()

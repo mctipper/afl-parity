@@ -6,6 +6,9 @@ FROM ghcr.io/astral-sh/uv:$UV_VERSION AS uv
 # anything slim
 FROM debian:$DEBIAN_VERSION-slim
 
+# SSL cert funtimes
+RUN apt-get update && apt-get install -y ca-certificates
+
 # uv setup
 COPY --from=uv /uv /uvx /bin/
 
@@ -29,7 +32,7 @@ ENV PATH="/home/root/.venv/bin:$PATH"
 # install dependencies
 RUN uv sync --compile-bytecode --no-dev
 
-# Change permissions of the output directory
+# change permissions of the output directory
 RUN chmod -R ugo+rw /afl-parity/output
 
 # run script
