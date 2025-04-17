@@ -169,7 +169,7 @@ class SeasonResults(BaseModel):
             for game in round_results:
                 if game.winnerteamid == winner and game.loserteamid == loser:
                     return game
-        raise ValueError(f'Unable to find game where {winner} defeated {loser}')
+        raise ValueError(f"Unable to find game where {winner} defeated {loser}")
 
     def __iter__(self) -> Iterator[RoundResults]:  # type: ignore[override]
         for round_id in self.rounds_list:

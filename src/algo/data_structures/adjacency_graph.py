@@ -52,7 +52,7 @@ class AdjacencyGraph(BaseModel):
         return set(child for child, count in child_count.items() if count == 1)
 
     def get_parents_of_child(self, target_child: int) -> Set[int]:
-        parents: set[int] = []
+        parents: set[int] = set()
 
         for adjacency_list in self.adjacency_lists:
             for child in adjacency_list.children:

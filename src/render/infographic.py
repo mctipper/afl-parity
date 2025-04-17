@@ -124,7 +124,7 @@ class Infographic:
                     cur_loser = hamiltonian_cycle[0]
 
                 cur_game_deets: GameResult = (
-                    self.season_results.get_first_game_result_between_teams(  # type: ignore[assignment]
+                    self.season_results.get_first_game_result_between_teams(
                         cur_winner, cur_loser
                     )
                 )
