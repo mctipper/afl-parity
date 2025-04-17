@@ -23,6 +23,9 @@ log_with_datetime() {
   echo "[$current_datetime] $message" | tee -a "$LOG_FILE"
 }
 
+# ensure log ownership is set dynamically
+chown "$CURRENT_USER:$CURRENT_USER" "$LOG_FILE" 2>/dev/null || echo "Warning: Unable to set ownership for $LOG_FILE"
+
 # directory management
 if [ ! -d "$OUTPUT_DIR" ]; then
   log_with_datetime "Creating $OUTPUT_DIR directory..."
