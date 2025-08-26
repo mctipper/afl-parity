@@ -4,7 +4,7 @@
 exit_status=0
 
 echo "Running ruff to check for linting issues..."
-ruff check
+/home/vscode/.venv/bin/ruff check
 if [ $? -ne 0 ]; then
     exit_status=1
 fi
@@ -12,7 +12,7 @@ fi
 echo ""
 
 echo "Running ruff to format the code..."
-ruff format
+/home/vscode/.venv/bin/ruff format
 if [ $? -ne 0 ]; then
     exit_status=1
 fi
@@ -20,7 +20,7 @@ fi
 echo ""
 
 echo "Running mypy to check for type errors..."
-mypy .
+/home/vscode/.venv/bin/mypy .
 if [ $? -ne 0 ]; then
     exit_status=1
 fi
