@@ -9,6 +9,8 @@
 DFS search of AFL season to determine the when the first [hamiltonian cycle](https://en.wikipedia.org/wiki/Hamiltonian_path) occured each season (if at all).
 Makes use of [Squiggle's](https://api.squiggle.com.au/#section_bots) wonderful API to get data, many thanks Squiggle for provide such a neat service.  
 
+Purposefully built with Python rather than Go or C++ to highlight how conditional efficiencies, early-exit strategies, and understanding of desired outcomes all provide true value when trying to optimise solutions rather than relying on raw power.  
+
 This is just a little fun project to apply DFS and play around with graph structures. What fun.
 
 ## Output
@@ -47,7 +49,7 @@ Most beneficial when it happens to occur 'earlier' in the season, and the benefi
   
   
 #### 3. First outcome for a team  
-By checking if that particular round include the first win or loss for a particular team, start the search with that winner. Any hamiltonian cycles found using that game cannot be bettered and can exit early.
+By checking if that particular round include the first win or loss for a particular team, start the search with that winner and dismiss all other combinations. Any hamiltonian cycles found using that game simply cannot be bettered and can exit early.
 
 
   
