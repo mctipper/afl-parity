@@ -25,9 +25,6 @@ COPY scripts/ ./scripts/
 ENV PYTHONUNBUFFERED=1
 ENV UV_LINK_MODE=copy
 ENV UV_NO_CACHE=1
-ENV UV_FROZEN=1
-ENV UV_PROJECT_ENVIRONMENT=/home/root/.venv
-ENV PATH="/home/root/.venv/bin:$PATH"
 
 # install dependencies
 RUN uv sync --compile-bytecode --no-dev
