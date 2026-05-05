@@ -1,6 +1,8 @@
-import pytest
-from unittest.mock import patch
 from datetime import datetime
+from unittest.mock import patch
+
+import pytest
+
 from helpers import ArgumentParserHelper
 from helpers.argument_parser_helper import Args
 
