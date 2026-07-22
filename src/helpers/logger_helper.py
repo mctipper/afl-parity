@@ -47,6 +47,9 @@ class LoggerHelper:
 
         # create a generic logger
         logger = logging.getLogger(logname)
+        if logger.handlers:
+            # already configured (e.g. this logname was set up earlier) - reuse as-is
+            return logger
         logger.setLevel(logging.DEBUG)
 
         # create stream handler

@@ -67,7 +67,7 @@ def test_game_result_model_dump_json():
         wteamname="Team A",
         date=datetime(2025, 3, 10),
     )
-    json_data = game.model_dump_json()
+    json_data = game.to_json()
     assert "loserteamid" in json_data
     assert "lteamname" in json_data
     assert "wscore" in json_data

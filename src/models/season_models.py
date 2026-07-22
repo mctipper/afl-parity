@@ -1,10 +1,11 @@
-from pydantic import BaseModel
+from dataclasses import dataclass
 from datetime import datetime
-from typing import List, Dict, Optional, Iterator
+from typing import Any, Dict, Iterator, List
 import json
 
 
-class Team(BaseModel):
+@dataclass(frozen=True, slots=True)
+class Team:
     """the team model - api results for the team must be parsed into this format"""
 
     id: int
@@ -17,7 +18,8 @@ class Team(BaseModel):
         return self.logo_url.split("/")[-1]
 
 
-class GameResult(BaseModel):
+@dataclass(frozen=True, slots=True)
+class GameResult:
     """individual games"""
 
     id: int
@@ -27,10 +29,10 @@ class GameResult(BaseModel):
     ateamid: int
     hscore: int
     ascore: int
-    winnerteamid: Optional[int]
+    winnerteamid: int | None
     hteamname: str
     ateamname: str
-    wteamname: Optional[str]
+    wteamname: str | None
     date: datetime
 
     @property
@@ -73,26 +75,48 @@ class GameResult(BaseModel):
             return self.ascore
         return None
 
-    def model_dump_json(self) -> str:  # type: ignore[override]
-        data = self.model_dump()
-        data["loserteamid"] = self.loserteamid
-        data["lteamname"] = self.lteamname
-        data["wscore"] = self.wscore
-        data["lscore"] = self.lscore
-        return json.dumps(data, default=str)
+    def to_dict(self) -> Dict[str, Any]:
+        data = {
+            "id": self.id,
+            "round": self.round,
+            "roundname": self.roundname,
+            "hteamid": self.hteamid,
+            "ateamid": self.ateamid,
+            "hscore": self.hscore,
+            "ascore": self.ascore,
+            "winnerteamid": self.winnerteamid,
+            "hteamname": self.hteamname,
+            "ateamname": self.ateamname,
+            "wteamname": self.wteamname,
+            "date": self.date,
+            "loserteamid": self.loserteamid,
+            "lteamname": self.lteamname,
+            "wscore": self.wscore,
+            "lscore": self.lscore,
+        }
+        return data
+
+    def to_json(self) -> str:
+        return json.dumps(self.to_dict(), default=str)
 
 
-class RoundResults(BaseModel):
+@dataclass(frozen=True, slots=True)
+class RoundResults:
     round: int
     results: List[GameResult]
 
-    def __iter__(self) -> Iterator[GameResult]:  # type: ignore[override]
+    def __iter__(self) -> Iterator[GameResult]:
         return iter(sorted(self.results, key=lambda game: game.date))
 
 
-class SeasonResults(BaseModel):
+@dataclass(slots=True)
+class SeasonResults:
     """individual season, with all the round results and games and
     also a list of Team objects that participated in that reason
+
+    Not frozen: `remove_unused_teams` rebinds `teams` wholesale, and this
+    object is mutated throughout its populate-then-search lifecycle
+    (`add_game_result`, `add_team`), unlike its sibling models here.
     """
 
     season: int
@@ -112,16 +136,16 @@ class SeasonResults(BaseModel):
     @property
     def rounds_list(self) -> List[int]:
         """sorted list of round ids"""
-        return sorted(list(self.round_results.keys()))
+        return sorted(self.round_results.keys())
 
     @property
     def team_ids(self) -> List[int]:
         """list of team id integers"""
-        return sorted(list(self.teams.keys()))
+        return sorted(self.teams.keys())
 
     @property
     def team_list(self) -> List[Team]:
-        return [team for _, team in self.teams.items()]
+        return list(self.teams.values())
 
     def add_game_result(self, cur_game: GameResult) -> None:
         if cur_game.round not in self.round_results:
@@ -171,6 +195,6 @@ class SeasonResults(BaseModel):
                     return game
         raise ValueError(f"Unable to find game where {winner} defeated {loser}")
 
-    def __iter__(self) -> Iterator[RoundResults]:  # type: ignore[override]
+    def __iter__(self) -> Iterator[RoundResults]:
         for round_id in self.rounds_list:
             yield self.round_results[round_id]

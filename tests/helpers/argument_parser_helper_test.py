@@ -12,7 +12,8 @@ def test_argument_parser_helper():
     with patch("sys.argv", test_args):
         helper = ArgumentParserHelper()
         assert isinstance(helper.args, Args)
-        assert helper.args.season == "2025"
+        assert helper.args.season == 2025
+        assert helper.args.all is False
         assert helper.args.debug is True
 
 
@@ -21,8 +22,25 @@ def test_argument_parser_no_debug_helper():
     with patch("sys.argv", test_args):
         helper = ArgumentParserHelper()
         assert isinstance(helper.args, Args)
-        assert helper.args.season == "2025"
+        assert helper.args.season == 2025
+        assert helper.args.all is False
         assert helper.args.debug is False
+
+
+def test_argument_parser_all_helper():
+    test_args = ["run_pytest_script.py", "--all"]
+    with patch("sys.argv", test_args):
+        helper = ArgumentParserHelper()
+        assert isinstance(helper.args, Args)
+        assert helper.args.all is True
+        assert helper.args.debug is False
+
+
+def test_argument_parser_all_and_season_mutually_exclusive():
+    test_args = ["run_pytest_script.py", "--all", "--season", "2025"]
+    with patch("sys.argv", test_args):
+        with pytest.raises(SystemExit):
+            ArgumentParserHelper()
 
 
 def test_argument_parser_no_season_helper():
@@ -31,7 +49,8 @@ def test_argument_parser_no_season_helper():
     with patch("sys.argv", test_args):
         helper = ArgumentParserHelper()
         assert isinstance(helper.args, Args)
-        assert helper.args.season == str(cur_year)
+        assert helper.args.season == cur_year
+        assert helper.args.all is False
         assert helper.args.debug is True
 
 
@@ -41,7 +60,8 @@ def test_argument_parser_no_arguments_helper():
     with patch("sys.argv", test_args):
         helper = ArgumentParserHelper()
         assert isinstance(helper.args, Args)
-        assert helper.args.season == str(cur_year)
+        assert helper.args.season == cur_year
+        assert helper.args.all is False
         assert helper.args.debug is False
 
 
@@ -51,18 +71,10 @@ def test_validate_season():
     with patch("sys.argv", test_args):
         helper = ArgumentParserHelper()
 
-    helper.args.season = "2020"
+    helper.args.season = 2020
     helper.validate_season(helper.args.season)
-    assert helper.args.season == "2020"
+    assert helper.args.season == 2020
 
-    helper.args.season = "all"
-    helper.validate_season(helper.args.season)
-    assert helper.args.season == "all"
-
-    helper.args.season = "1800"
-    with pytest.raises(SystemExit):
-        helper.validate_season(helper.args.season)
-
-    helper.args.season = "invalid"
+    helper.args.season = 1800
     with pytest.raises(SystemExit):
         helper.validate_season(helper.args.season)

@@ -1,18 +1,20 @@
-from pydantic import BaseModel
-from typing import Set, List, Dict
+from dataclasses import dataclass, field
+from typing import Dict, List, Set
 
 
-class AdjacencyList(BaseModel):
+@dataclass(frozen=True, slots=True)
+class AdjacencyList:
     parent: int
-    children: Set[int] = set()
+    children: Set[int] = field(default_factory=set)
 
     @property
     def children_n(self) -> int:
         return len(self.children)
 
 
-class AdjacencyGraph(BaseModel):
-    adjacency_lists: List[AdjacencyList] = []
+@dataclass(frozen=True, slots=True)
+class AdjacencyGraph:
+    adjacency_lists: List[AdjacencyList] = field(default_factory=list)
 
     @property
     def parents(self) -> Set[int]:
@@ -52,7 +54,7 @@ class AdjacencyGraph(BaseModel):
         return set(child for child, count in child_count.items() if count == 1)
 
     def get_parents_of_child(self, target_child: int) -> Set[int]:
-        parents: set[int] = set()
+        parents: Set[int] = set()
 
         for adjacency_list in self.adjacency_lists:
             for child in adjacency_list.children:
@@ -65,7 +67,7 @@ class AdjacencyGraph(BaseModel):
         adjacency_list = self.get_adjacency_graph(target_parent)
         if adjacency_list:
             return adjacency_list.children
-        return Set()
+        return set()
 
     def get_adjacency_graph(self, parent: int) -> AdjacencyList:
         for adjacency_list in self.adjacency_lists:

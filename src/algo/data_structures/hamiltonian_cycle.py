@@ -1,13 +1,14 @@
-from pydantic import BaseModel
+from dataclasses import dataclass, field
 from models import GameResult
 from datetime import datetime
 from typing import List, Dict, Any
 import json
 
 
-class HamiltonianCycle(BaseModel):
+@dataclass(frozen=True, slots=True)
+class HamiltonianCycle:
     cycle: List[int]
-    games: List[GameResult] = []
+    games: List[GameResult] = field(default_factory=list)
 
     def __str__(self) -> str:
         return f"Hamiltonian Cycle: {self.cycle_names}"
@@ -28,7 +29,7 @@ class HamiltonianCycle(BaseModel):
     def hamiltonian_cycle_game_details_pprint(self) -> str:
         """just make the output look nice and legible"""
         result: str = "Hamiltonian Cycle Details\n"
-        result += f"Rd. {self.max_round} - {self.max_date:%Y-%m-%d %H:%M:%S}\n"
+        result += f"Rd. {self.max_round} starting {self.max_date:%Y-%m-%d %H:%M:%S}\n"
         for teamid in self.cycle:
             for game in self.games:
                 if game.winnerteamid == teamid:
@@ -36,11 +37,14 @@ class HamiltonianCycle(BaseModel):
                     result += formatted_string
         return result
 
-    def model_dump_json(self) -> str:  # type: ignore[override]
+    def to_dict(self) -> Dict[str, Any]:
         data: Dict[str, Any] = {}
         data["cycle"] = self.cycle
         data["cycle_names"] = self.cycle_names
         data["date"] = self.max_date
         data["round"] = self.max_round
-        data["games"] = [json.loads(game.model_dump_json()) for game in self.games]
-        return json.dumps(data, default=str)
+        data["games"] = [game.to_dict() for game in self.games]
+        return data
+
+    def to_json(self) -> str:
+        return json.dumps(self.to_dict(), default=str)
