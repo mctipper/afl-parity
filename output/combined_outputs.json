@@ -1,65 +1,45 @@
 {
     "1897": {
         "total_dfs_steps": 0,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 0,
         "first_hamiltonian_cycle": null
     },
     "1898": {
         "total_dfs_steps": 0,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 0,
         "first_hamiltonian_cycle": null
     },
     "1899": {
         "total_dfs_steps": 0,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 0,
         "first_hamiltonian_cycle": null
     },
     "1900": {
-        "total_dfs_steps": 26,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 1,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 24,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
                 7,
+                4,
+                19,
                 3,
                 15,
                 11,
-                5,
-                4,
-                19
+                5
             ],
             "cycle_names": [
                 "Sydney",
                 "Geelong",
+                "Collingwood",
+                "Fitzroy",
                 "Carlton",
                 "St Kilda",
                 "Melbourne",
-                "Essendon",
-                "Collingwood",
-                "Fitzroy"
+                "Essendon"
             ],
             "date": "1900-05-26 15:00:00",
             "round": 5
         }
     },
     "1901": {
-        "total_dfs_steps": 16,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 14,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -87,18 +67,10 @@
     },
     "1902": {
         "total_dfs_steps": 0,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 0,
         "first_hamiltonian_cycle": null
     },
     "1903": {
-        "total_dfs_steps": 41,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 40,
         "first_hamiltonian_cycle": {
             "cycle": [
                 11,
@@ -125,11 +97,7 @@
         }
     },
     "1904": {
-        "total_dfs_steps": 93,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 5,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 88,
         "first_hamiltonian_cycle": {
             "cycle": [
                 19,
@@ -156,11 +124,7 @@
         }
     },
     "1905": {
-        "total_dfs_steps": 1167,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 100,
-        "total_hamiltonian_cycles": 5,
+        "total_dfs_steps": 1111,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -187,11 +151,7 @@
         }
     },
     "1906": {
-        "total_dfs_steps": 56,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 1,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 42,
         "first_hamiltonian_cycle": {
             "cycle": [
                 5,
@@ -218,11 +178,7 @@
         }
     },
     "1907": {
-        "total_dfs_steps": 108,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 7,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -249,11 +205,7 @@
         }
     },
     "1908": {
-        "total_dfs_steps": 618,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 26,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 326,
         "first_hamiltonian_cycle": {
             "cycle": [
                 5,
@@ -284,11 +236,7 @@
         }
     },
     "1909": {
-        "total_dfs_steps": 179,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 4,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 95,
         "first_hamiltonian_cycle": {
             "cycle": [
                 14,
@@ -319,11 +267,7 @@
         }
     },
     "1910": {
-        "total_dfs_steps": 21,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 20,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -354,11 +298,7 @@
         }
     },
     "1911": {
-        "total_dfs_steps": 21,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 3,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 20,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -389,11 +329,7 @@
         }
     },
     "1912": {
-        "total_dfs_steps": 31,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 3,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 30,
         "first_hamiltonian_cycle": {
             "cycle": [
                 7,
@@ -425,26 +361,14 @@
     },
     "1913": {
         "total_dfs_steps": 0,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 0,
         "first_hamiltonian_cycle": null
     },
     "1914": {
         "total_dfs_steps": 0,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 0,
         "first_hamiltonian_cycle": null
     },
     "1915": {
-        "total_dfs_steps": 59,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 6,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 58,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -473,11 +397,7 @@
         }
     },
     "1916": {
-        "total_dfs_steps": 3,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 1,
         "first_hamiltonian_cycle": {
             "cycle": [
                 14,
@@ -496,11 +416,7 @@
         }
     },
     "1917": {
-        "total_dfs_steps": 47,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 1,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 34,
         "first_hamiltonian_cycle": {
             "cycle": [
                 4,
@@ -523,11 +439,7 @@
         }
     },
     "1918": {
-        "total_dfs_steps": 164,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 6,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 131,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -555,18 +467,10 @@
     },
     "1919": {
         "total_dfs_steps": 0,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 0,
         "first_hamiltonian_cycle": null
     },
     "1920": {
-        "total_dfs_steps": 89,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 13,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 88,
         "first_hamiltonian_cycle": {
             "cycle": [
                 19,
@@ -595,11 +499,7 @@
         }
     },
     "1921": {
-        "total_dfs_steps": 17,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 16,
         "first_hamiltonian_cycle": {
             "cycle": [
                 19,
@@ -628,11 +528,7 @@
         }
     },
     "1922": {
-        "total_dfs_steps": 25,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 105,
         "first_hamiltonian_cycle": {
             "cycle": [
                 4,
@@ -661,44 +557,36 @@
         }
     },
     "1923": {
-        "total_dfs_steps": 86,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 1,
-        "total_hamiltonian_cycles": 2,
+        "total_dfs_steps": 79,
         "first_hamiltonian_cycle": {
             "cycle": [
-                16,
-                7,
                 19,
                 5,
                 3,
                 14,
                 11,
                 15,
-                4
+                4,
+                16,
+                7
             ],
             "cycle_names": [
-                "Sydney",
-                "Geelong",
                 "Fitzroy",
                 "Essendon",
                 "Carlton",
                 "Richmond",
                 "Melbourne",
                 "St Kilda",
-                "Collingwood"
+                "Collingwood",
+                "Sydney",
+                "Geelong"
             ],
             "date": "1923-06-04 14:45:00",
             "round": 5
         }
     },
     "1924": {
-        "total_dfs_steps": 32,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 2,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 121,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -727,11 +615,7 @@
         }
     },
     "1925": {
-        "total_dfs_steps": 432,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 1,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 427,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -767,18 +651,10 @@
     },
     "1926": {
         "total_dfs_steps": 0,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 0,
         "first_hamiltonian_cycle": null
     },
     "1927": {
-        "total_dfs_steps": 46,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 45,
         "first_hamiltonian_cycle": {
             "cycle": [
                 10,
@@ -814,18 +690,10 @@
     },
     "1928": {
         "total_dfs_steps": 0,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 0,
         "first_hamiltonian_cycle": null
     },
     "1929": {
-        "total_dfs_steps": 159,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 9,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 87,
         "first_hamiltonian_cycle": {
             "cycle": [
                 14,
@@ -860,11 +728,7 @@
         }
     },
     "1930": {
-        "total_dfs_steps": 1426,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 22,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 535,
         "first_hamiltonian_cycle": {
             "cycle": [
                 11,
@@ -900,29 +764,21 @@
     },
     "1931": {
         "total_dfs_steps": 0,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 0,
         "first_hamiltonian_cycle": null
     },
     "1932": {
-        "total_dfs_steps": 3132,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 17,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 1556,
         "first_hamiltonian_cycle": {
             "cycle": [
                 4,
                 16,
-                3,
-                14,
                 5,
                 12,
                 11,
-                15,
                 19,
+                3,
+                14,
+                15,
                 10,
                 18,
                 7
@@ -930,13 +786,13 @@
             "cycle_names": [
                 "Collingwood",
                 "Sydney",
-                "Carlton",
-                "Richmond",
                 "Essendon",
                 "North Melbourne",
                 "Melbourne",
-                "St Kilda",
                 "Fitzroy",
+                "Carlton",
+                "Richmond",
+                "St Kilda",
                 "Hawthorn",
                 "Western Bulldogs",
                 "Geelong"
@@ -946,39 +802,35 @@
         }
     },
     "1933": {
-        "total_dfs_steps": 11557,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 292,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 10431,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
+                14,
+                4,
+                16,
+                12,
+                18,
+                19,
                 11,
                 10,
                 5,
                 15,
-                7,
-                16,
-                12,
-                18,
-                14,
-                19,
-                4
+                7
             ],
             "cycle_names": [
                 "Carlton",
+                "Richmond",
+                "Collingwood",
+                "Sydney",
+                "North Melbourne",
+                "Western Bulldogs",
+                "Fitzroy",
                 "Melbourne",
                 "Hawthorn",
                 "Essendon",
                 "St Kilda",
-                "Geelong",
-                "Sydney",
-                "North Melbourne",
-                "Western Bulldogs",
-                "Richmond",
-                "Fitzroy",
-                "Collingwood"
+                "Geelong"
             ],
             "date": "1933-07-08 14:45:00",
             "round": 11
@@ -986,18 +838,10 @@
     },
     "1934": {
         "total_dfs_steps": 0,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 0,
         "first_hamiltonian_cycle": null
     },
     "1935": {
-        "total_dfs_steps": 18,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 15,
         "first_hamiltonian_cycle": {
             "cycle": [
                 12,
@@ -1032,11 +876,7 @@
         }
     },
     "1936": {
-        "total_dfs_steps": 7059,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 115,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 7317,
         "first_hamiltonian_cycle": {
             "cycle": [
                 18,
@@ -1071,11 +911,7 @@
         }
     },
     "1937": {
-        "total_dfs_steps": 329,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 3,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 225,
         "first_hamiltonian_cycle": {
             "cycle": [
                 7,
@@ -1110,11 +946,7 @@
         }
     },
     "1938": {
-        "total_dfs_steps": 156,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 1,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 155,
         "first_hamiltonian_cycle": {
             "cycle": [
                 19,
@@ -1149,11 +981,7 @@
         }
     },
     "1939": {
-        "total_dfs_steps": 15,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 426,
         "first_hamiltonian_cycle": {
             "cycle": [
                 18,
@@ -1188,11 +1016,7 @@
         }
     },
     "1940": {
-        "total_dfs_steps": 28,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 26,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -1227,11 +1051,7 @@
         }
     },
     "1941": {
-        "total_dfs_steps": 8365,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 154,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 8373,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -1266,11 +1086,7 @@
         }
     },
     "1942": {
-        "total_dfs_steps": 10,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 42,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -1303,11 +1119,7 @@
         }
     },
     "1943": {
-        "total_dfs_steps": 572,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 31,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 139,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -1340,11 +1152,7 @@
         }
     },
     "1944": {
-        "total_dfs_steps": 39,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 37,
         "first_hamiltonian_cycle": {
             "cycle": [
                 7,
@@ -1379,11 +1187,7 @@
         }
     },
     "1945": {
-        "total_dfs_steps": 7342,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 72,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 7197,
         "first_hamiltonian_cycle": {
             "cycle": [
                 4,
@@ -1418,11 +1222,7 @@
         }
     },
     "1946": {
-        "total_dfs_steps": 141,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 3,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 140,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -1457,11 +1257,7 @@
         }
     },
     "1947": {
-        "total_dfs_steps": 815,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 15,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 871,
         "first_hamiltonian_cycle": {
             "cycle": [
                 11,
@@ -1496,11 +1292,7 @@
         }
     },
     "1948": {
-        "total_dfs_steps": 277,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 651,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -1535,11 +1327,7 @@
         }
     },
     "1949": {
-        "total_dfs_steps": 25,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 24,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -1575,18 +1363,10 @@
     },
     "1950": {
         "total_dfs_steps": 0,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 0,
         "first_hamiltonian_cycle": null
     },
     "1951": {
-        "total_dfs_steps": 114,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 113,
         "first_hamiltonian_cycle": {
             "cycle": [
                 11,
@@ -1621,11 +1401,7 @@
         }
     },
     "1952": {
-        "total_dfs_steps": 127,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 6,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 126,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -1660,11 +1436,7 @@
         }
     },
     "1953": {
-        "total_dfs_steps": 936,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 17,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 389,
         "first_hamiltonian_cycle": {
             "cycle": [
                 4,
@@ -1699,11 +1471,7 @@
         }
     },
     "1954": {
-        "total_dfs_steps": 11,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 10,
         "first_hamiltonian_cycle": {
             "cycle": [
                 19,
@@ -1738,11 +1506,7 @@
         }
     },
     "1955": {
-        "total_dfs_steps": 29,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 28,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -1777,11 +1541,7 @@
         }
     },
     "1956": {
-        "total_dfs_steps": 350,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 217,
         "first_hamiltonian_cycle": {
             "cycle": [
                 18,
@@ -1816,11 +1576,7 @@
         }
     },
     "1957": {
-        "total_dfs_steps": 274,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 4,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 305,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -1855,11 +1611,7 @@
         }
     },
     "1958": {
-        "total_dfs_steps": 49,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 47,
         "first_hamiltonian_cycle": {
             "cycle": [
                 5,
@@ -1894,11 +1646,7 @@
         }
     },
     "1959": {
-        "total_dfs_steps": 2124,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 1164,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -1933,11 +1681,7 @@
         }
     },
     "1960": {
-        "total_dfs_steps": 13,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 10,
@@ -1972,11 +1716,7 @@
         }
     },
     "1961": {
-        "total_dfs_steps": 11,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 19,
         "first_hamiltonian_cycle": {
             "cycle": [
                 19,
@@ -2011,11 +1751,7 @@
         }
     },
     "1962": {
-        "total_dfs_steps": 391,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 194,
         "first_hamiltonian_cycle": {
             "cycle": [
                 12,
@@ -2050,11 +1786,7 @@
         }
     },
     "1963": {
-        "total_dfs_steps": 20,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 19,
         "first_hamiltonian_cycle": {
             "cycle": [
                 19,
@@ -2090,18 +1822,10 @@
     },
     "1964": {
         "total_dfs_steps": 0,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 0,
         "first_hamiltonian_cycle": null
     },
     "1965": {
-        "total_dfs_steps": 232,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 3,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 156,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -2136,11 +1860,7 @@
         }
     },
     "1966": {
-        "total_dfs_steps": 13,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 19,
@@ -2175,11 +1895,7 @@
         }
     },
     "1967": {
-        "total_dfs_steps": 708,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 9,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 707,
         "first_hamiltonian_cycle": {
             "cycle": [
                 14,
@@ -2214,11 +1930,7 @@
         }
     },
     "1968": {
-        "total_dfs_steps": 60,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 59,
         "first_hamiltonian_cycle": {
             "cycle": [
                 18,
@@ -2253,11 +1965,7 @@
         }
     },
     "1969": {
-        "total_dfs_steps": 217,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 10,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 214,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -2292,11 +2000,7 @@
         }
     },
     "1970": {
-        "total_dfs_steps": 24,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 2,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 108,
         "first_hamiltonian_cycle": {
             "cycle": [
                 5,
@@ -2331,11 +2035,7 @@
         }
     },
     "1971": {
-        "total_dfs_steps": 3850,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 69,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 4042,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -2370,11 +2070,7 @@
         }
     },
     "1972": {
-        "total_dfs_steps": 11,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 9,
         "first_hamiltonian_cycle": {
             "cycle": [
                 12,
@@ -2409,11 +2105,7 @@
         }
     },
     "1973": {
-        "total_dfs_steps": 11,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 265,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -2448,11 +2140,7 @@
         }
     },
     "1974": {
-        "total_dfs_steps": 38,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 37,
         "first_hamiltonian_cycle": {
             "cycle": [
                 11,
@@ -2487,11 +2175,7 @@
         }
     },
     "1975": {
-        "total_dfs_steps": 74,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 73,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -2526,11 +2210,7 @@
         }
     },
     "1976": {
-        "total_dfs_steps": 1212,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 1,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 513,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -2565,11 +2245,7 @@
         }
     },
     "1977": {
-        "total_dfs_steps": 227,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 3,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 224,
         "first_hamiltonian_cycle": {
             "cycle": [
                 5,
@@ -2604,11 +2280,7 @@
         }
     },
     "1978": {
-        "total_dfs_steps": 108,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 2,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 76,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -2643,11 +2315,7 @@
         }
     },
     "1979": {
-        "total_dfs_steps": 44,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 43,
         "first_hamiltonian_cycle": {
             "cycle": [
                 19,
@@ -2682,11 +2350,7 @@
         }
     },
     "1980": {
-        "total_dfs_steps": 96,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 93,
         "first_hamiltonian_cycle": {
             "cycle": [
                 18,
@@ -2721,11 +2385,7 @@
         }
     },
     "1981": {
-        "total_dfs_steps": 40,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 154,
         "first_hamiltonian_cycle": {
             "cycle": [
                 5,
@@ -2760,11 +2420,7 @@
         }
     },
     "1982": {
-        "total_dfs_steps": 59,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 2,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 58,
         "first_hamiltonian_cycle": {
             "cycle": [
                 19,
@@ -2799,11 +2455,7 @@
         }
     },
     "1983": {
-        "total_dfs_steps": 40,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 38,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -2838,11 +2490,7 @@
         }
     },
     "1984": {
-        "total_dfs_steps": 18,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 17,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -2877,11 +2525,7 @@
         }
     },
     "1985": {
-        "total_dfs_steps": 26,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 1,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 21,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -2916,11 +2560,7 @@
         }
     },
     "1986": {
-        "total_dfs_steps": 11,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 269,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -2955,11 +2595,7 @@
         }
     },
     "1987": {
-        "total_dfs_steps": 1920,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 32,
-        "total_hamiltonian_cycles": 3,
+        "total_dfs_steps": 1872,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -2998,16 +2634,10 @@
         }
     },
     "1988": {
-        "total_dfs_steps": 3035,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 34,
-        "total_hamiltonian_cycles": 8,
+        "total_dfs_steps": 2983,
         "first_hamiltonian_cycle": {
             "cycle": [
                 17,
-                5,
-                11,
                 2,
                 15,
                 12,
@@ -3017,13 +2647,13 @@
                 16,
                 7,
                 3,
+                5,
+                11,
                 10,
                 4
             ],
             "cycle_names": [
                 "West Coast",
-                "Essendon",
-                "Melbourne",
                 "Brisbane Lions",
                 "St Kilda",
                 "North Melbourne",
@@ -3033,6 +2663,8 @@
                 "Sydney",
                 "Geelong",
                 "Carlton",
+                "Essendon",
+                "Melbourne",
                 "Hawthorn",
                 "Collingwood"
             ],
@@ -3041,11 +2673,7 @@
         }
     },
     "1989": {
-        "total_dfs_steps": 263,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 262,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -3084,11 +2712,7 @@
         }
     },
     "1990": {
-        "total_dfs_steps": 6202,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 50,
-        "total_hamiltonian_cycles": 8,
+        "total_dfs_steps": 6418,
         "first_hamiltonian_cycle": {
             "cycle": [
                 11,
@@ -3127,21 +2751,17 @@
         }
     },
     "1991": {
-        "total_dfs_steps": 29954,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 277,
-        "total_hamiltonian_cycles": 138,
+        "total_dfs_steps": 760,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
                 17,
-                1,
-                10,
                 2,
                 16,
                 19,
                 7,
+                1,
+                10,
                 4,
                 5,
                 15,
@@ -3153,12 +2773,12 @@
             "cycle_names": [
                 "Carlton",
                 "West Coast",
-                "Adelaide",
-                "Hawthorn",
                 "Brisbane Lions",
                 "Sydney",
                 "Fitzroy",
                 "Geelong",
+                "Adelaide",
+                "Hawthorn",
                 "Collingwood",
                 "Essendon",
                 "St Kilda",
@@ -3172,11 +2792,7 @@
         }
     },
     "1992": {
-        "total_dfs_steps": 538,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 6,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 244,
         "first_hamiltonian_cycle": {
             "cycle": [
                 10,
@@ -3217,11 +2833,7 @@
         }
     },
     "1993": {
-        "total_dfs_steps": 35,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 34,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -3262,103 +2874,91 @@
         }
     },
     "1994": {
-        "total_dfs_steps": 4404,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 11,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 3190,
         "first_hamiltonian_cycle": {
             "cycle": [
                 12,
                 11,
-                7,
-                18,
-                1,
+                10,
+                17,
+                19,
                 16,
                 14,
-                19,
                 2,
                 15,
                 5,
                 4,
+                18,
+                1,
                 3,
-                10,
-                17
+                7
             ],
             "cycle_names": [
                 "North Melbourne",
                 "Melbourne",
-                "Geelong",
-                "Western Bulldogs",
-                "Adelaide",
+                "Hawthorn",
+                "West Coast",
+                "Fitzroy",
                 "Sydney",
                 "Richmond",
-                "Fitzroy",
                 "Brisbane Lions",
                 "St Kilda",
                 "Essendon",
                 "Collingwood",
+                "Western Bulldogs",
+                "Adelaide",
                 "Carlton",
-                "Hawthorn",
-                "West Coast"
+                "Geelong"
             ],
             "date": "1994-05-07 14:08:00",
             "round": 7
         }
     },
     "1995": {
-        "total_dfs_steps": 26063,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 128,
-        "total_hamiltonian_cycles": 44,
+        "total_dfs_steps": 9406,
         "first_hamiltonian_cycle": {
             "cycle": [
-                7,
-                14,
-                1,
-                17,
-                12,
-                11,
-                2,
                 16,
                 3,
                 5,
+                2,
+                1,
+                17,
+                6,
+                7,
+                14,
+                12,
                 19,
                 15,
                 18,
+                11,
                 10,
-                4,
-                6
+                4
             ],
             "cycle_names": [
-                "Geelong",
-                "Richmond",
-                "Adelaide",
-                "West Coast",
-                "North Melbourne",
-                "Melbourne",
-                "Brisbane Lions",
                 "Sydney",
                 "Carlton",
                 "Essendon",
+                "Brisbane Lions",
+                "Adelaide",
+                "West Coast",
+                "Fremantle",
+                "Geelong",
+                "Richmond",
+                "North Melbourne",
                 "Fitzroy",
                 "St Kilda",
                 "Western Bulldogs",
+                "Melbourne",
                 "Hawthorn",
-                "Collingwood",
-                "Fremantle"
+                "Collingwood"
             ],
             "date": "1995-05-20 14:10:00",
             "round": 8
         }
     },
     "1996": {
-        "total_dfs_steps": 39,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 38,
         "first_hamiltonian_cycle": {
             "cycle": [
                 19,
@@ -3401,11 +3001,7 @@
         }
     },
     "1997": {
-        "total_dfs_steps": 946,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 1016,
         "first_hamiltonian_cycle": {
             "cycle": [
                 4,
@@ -3448,45 +3044,41 @@
         }
     },
     "1998": {
-        "total_dfs_steps": 6294,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 11,
-        "total_hamiltonian_cycles": 9,
+        "total_dfs_steps": 6291,
         "first_hamiltonian_cycle": {
             "cycle": [
                 10,
                 2,
+                15,
+                7,
                 14,
+                17,
+                4,
+                5,
+                3,
+                1,
+                6,
                 11,
                 16,
                 18,
-                4,
-                3,
-                1,
-                7,
-                5,
-                15,
-                17,
-                6,
                 12,
                 13
             ],
             "cycle_names": [
                 "Hawthorn",
                 "Brisbane Lions",
+                "St Kilda",
+                "Geelong",
                 "Richmond",
+                "West Coast",
+                "Collingwood",
+                "Essendon",
+                "Carlton",
+                "Adelaide",
+                "Fremantle",
                 "Melbourne",
                 "Sydney",
                 "Western Bulldogs",
-                "Collingwood",
-                "Carlton",
-                "Adelaide",
-                "Geelong",
-                "Essendon",
-                "St Kilda",
-                "West Coast",
-                "Fremantle",
                 "North Melbourne",
                 "Port Adelaide"
             ],
@@ -3495,11 +3087,7 @@
         }
     },
     "1999": {
-        "total_dfs_steps": 120,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 2,
+        "total_dfs_steps": 118,
         "first_hamiltonian_cycle": {
             "cycle": [
                 4,
@@ -3542,11 +3130,7 @@
         }
     },
     "2000": {
-        "total_dfs_steps": 500,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 33,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 302,
         "first_hamiltonian_cycle": {
             "cycle": [
                 18,
@@ -3589,11 +3173,7 @@
         }
     },
     "2001": {
-        "total_dfs_steps": 16,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 15,
         "first_hamiltonian_cycle": {
             "cycle": [
                 6,
@@ -3636,58 +3216,50 @@
         }
     },
     "2002": {
-        "total_dfs_steps": 121358,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 1988,
-        "total_hamiltonian_cycles": 155,
+        "total_dfs_steps": 121682,
         "first_hamiltonian_cycle": {
             "cycle": [
                 10,
-                7,
-                12,
-                1,
                 6,
-                5,
                 14,
                 17,
+                2,
+                5,
+                1,
+                7,
+                12,
                 18,
                 16,
                 11,
                 13,
                 15,
                 3,
-                4,
-                2
+                4
             ],
             "cycle_names": [
                 "Hawthorn",
-                "Geelong",
-                "North Melbourne",
-                "Adelaide",
                 "Fremantle",
-                "Essendon",
                 "Richmond",
                 "West Coast",
+                "Brisbane Lions",
+                "Essendon",
+                "Adelaide",
+                "Geelong",
+                "North Melbourne",
                 "Western Bulldogs",
                 "Sydney",
                 "Melbourne",
                 "Port Adelaide",
                 "St Kilda",
                 "Carlton",
-                "Collingwood",
-                "Brisbane Lions"
+                "Collingwood"
             ],
             "date": "2002-05-19 13:10:00",
             "round": 8
         }
     },
     "2003": {
-        "total_dfs_steps": 999,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 7,
-        "total_hamiltonian_cycles": 3,
+        "total_dfs_steps": 1160,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -3730,11 +3302,7 @@
         }
     },
     "2004": {
-        "total_dfs_steps": 41,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 40,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -3777,11 +3345,7 @@
         }
     },
     "2005": {
-        "total_dfs_steps": 5902,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 2,
+        "total_dfs_steps": 2847,
         "first_hamiltonian_cycle": {
             "cycle": [
                 4,
@@ -3824,11 +3388,7 @@
         }
     },
     "2006": {
-        "total_dfs_steps": 2708,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 15,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 2703,
         "first_hamiltonian_cycle": {
             "cycle": [
                 6,
@@ -3871,11 +3431,7 @@
         }
     },
     "2007": {
-        "total_dfs_steps": 15,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 14,
         "first_hamiltonian_cycle": {
             "cycle": [
                 14,
@@ -3918,11 +3474,7 @@
         }
     },
     "2008": {
-        "total_dfs_steps": 3560,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 6,
-        "total_hamiltonian_cycles": 2,
+        "total_dfs_steps": 521,
         "first_hamiltonian_cycle": {
             "cycle": [
                 18,
@@ -3965,11 +3517,7 @@
         }
     },
     "2009": {
-        "total_dfs_steps": 13294,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 5508,
         "first_hamiltonian_cycle": {
             "cycle": [
                 5,
@@ -4012,11 +3560,7 @@
         }
     },
     "2010": {
-        "total_dfs_steps": 226,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 3,
+        "total_dfs_steps": 225,
         "first_hamiltonian_cycle": {
             "cycle": [
                 14,
@@ -4059,11 +3603,7 @@
         }
     },
     "2011": {
-        "total_dfs_steps": 292101,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 62980,
         "first_hamiltonian_cycle": {
             "cycle": [
                 5,
@@ -4108,25 +3648,21 @@
         }
     },
     "2012": {
-        "total_dfs_steps": 4964,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 14,
+        "total_dfs_steps": 375,
         "first_hamiltonian_cycle": {
             "cycle": [
                 8,
                 14,
-                10,
-                1,
-                3,
-                4,
-                2,
                 11,
                 5,
+                2,
                 17,
+                3,
+                4,
+                1,
                 6,
                 7,
+                10,
                 13,
                 12,
                 15,
@@ -4137,16 +3673,16 @@
             "cycle_names": [
                 "Gold Coast",
                 "Richmond",
-                "Hawthorn",
-                "Adelaide",
-                "Carlton",
-                "Collingwood",
-                "Brisbane Lions",
                 "Melbourne",
                 "Essendon",
+                "Brisbane Lions",
                 "West Coast",
+                "Carlton",
+                "Collingwood",
+                "Adelaide",
                 "Fremantle",
                 "Geelong",
+                "Hawthorn",
                 "Port Adelaide",
                 "North Melbourne",
                 "St Kilda",
@@ -4159,27 +3695,23 @@
         }
     },
     "2013": {
-        "total_dfs_steps": 8689,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 3,
-        "total_hamiltonian_cycles": 391,
+        "total_dfs_steps": 960,
         "first_hamiltonian_cycle": {
             "cycle": [
                 9,
                 11,
                 18,
+                13,
+                1,
                 2,
                 5,
-                1,
-                7,
-                10,
                 3,
                 8,
                 4,
-                12,
-                13,
+                7,
+                10,
                 16,
+                12,
                 14,
                 6,
                 17,
@@ -4189,17 +3721,17 @@
                 "Greater Western Sydney",
                 "Melbourne",
                 "Western Bulldogs",
+                "Port Adelaide",
+                "Adelaide",
                 "Brisbane Lions",
                 "Essendon",
-                "Adelaide",
-                "Geelong",
-                "Hawthorn",
                 "Carlton",
                 "Gold Coast",
                 "Collingwood",
-                "North Melbourne",
-                "Port Adelaide",
+                "Geelong",
+                "Hawthorn",
                 "Sydney",
+                "North Melbourne",
                 "Richmond",
                 "Fremantle",
                 "West Coast",
@@ -4210,11 +3742,7 @@
         }
     },
     "2014": {
-        "total_dfs_steps": 13531,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 74,
-        "total_hamiltonian_cycles": 3,
+        "total_dfs_steps": 13965,
         "first_hamiltonian_cycle": {
             "cycle": [
                 4,
@@ -4261,11 +3789,7 @@
         }
     },
     "2015": {
-        "total_dfs_steps": 402511,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 1793,
-        "total_hamiltonian_cycles": 317,
+        "total_dfs_steps": 26135,
         "first_hamiltonian_cycle": {
             "cycle": [
                 14,
@@ -4312,11 +3836,7 @@
         }
     },
     "2016": {
-        "total_dfs_steps": 176,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 2,
+        "total_dfs_steps": 174,
         "first_hamiltonian_cycle": {
             "cycle": [
                 6,
@@ -4363,11 +3883,7 @@
         }
     },
     "2017": {
-        "total_dfs_steps": 50226,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 540,
-        "total_hamiltonian_cycles": 212,
+        "total_dfs_steps": 50222,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -4414,11 +3930,7 @@
         }
     },
     "2018": {
-        "total_dfs_steps": 2507,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 2,
+        "total_dfs_steps": 3647,
         "first_hamiltonian_cycle": {
             "cycle": [
                 2,
@@ -4465,11 +3977,7 @@
         }
     },
     "2019": {
-        "total_dfs_steps": 195,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 194,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -4516,100 +4024,92 @@
         }
     },
     "2020": {
-        "total_dfs_steps": 1227570,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 6139,
-        "total_hamiltonian_cycles": 55774,
+        "total_dfs_steps": 1367,
         "first_hamiltonian_cycle": {
             "cycle": [
                 1,
                 10,
-                2,
-                5,
+                12,
+                9,
                 4,
                 3,
+                5,
                 6,
                 15,
-                8,
-                16,
-                9,
+                13,
                 14,
+                2,
+                11,
+                8,
                 17,
                 7,
-                13,
                 18,
-                11,
-                12
+                16
             ],
             "cycle_names": [
                 "Adelaide",
                 "Hawthorn",
-                "Brisbane Lions",
-                "Essendon",
+                "North Melbourne",
+                "Greater Western Sydney",
                 "Collingwood",
                 "Carlton",
+                "Essendon",
                 "Fremantle",
                 "St Kilda",
-                "Gold Coast",
-                "Sydney",
-                "Greater Western Sydney",
+                "Port Adelaide",
                 "Richmond",
+                "Brisbane Lions",
+                "Melbourne",
+                "Gold Coast",
                 "West Coast",
                 "Geelong",
-                "Port Adelaide",
                 "Western Bulldogs",
-                "Melbourne",
-                "North Melbourne"
+                "Sydney"
             ],
             "date": "2020-09-01 17:40:00",
             "round": 15
         }
     },
     "2021": {
-        "total_dfs_steps": 6415,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 2,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 1283,
         "first_hamiltonian_cycle": {
             "cycle": [
                 1,
                 11,
+                6,
+                9,
+                4,
                 3,
                 8,
                 16,
                 7,
                 2,
-                6,
-                9,
                 5,
                 15,
                 17,
                 13,
                 14,
                 18,
-                4,
                 12,
                 10
             ],
             "cycle_names": [
                 "Adelaide",
                 "Melbourne",
+                "Fremantle",
+                "Greater Western Sydney",
+                "Collingwood",
                 "Carlton",
                 "Gold Coast",
                 "Sydney",
                 "Geelong",
                 "Brisbane Lions",
-                "Fremantle",
-                "Greater Western Sydney",
                 "Essendon",
                 "St Kilda",
                 "West Coast",
                 "Port Adelaide",
                 "Richmond",
                 "Western Bulldogs",
-                "Collingwood",
                 "North Melbourne",
                 "Hawthorn"
             ],
@@ -4618,27 +4118,23 @@
         }
     },
     "2022": {
-        "total_dfs_steps": 96439,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 230,
-        "total_hamiltonian_cycles": 18,
+        "total_dfs_steps": 3907,
         "first_hamiltonian_cycle": {
             "cycle": [
                 6,
                 11,
-                5,
+                9,
+                8,
+                3,
                 1,
                 18,
                 16,
                 7,
                 2,
-                9,
-                8,
-                3,
                 13,
                 15,
                 14,
+                5,
                 10,
                 12,
                 17,
@@ -4647,18 +4143,18 @@
             "cycle_names": [
                 "Fremantle",
                 "Melbourne",
-                "Essendon",
+                "Greater Western Sydney",
+                "Gold Coast",
+                "Carlton",
                 "Adelaide",
                 "Western Bulldogs",
                 "Sydney",
                 "Geelong",
                 "Brisbane Lions",
-                "Greater Western Sydney",
-                "Gold Coast",
-                "Carlton",
                 "Port Adelaide",
                 "St Kilda",
                 "Richmond",
+                "Essendon",
                 "Hawthorn",
                 "North Melbourne",
                 "West Coast",
@@ -4669,11 +4165,7 @@
         }
     },
     "2023": {
-        "total_dfs_steps": 28712,
-        "total_skipped_steps": 0,
-        "early_exit": false,
-        "total_full_paths_not_hamiltonian": 155,
-        "total_hamiltonian_cycles": 5,
+        "total_dfs_steps": 27410,
         "first_hamiltonian_cycle": {
             "cycle": [
                 13,
@@ -4720,11 +4212,7 @@
         }
     },
     "2024": {
-        "total_dfs_steps": 86,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 2,
-        "total_hamiltonian_cycles": 4,
+        "total_dfs_steps": 691,
         "first_hamiltonian_cycle": {
             "cycle": [
                 12,
@@ -4771,11 +4259,7 @@
         }
     },
     "2025": {
-        "total_dfs_steps": 51,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 1,
+        "total_dfs_steps": 50,
         "first_hamiltonian_cycle": {
             "cycle": [
                 17,
@@ -4822,11 +4306,7 @@
         }
     },
     "2026": {
-        "total_dfs_steps": 2081,
-        "total_skipped_steps": 0,
-        "early_exit": true,
-        "total_full_paths_not_hamiltonian": 0,
-        "total_hamiltonian_cycles": 9,
+        "total_dfs_steps": 2459,
         "first_hamiltonian_cycle": {
             "cycle": [
                 14,
