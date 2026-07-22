@@ -14,7 +14,6 @@ wheels/
 
 # uv
 .ruff_cache/
-.mypy_cache/
 
 # club logos
 /output/logos/*
