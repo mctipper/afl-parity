@@ -2,10 +2,13 @@ import argparse
 from datetime import datetime
 from dataclasses import dataclass
 
+FIRST_SEASON: int = 1897
 
-@dataclass
+
+@dataclass(slots=True)
 class Args:
-    season: int | str
+    season: int
+    all: bool
     debug: bool
 
 
@@ -16,12 +19,19 @@ class ArgumentParserHelper:
 
     def __init__(self) -> None:
         self.parser = argparse.ArgumentParser(description="Season argument")
-        self.parser.add_argument(
+        season_group = self.parser.add_mutually_exclusive_group()
+        season_group.add_argument(
             "-s",
             "--season",
-            type=str,
-            default=str(datetime.now().year),
-            help="Season (Year) to be assessed, can be individual or 'all' to do 1897 to today. Default is this year",
+            type=int,
+            default=None,
+            help="Season (Year) to be assessed. Default is this year. Cannot be used with -a/--all",
+        )
+        season_group.add_argument(
+            "-a",
+            "--all",
+            action="store_true",
+            help="Run for all seasons, 1897 to today. Cannot be used with -s/--season",
         )
         self.parser.add_argument(
             "-d",
@@ -34,22 +44,17 @@ class ArgumentParserHelper:
 
     def process_args(self) -> Args:
         parsed_args = self.parser.parse_args()
-        self.validate_season(parsed_args.season)
-        return Args(season=parsed_args.season, debug=parsed_args.debug)
+        season = (
+            parsed_args.season
+            if parsed_args.season is not None
+            else datetime.now().year
+        )
+        self.validate_season(season)
+        return Args(season=season, all=parsed_args.all, debug=parsed_args.debug)
 
-    def validate_season(self, season: str) -> None:
+    def validate_season(self, season: int) -> None:
         """custom validator for 'season'"""
-        if season.lower() == "all":
-            return
-        try:
-            season_year = int(season)
-            if season_year >= 1897:
-                return
-            else:
-                self.parser.error(
-                    f"Invalid season '{season}'. Season year must be >= 1897."
-                )
-        except ValueError:
+        if season < FIRST_SEASON:
             self.parser.error(
-                f"Invalid season '{season}'. Season must be a valid year."
+                f"Invalid season '{season}'. Season year must be >= {FIRST_SEASON}."
             )

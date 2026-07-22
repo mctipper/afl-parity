@@ -1,15 +1,12 @@
-from pydantic import BaseModel
-from typing import Optional
+from dataclasses import dataclass, asdict
+from typing import Any, Dict, Optional
 import json
 from algo.data_structures import HamiltonianCycle
 
 
-class DFSTraversalOutput(BaseModel):
+@dataclass(slots=True)
+class DFSTraversalOutput:
     total_dfs_steps: int = 0
-    total_skipped_steps: int = 0
-    early_exit: bool = False
-    total_full_paths_not_hamiltonian: int = 0
-    total_hamiltonian_cycles: int = 0
     first_hamiltonian_cycle: Optional[HamiltonianCycle] = None
 
     def update_first_hamiltonian_cycle(self, new_cycle: HamiltonianCycle) -> None:
@@ -21,12 +18,13 @@ class DFSTraversalOutput(BaseModel):
             self.first_hamiltonian_cycle = new_cycle
 
     def __str__(self) -> str:
-        return f"total_dfs_steps={self.total_dfs_steps} total_full_paths_not_hamiltonian={self.total_full_paths_not_hamiltonian}"
+        return f"total_dfs_steps={self.total_dfs_steps} first_hamiltonian_cycle={self.first_hamiltonian_cycle}"
 
-    def model_dump_json(self) -> str:  # type: ignore[override]
-        data = self.model_dump()
+    def to_dict(self) -> Dict[str, Any]:
+        data = asdict(self)
         if self.first_hamiltonian_cycle:
-            data["first_hamiltonian_cycle"] = json.loads(
-                self.first_hamiltonian_cycle.model_dump_json()
-            )
-        return json.dumps(data, default=str)
+            data["first_hamiltonian_cycle"] = self.first_hamiltonian_cycle.to_dict()
+        return data
+
+    def to_json(self) -> str:
+        return json.dumps(self.to_dict(), default=str)

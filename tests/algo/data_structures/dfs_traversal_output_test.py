@@ -6,10 +6,6 @@ from models import GameResult
 def test_dfstraversaloutput_initialisation():
     traversal_output = DFSTraversalOutput()
     assert traversal_output.total_dfs_steps == 0
-    assert traversal_output.total_skipped_steps == 0
-    assert traversal_output.early_exit is False
-    assert traversal_output.total_full_paths_not_hamiltonian == 0
-    assert traversal_output.total_hamiltonian_cycles == 0
     assert traversal_output.first_hamiltonian_cycle is None
 
 
@@ -59,12 +55,8 @@ def test_update_first_hamiltonian_cycle():
 
 
 def test_dfstraversaloutput_str():
-    traversal_output = DFSTraversalOutput(
-        total_dfs_steps=10, total_full_paths_not_hamiltonian=5
-    )
-    assert (
-        str(traversal_output) == "total_dfs_steps=10 total_full_paths_not_hamiltonian=5"
-    )
+    traversal_output = DFSTraversalOutput(total_dfs_steps=10)
+    assert str(traversal_output) == "total_dfs_steps=10"
 
 
 def test_model_dump_json():
@@ -86,16 +78,8 @@ def test_model_dump_json():
     cycle.games.append(game)
     traversal_output = DFSTraversalOutput(
         total_dfs_steps=10,
-        total_skipped_steps=3,
-        early_exit=True,
-        total_full_paths_not_hamiltonian=5,
-        total_hamiltonian_cycles=2,
         first_hamiltonian_cycle=cycle,
     )
-    json_data = traversal_output.model_dump_json()
+    json_data = traversal_output.to_json()
     assert "total_dfs_steps" in json_data
-    assert "total_skipped_steps" in json_data
-    assert "early_exit" in json_data
-    assert "total_full_paths_not_hamiltonian" in json_data
-    assert "total_hamiltonian_cycles" in json_data
     assert "first_hamiltonian_cycle" in json_data

@@ -217,7 +217,7 @@ def test_hamiltonian_cycle_model_dump_json():
     cycle = HamiltonianCycle(cycle=[1, 3])
     cycle.games.append(game1)
     cycle.games.append(game2)
-    json_data = cycle.model_dump_json()
+    json_data = cycle.to_json()
     assert "cycle" in json_data
     assert "cycle_names" in json_data
     assert "date" in json_data
