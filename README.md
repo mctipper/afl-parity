@@ -9,7 +9,9 @@
 DFS search of AFL season to determine the when the first [hamiltonian cycle](https://en.wikipedia.org/wiki/Hamiltonian_path) occured each season (if at all).
 Makes use of [Squiggle's](https://api.squiggle.com.au/#section_bots) wonderful API to get data, many thanks Squiggle for provide such a neat service.  
 
-Purposefully built with Python rather than Go or C++ to highlight how conditional efficiencies, early-exit strategies, and understanding of desired outcomes all provide true value when trying to optimise solutions rather than relying on raw power.  
+Purposefully built with Python rather than Go or C++ to highlight how conditional efficiencies, early-exit strategies, and understanding of desired outcomes all provide true value when trying to optimise solutions rather than relying on raw power.  Using a high-level language forces optimisations strategies rather than just brute-forcing a way through with compute and running it all on metal.  
+
+A good example of the benefits of these efficiencies were observed when traversing Season 2000. Traversing the entire season took _~610 million_ steps and nearly 2 hours to find the first occuring hamiltonian cycle, but by employing conditional efficiencies this code is able to find the first hamiltonian cycle of the season in _~302_ steps in ~1.87 seconds for the same season.  Running for every season (1897-2026) sequentially takes ~161 seconds.  
 
 This is just a little fun project to apply DFS and play around with graph structures. What fun.
 
@@ -39,17 +41,13 @@ As we are searching only for the _first_ hamiltonian cycle per season, it allows
 
 #### 1. All winners and losers  
 Obvious one first: every team has either won or lost at least one match. No point traversing otherwise.
-
-
   
 #### 2. Sequentially run, by round  
 By checking results by round, there are less permutations to traverse and thus the first hamiltonian cycle will be quicker to reveal itself.  
 Most beneficial when it happens to occur 'earlier' in the season, and the benefits on this sequential approach are reduced when it occurs later in the season.
-
-  
   
 #### 3. First outcome for a team  
-By checking if that particular round include the first win or loss for a particular team, start the search with that winner and dismiss all other combinations. Any hamiltonian cycles found using that game simply cannot be bettered and can exit early.
+By checking if that particular round include the first win or loss for a particular team, start the search with that winner and dismiss all other combinations. Any hamiltonian cycles found using that game simply cannot be bettered and can exit early. In a particular round, multiple teams may have their first win or first loss, so each is considered as a unique start for a traversal.
 
 
   
@@ -65,55 +63,34 @@ While it is easy to count this as a single skipped step, by skipping these games
 
   
 #### 6. Multi-Threadding  
-As DFS is a linear search algorithm, it requires a bit of a nudge to benefit from parallel processing. One such method is by undertaking the 'first step' of a DFS search (ie. a BFS search, a single parent and all their children) and starting a thread for each pair. While we have multiple possible early exit strategies, searching in parallel is always a good idea as it allows for potential early-exit outcomes to be found sooner, and by declaring a global `early_exit` Boolean flag, all threads can terminate should one be found on _any_ thread.  
+As DFS is a linear search algorithm, it requires a bit of a nudge to benefit from parallel processing. One such method is by undertaking the 'first step' of a DFS search (ie. a BFS search, a single parent and all their children) and starting a thread for each fan-out. While we have multiple possible early exit strategies, searching in parallel is always a good idea as it allows for potential early-exit outcomes to be found sooner, and by declaring a `EarlyExitState` object that controls the threads, all threads can terminate quickly should one be found on _any_ thread.  
 
 
   
 #### 7. Backtrack-limiting  
-Prevent backtracking from going 'too far', when beginning with a path > 1 length, want to ensure path backtracking doesnt go beyond this point, causing different threads to eventualy compute the exact same permuations.  
+Prevent backtracking from going 'too far', when beginning with a path > X length, want to ensure path backtracking doesnt go beyond this point, causing different threads to eventualy compute the exact same permuations.  
 
 
   
 ### Efficiency Notes
 
-A good example of the benefits of these efficiencies were observed when traversing Season 2000. A hamiltonian cycle was above to be discovered in ~2 seconds. This particular efficiency was mainly due to efficiency #3, without which (i.e only using 1 and 2 from the above) it took _~610 million_ steps and nearly 2 hours to find the same hamiltonian cycle.
-
-All these efficiencies combined have resulting in it only taken a combined _~4 minutes and 25 seconds_ to download the data, build the adjacency lists, traverse the graphs to find the first hamiltonian cycle of each season, and draw those awful infographics for all seasons from 1897 to 2024. My laptop isn't even that good really so this is all about massaging that algorithm until it's optimal for a particular use-case. Make the most of restrictions and conditions _they actually simplify_ things.
+All these efficiencies combined have resulting in it only taken a combined _~4 minutes and 25 seconds_ to download the data, build the adjacency lists, traverse the graphs to find the first hamiltonian cycle of each season, and draw those awful infographics for all seasons from 1897 to 2026. Hardware annoyances aside (my cpu isn't even that good really) so this is all about massaging that algorithm until it's optimal for a particular use-case. Make the most of restrictions and conditions as _they actually simplify_ things when coded for. The bottleneck is actually downloading the data each season, not the actual algorithm.
 
 While all the above greatly improve performance and reduce computation time for traversing, they do not guarentee it and still rely on some favourable qualities in order to be taken advantage of. The key thing to remember here is understanding the data, the outcomes, and the algorithms themselves allow you to provide neat little hacks and shortcuts to reach goals and outcomes quicker. It is the combination of all the efficiencies that enable traversals to be done quickly, not just one individually or just throwing crazy parallel-epic-super-compute at it all.
 
 ## How to run
 
-Easiest is with `vscode devcontainers`. Just need to open this repo in a devcontainer and all the environment hassle is taken care of. So very neat.  
+First run sync up via [uv](https://github.com/astral-sh/uv) use command `uv sync` to get correct python versioning and environment management locally etc...
 
-Otherwise can use [uv](https://github.com/astral-sh/uv) for python versioning and environment management locally or however you like really. Just use `uv` its great.  
+Run for a single season:  
+> `uv run python main.py -s 2024`
 
-There are two pre-configured ways to run a traversal, both with shell scripts. One of them just runs it locally or within the devcontainer, another will build and run within a separate container (not a devcontainer) before shutting down the container after execution (more detail below).
+Run for all seasons:
+> `uv run python main.py -a`
 
-### Local Execution
+Optional `-d` flag for verbose logging, logs every single step performed during the DFS search so yeh probs dont run that with the `-a` flag lol.  
 
-A helper script can be found in `scripts/run_local.sh`. By default it just runs for this current year, downloading the game results and running a traversal.
-
-```
-sh scripts/run_local.sh
-```
-
-Can provide argument after to indicate which season want to perform a hamilton cycle search on. So for season 2023 would use:
-```
-sh scripts/run_local.sh -s 2023
-```
-
-To run all seasons sequentially:
-```
-sh scripts/run_local.sh -s all
-```
-
-There is also a `-d` switch to provide debug logs, which contain every step of the search... yeah they get kinda big... probs best not to run this with the `-s all` switch.
-
-### Dockerised Execution
-
-Provides a few extra steps to the above - the `scripts/run_docker.sh` script will build a new image, spin up a container, and then run the script. If there is an output, it will also automatically push the results from `/output/<season>` to github (assumes all github credentials have been configured globally etc). It has been hard coded to only download / traverse the current year, main purpose of this script is for cronjob to just run at certain intervals a few times each weekend just to see if we've got a hamiltonian cycle or not. Had a crack at Squiggles Event Feed also but found it was a bit flakey to maintain a connection (plus dont need to compute this stuff within seconds of each game finishing.... but is possible if wanting)
 
 ### Logs
 
-Logs are stored in the `.logs/` dir, with a single file per execution, named by DATE_TIME_LOGTYPE. There are 'main' logs which provide simple progress and outputs. If debug switch was provided, each individual thread gets it's own log output detailing _every step undertaken_ in the traversal. When `run_docker.sh` is run, this creates an additional 'run_docker' log so output can be inspected for non-code steps also.  
+Logs are stored in the `.logs/` dir, with a single file per execution, named by DATE_TIME_LOGTYPE. There are 'main' logs which provide simple progress and outputs. If debug switch was provided, each individual thread gets it's own log output detailing _every step undertaken_ in the traversal.
