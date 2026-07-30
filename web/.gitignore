@@ -1,0 +1,5 @@
+node_modules
+dist
+
+# json output data from python symlinked into place by scripts/link-output.mjs
+public/output

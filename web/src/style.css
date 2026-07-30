@@ -1,0 +1,194 @@
+:root {
+  color-scheme: dark;
+
+  --board: #16241d;
+  --board-light: #1d2e24;
+  --chalk: #ede7d8;
+  --ochre: #c98a2c;
+  --verdigris: #4f7b6c;
+  --rust: #8b3a2b;
+
+  --font-display: 'Anton', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--board);
+}
+
+body {
+  margin: 0 auto;
+  max-width: 50rem;
+  padding: 2rem 1rem;
+  background: var(--board);
+  color: var(--chalk);
+  font: 16px/1.6 var(--font-body);
+}
+
+body.season-page {
+  max-width: 45rem;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+nav img { 
+  width: 20px; 
+  height: 20px; 
+  display: block; 
+}
+
+nav a {
+  display: inline-flex; 
+  align-items: center; 
+  gap: 8px;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-size: 2.5rem;
+  margin: 0 0 1rem;
+}
+
+a {
+  color: var(--ochre);
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--chalk);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--ochre);
+  outline-offset: 2px;
+}
+
+.blurb {
+  width: 100%;
+  color: var(--chalk);
+}
+
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+nav.links {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+th {
+  text-align: left;
+  padding: 0.5rem 0.6rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: var(--verdigris);
+  border-bottom: 1px solid var(--verdigris);
+}
+
+td {
+  padding: 0.5rem 0.6rem;
+  text-align: left;
+  border-bottom: 1px solid rgb(79 123 108 / 25%);
+}
+
+tbody tr:hover {
+  background: var(--board-light);
+}
+
+.year-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.year-row h1 {
+  margin: 0;
+}
+
+.pager-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+}
+
+.pager-arrow--empty {
+  width: 1.5rem;
+}
+
+.season-headline {
+  margin-bottom: 2rem;
+}
+
+.season-headline th {
+  width: 40%;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  color: var(--verdigris);
+  border-bottom: 1px solid rgb(79 123 108 / 25%);
+}
+
+.season-headline td {
+  border-bottom: 1px solid rgb(79 123 108 / 25%);
+}
+
+.season-games {
+  margin-bottom: 2rem;
+}
+
+.season-games td {
+  border-bottom: none;
+  padding: 0.15rem 0.6rem;
+  text-align: center;
+}
+
+.gamerow .game-meta td {
+  padding-top: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--verdigris);
+}
+
+.gamerow .game-result td {
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgb(79 123 108 / 25%);
+}
+
+.gamerow .score {
+  white-space: nowrap;
+}
+
+@media (max-width: 40rem) {
+  .col-date,
+  .col-steps {
+    display: none;
+  }
+
+  .blurb {
+    font-size: 0.85rem;
+  }
+}

@@ -11,6 +11,8 @@ A good example of the benefits of these efficiencies were observed when traversi
 
 This is just a little fun project to apply DFS and play around with graph structures. What fun.
 
+Results are present on their own little preso page here: [AFL-Parity](https://github.com/mctipper/afl-parity).
+
 ## Output
 
 The output for each season is found in `output/<season>/`, with a `json` doc contained some details on the traversal, along with the details of the hamiltonian cycle (if found), and the game results of each that make up said hamiltonian cycle. A crude infographic is also generated for each also.  

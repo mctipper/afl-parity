@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+    <title>AFL Parity</title>
+  </head>
+  <body>
+    <h1>AFL Parity</h1>
+    <p class="blurb">
+      Every AFL season since 1897, searching for the first
+      <a href="https://en.wikipedia.org/wiki/Hamiltonian_path">Hamiltonian cycle</a> to occur from its game results. An occurence where 
+      Team A beat Team B beat Team C and so on, back around to Team A, with each team 'visited' once and once only. This site shows which 
+      seasons found one, the structure of the the first to occur that season, and which seasons one did not occur.
+    </p>
+    <p class="blurb">
+      Purposefully built with Python (<a href="https://benchmarksgame-team.pages.debian.net/benchmarksgame/fastest/python3-node.html">a notoriously slow language for heavy computation</a>) 
+      this implementation successfully computed the first Hamiltonian cycle for every season in <em>under 3 minutes</em>. Rather than relying on raw language speed, the performance 
+      came down to deeply understanding the constraints and implementing aggressive, use-case-specific early exits using a hybrid 
+      <a href="https://en.wikipedia.org/wiki/Breadth-first_search">BFS</a> and <a href="https://en.wikipedia.org/wiki/Depth-first_search">DFS</a> approach. More details 
+      on the methods and optimisations can be found in the <a href="https://github.com/mctipper/afl-parity/blob/main/README.md">README.</a>
+    </p>
+    <p class="blurb">
+      Game result data comes from the API at <a href="https://squiggle.com.au/">squiggle.com.au</a> —
+      thank you to the team behind it for making this data so easy to work with.
+    </p>
+    <nav class="links">
+      <a href="https://github.com/mctipper/afl-parity" target="_blank" rel="noopener">
+        <img src="https://cdn.simpleicons.org/github/ffffff" alt="GitHub" title="GitHub Repo"/>
+        View the code on Github
+      </a>
+    </nav>
+    <table id="season-list">
+      <thead>
+        <tr>
+          <th>Season</th>
+          <th>Outcome</th>
+          <th>Round</th>
+          <th class="col-date">Date</th>
+          <th>Teams</th>
+          <th class="col-steps">Search Steps</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
