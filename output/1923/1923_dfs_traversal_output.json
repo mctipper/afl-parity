@@ -1,31 +1,68 @@
 {
-  "total_dfs_steps": 79,
+  "total_dfs_steps": 82,
+  "teams_count": 9,
   "first_hamiltonian_cycle": {
     "cycle": [
+      16,
+      7,
       19,
       5,
       3,
       14,
       11,
       15,
-      4,
-      16,
-      7
+      4
     ],
     "cycle_names": [
+      "Sydney",
+      "Geelong",
       "Fitzroy",
       "Essendon",
       "Carlton",
       "Richmond",
       "Melbourne",
       "St Kilda",
-      "Collingwood",
-      "Sydney",
-      "Geelong"
+      "Collingwood"
     ],
     "date": "1923-06-04 14:45:00",
     "round": 5,
     "games": [
+      {
+        "id": 27726,
+        "round": 5,
+        "roundname": "Round 5",
+        "hteamid": 16,
+        "ateamid": 7,
+        "hscore": 89,
+        "ascore": 75,
+        "winnerteamid": 16,
+        "hteamname": "Sydney",
+        "ateamname": "Geelong",
+        "wteamname": "Sydney",
+        "date": "1923-06-04 14:45:00",
+        "loserteamid": 7,
+        "lteamname": "Geelong",
+        "wscore": 89,
+        "lscore": 75
+      },
+      {
+        "id": 27718,
+        "round": 3,
+        "roundname": "Round 3",
+        "hteamid": 7,
+        "ateamid": 19,
+        "hscore": 71,
+        "ascore": 61,
+        "winnerteamid": 7,
+        "hteamname": "Geelong",
+        "ateamname": "Fitzroy",
+        "wteamname": "Geelong",
+        "date": "1923-05-19 14:45:00",
+        "loserteamid": 19,
+        "lteamname": "Fitzroy",
+        "wscore": 71,
+        "lscore": 61
+      },
       {
         "id": 27723,
         "round": 5,
@@ -151,42 +188,6 @@
         "lteamname": "Sydney",
         "wscore": 101,
         "lscore": 79
-      },
-      {
-        "id": 27726,
-        "round": 5,
-        "roundname": "Round 5",
-        "hteamid": 16,
-        "ateamid": 7,
-        "hscore": 89,
-        "ascore": 75,
-        "winnerteamid": 16,
-        "hteamname": "Sydney",
-        "ateamname": "Geelong",
-        "wteamname": "Sydney",
-        "date": "1923-06-04 14:45:00",
-        "loserteamid": 7,
-        "lteamname": "Geelong",
-        "wscore": 89,
-        "lscore": 75
-      },
-      {
-        "id": 27718,
-        "round": 3,
-        "roundname": "Round 3",
-        "hteamid": 7,
-        "ateamid": 19,
-        "hscore": 71,
-        "ascore": 61,
-        "winnerteamid": 7,
-        "hteamname": "Geelong",
-        "ateamname": "Fitzroy",
-        "wteamname": "Geelong",
-        "date": "1923-05-19 14:45:00",
-        "loserteamid": 19,
-        "lteamname": "Fitzroy",
-        "wscore": 71,
-        "lscore": 61
       }
     ]
   }

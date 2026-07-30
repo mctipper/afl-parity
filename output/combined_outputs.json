@@ -1,45 +1,50 @@
 {
     "1897": {
         "total_dfs_steps": 0,
+        "teams_count": 8,
         "first_hamiltonian_cycle": null
     },
     "1898": {
         "total_dfs_steps": 0,
+        "teams_count": 8,
         "first_hamiltonian_cycle": null
     },
     "1899": {
         "total_dfs_steps": 0,
+        "teams_count": 8,
         "first_hamiltonian_cycle": null
     },
     "1900": {
-        "total_dfs_steps": 24,
+        "total_dfs_steps": 27,
+        "teams_count": 8,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
                 7,
-                4,
-                19,
                 3,
                 15,
                 11,
-                5
+                5,
+                4,
+                19
             ],
             "cycle_names": [
                 "Sydney",
                 "Geelong",
-                "Collingwood",
-                "Fitzroy",
                 "Carlton",
                 "St Kilda",
                 "Melbourne",
-                "Essendon"
+                "Essendon",
+                "Collingwood",
+                "Fitzroy"
             ],
             "date": "1900-05-26 15:00:00",
             "round": 5
         }
     },
     "1901": {
-        "total_dfs_steps": 14,
+        "total_dfs_steps": 17,
+        "teams_count": 8,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -67,10 +72,12 @@
     },
     "1902": {
         "total_dfs_steps": 0,
+        "teams_count": 8,
         "first_hamiltonian_cycle": null
     },
     "1903": {
-        "total_dfs_steps": 40,
+        "total_dfs_steps": 42,
+        "teams_count": 8,
         "first_hamiltonian_cycle": {
             "cycle": [
                 11,
@@ -97,7 +104,8 @@
         }
     },
     "1904": {
-        "total_dfs_steps": 88,
+        "total_dfs_steps": 105,
+        "teams_count": 8,
         "first_hamiltonian_cycle": {
             "cycle": [
                 19,
@@ -124,7 +132,8 @@
         }
     },
     "1905": {
-        "total_dfs_steps": 1111,
+        "total_dfs_steps": 2731,
+        "teams_count": 8,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -151,7 +160,8 @@
         }
     },
     "1906": {
-        "total_dfs_steps": 42,
+        "total_dfs_steps": 20,
+        "teams_count": 8,
         "first_hamiltonian_cycle": {
             "cycle": [
                 5,
@@ -178,7 +188,8 @@
         }
     },
     "1907": {
-        "total_dfs_steps": 7,
+        "total_dfs_steps": 9,
+        "teams_count": 8,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -205,15 +216,16 @@
         }
     },
     "1908": {
-        "total_dfs_steps": 326,
+        "total_dfs_steps": 376,
+        "teams_count": 10,
         "first_hamiltonian_cycle": {
             "cycle": [
                 5,
                 3,
-                7,
-                4,
                 11,
                 16,
+                7,
+                4,
                 14,
                 19,
                 20,
@@ -222,10 +234,10 @@
             "cycle_names": [
                 "Essendon",
                 "Carlton",
-                "Geelong",
-                "Collingwood",
                 "Melbourne",
                 "Sydney",
+                "Geelong",
+                "Collingwood",
                 "Richmond",
                 "Fitzroy",
                 "University",
@@ -236,7 +248,8 @@
         }
     },
     "1909": {
-        "total_dfs_steps": 95,
+        "total_dfs_steps": 97,
+        "teams_count": 10,
         "first_hamiltonian_cycle": {
             "cycle": [
                 14,
@@ -267,7 +280,8 @@
         }
     },
     "1910": {
-        "total_dfs_steps": 20,
+        "total_dfs_steps": 22,
+        "teams_count": 10,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -298,7 +312,8 @@
         }
     },
     "1911": {
-        "total_dfs_steps": 20,
+        "total_dfs_steps": 22,
+        "teams_count": 10,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -329,7 +344,8 @@
         }
     },
     "1912": {
-        "total_dfs_steps": 30,
+        "total_dfs_steps": 32,
+        "teams_count": 10,
         "first_hamiltonian_cycle": {
             "cycle": [
                 7,
@@ -361,14 +377,17 @@
     },
     "1913": {
         "total_dfs_steps": 0,
+        "teams_count": 10,
         "first_hamiltonian_cycle": null
     },
     "1914": {
         "total_dfs_steps": 0,
+        "teams_count": 10,
         "first_hamiltonian_cycle": null
     },
     "1915": {
-        "total_dfs_steps": 58,
+        "total_dfs_steps": 110,
+        "teams_count": 9,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -397,7 +416,8 @@
         }
     },
     "1916": {
-        "total_dfs_steps": 1,
+        "total_dfs_steps": 4,
+        "teams_count": 4,
         "first_hamiltonian_cycle": {
             "cycle": [
                 14,
@@ -416,7 +436,8 @@
         }
     },
     "1917": {
-        "total_dfs_steps": 34,
+        "total_dfs_steps": 60,
+        "teams_count": 6,
         "first_hamiltonian_cycle": {
             "cycle": [
                 4,
@@ -439,7 +460,8 @@
         }
     },
     "1918": {
-        "total_dfs_steps": 131,
+        "total_dfs_steps": 345,
+        "teams_count": 8,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -467,10 +489,12 @@
     },
     "1919": {
         "total_dfs_steps": 0,
+        "teams_count": 9,
         "first_hamiltonian_cycle": null
     },
     "1920": {
-        "total_dfs_steps": 88,
+        "total_dfs_steps": 90,
+        "teams_count": 9,
         "first_hamiltonian_cycle": {
             "cycle": [
                 19,
@@ -499,7 +523,8 @@
         }
     },
     "1921": {
-        "total_dfs_steps": 16,
+        "total_dfs_steps": 69,
+        "teams_count": 9,
         "first_hamiltonian_cycle": {
             "cycle": [
                 19,
@@ -528,7 +553,8 @@
         }
     },
     "1922": {
-        "total_dfs_steps": 105,
+        "total_dfs_steps": 107,
+        "teams_count": 9,
         "first_hamiltonian_cycle": {
             "cycle": [
                 4,
@@ -557,36 +583,38 @@
         }
     },
     "1923": {
-        "total_dfs_steps": 79,
+        "total_dfs_steps": 82,
+        "teams_count": 9,
         "first_hamiltonian_cycle": {
             "cycle": [
+                16,
+                7,
                 19,
                 5,
                 3,
                 14,
                 11,
                 15,
-                4,
-                16,
-                7
+                4
             ],
             "cycle_names": [
+                "Sydney",
+                "Geelong",
                 "Fitzroy",
                 "Essendon",
                 "Carlton",
                 "Richmond",
                 "Melbourne",
                 "St Kilda",
-                "Collingwood",
-                "Sydney",
-                "Geelong"
+                "Collingwood"
             ],
             "date": "1923-06-04 14:45:00",
             "round": 5
         }
     },
     "1924": {
-        "total_dfs_steps": 121,
+        "total_dfs_steps": 33,
+        "teams_count": 9,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -615,7 +643,8 @@
         }
     },
     "1925": {
-        "total_dfs_steps": 427,
+        "total_dfs_steps": 732,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -651,10 +680,12 @@
     },
     "1926": {
         "total_dfs_steps": 0,
+        "teams_count": 12,
         "first_hamiltonian_cycle": null
     },
     "1927": {
-        "total_dfs_steps": 45,
+        "total_dfs_steps": 47,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 10,
@@ -690,10 +721,12 @@
     },
     "1928": {
         "total_dfs_steps": 0,
+        "teams_count": 12,
         "first_hamiltonian_cycle": null
     },
     "1929": {
-        "total_dfs_steps": 87,
+        "total_dfs_steps": 89,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 14,
@@ -728,7 +761,8 @@
         }
     },
     "1930": {
-        "total_dfs_steps": 535,
+        "total_dfs_steps": 996,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 11,
@@ -764,21 +798,23 @@
     },
     "1931": {
         "total_dfs_steps": 0,
+        "teams_count": 12,
         "first_hamiltonian_cycle": null
     },
     "1932": {
-        "total_dfs_steps": 1556,
+        "total_dfs_steps": 1300,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 4,
                 16,
+                3,
+                14,
                 5,
                 12,
                 11,
-                19,
-                3,
-                14,
                 15,
+                19,
                 10,
                 18,
                 7
@@ -786,13 +822,13 @@
             "cycle_names": [
                 "Collingwood",
                 "Sydney",
+                "Carlton",
+                "Richmond",
                 "Essendon",
                 "North Melbourne",
                 "Melbourne",
-                "Fitzroy",
-                "Carlton",
-                "Richmond",
                 "St Kilda",
+                "Fitzroy",
                 "Hawthorn",
                 "Western Bulldogs",
                 "Geelong"
@@ -802,7 +838,8 @@
         }
     },
     "1933": {
-        "total_dfs_steps": 10431,
+        "total_dfs_steps": 27920,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -838,10 +875,12 @@
     },
     "1934": {
         "total_dfs_steps": 0,
+        "teams_count": 12,
         "first_hamiltonian_cycle": null
     },
     "1935": {
-        "total_dfs_steps": 15,
+        "total_dfs_steps": 19,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 12,
@@ -876,7 +915,8 @@
         }
     },
     "1936": {
-        "total_dfs_steps": 7317,
+        "total_dfs_steps": 14068,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 18,
@@ -911,7 +951,8 @@
         }
     },
     "1937": {
-        "total_dfs_steps": 225,
+        "total_dfs_steps": 590,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 7,
@@ -946,7 +987,8 @@
         }
     },
     "1938": {
-        "total_dfs_steps": 155,
+        "total_dfs_steps": 157,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 19,
@@ -981,7 +1023,8 @@
         }
     },
     "1939": {
-        "total_dfs_steps": 426,
+        "total_dfs_steps": 365,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 18,
@@ -1016,7 +1059,8 @@
         }
     },
     "1940": {
-        "total_dfs_steps": 26,
+        "total_dfs_steps": 29,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -1051,7 +1095,8 @@
         }
     },
     "1941": {
-        "total_dfs_steps": 8373,
+        "total_dfs_steps": 18905,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -1086,7 +1131,8 @@
         }
     },
     "1942": {
-        "total_dfs_steps": 42,
+        "total_dfs_steps": 44,
+        "teams_count": 11,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -1119,40 +1165,42 @@
         }
     },
     "1943": {
-        "total_dfs_steps": 139,
+        "total_dfs_steps": 821,
+        "teams_count": 11,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
                 4,
-                12,
-                18,
-                5,
-                10,
-                11,
                 15,
                 3,
+                10,
                 19,
-                14
+                11,
+                5,
+                14,
+                12,
+                18
             ],
             "cycle_names": [
                 "Sydney",
                 "Collingwood",
-                "North Melbourne",
-                "Western Bulldogs",
-                "Essendon",
-                "Hawthorn",
-                "Melbourne",
                 "St Kilda",
                 "Carlton",
+                "Hawthorn",
                 "Fitzroy",
-                "Richmond"
+                "Melbourne",
+                "Essendon",
+                "Richmond",
+                "North Melbourne",
+                "Western Bulldogs"
             ],
             "date": "1943-07-10 14:30:00",
             "round": 10
         }
     },
     "1944": {
-        "total_dfs_steps": 37,
+        "total_dfs_steps": 40,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 7,
@@ -1187,7 +1235,8 @@
         }
     },
     "1945": {
-        "total_dfs_steps": 7197,
+        "total_dfs_steps": 11477,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 4,
@@ -1222,7 +1271,8 @@
         }
     },
     "1946": {
-        "total_dfs_steps": 140,
+        "total_dfs_steps": 142,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -1257,7 +1307,8 @@
         }
     },
     "1947": {
-        "total_dfs_steps": 871,
+        "total_dfs_steps": 1076,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 11,
@@ -1292,7 +1343,8 @@
         }
     },
     "1948": {
-        "total_dfs_steps": 651,
+        "total_dfs_steps": 278,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -1327,7 +1379,8 @@
         }
     },
     "1949": {
-        "total_dfs_steps": 24,
+        "total_dfs_steps": 26,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -1363,10 +1416,12 @@
     },
     "1950": {
         "total_dfs_steps": 0,
+        "teams_count": 12,
         "first_hamiltonian_cycle": null
     },
     "1951": {
-        "total_dfs_steps": 113,
+        "total_dfs_steps": 115,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 11,
@@ -1401,7 +1456,8 @@
         }
     },
     "1952": {
-        "total_dfs_steps": 126,
+        "total_dfs_steps": 128,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -1436,7 +1492,8 @@
         }
     },
     "1953": {
-        "total_dfs_steps": 389,
+        "total_dfs_steps": 391,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 4,
@@ -1471,7 +1528,8 @@
         }
     },
     "1954": {
-        "total_dfs_steps": 10,
+        "total_dfs_steps": 12,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 19,
@@ -1506,7 +1564,8 @@
         }
     },
     "1955": {
-        "total_dfs_steps": 28,
+        "total_dfs_steps": 216,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -1541,7 +1600,8 @@
         }
     },
     "1956": {
-        "total_dfs_steps": 217,
+        "total_dfs_steps": 219,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 18,
@@ -1576,7 +1636,8 @@
         }
     },
     "1957": {
-        "total_dfs_steps": 305,
+        "total_dfs_steps": 470,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -1611,7 +1672,8 @@
         }
     },
     "1958": {
-        "total_dfs_steps": 47,
+        "total_dfs_steps": 85,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 5,
@@ -1646,7 +1708,8 @@
         }
     },
     "1959": {
-        "total_dfs_steps": 1164,
+        "total_dfs_steps": 810,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -1681,7 +1744,8 @@
         }
     },
     "1960": {
-        "total_dfs_steps": 12,
+        "total_dfs_steps": 113,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 10,
@@ -1716,7 +1780,8 @@
         }
     },
     "1961": {
-        "total_dfs_steps": 19,
+        "total_dfs_steps": 12,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 19,
@@ -1751,7 +1816,8 @@
         }
     },
     "1962": {
-        "total_dfs_steps": 194,
+        "total_dfs_steps": 440,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 12,
@@ -1786,7 +1852,8 @@
         }
     },
     "1963": {
-        "total_dfs_steps": 19,
+        "total_dfs_steps": 21,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 19,
@@ -1822,10 +1889,12 @@
     },
     "1964": {
         "total_dfs_steps": 0,
+        "teams_count": 12,
         "first_hamiltonian_cycle": null
     },
     "1965": {
-        "total_dfs_steps": 156,
+        "total_dfs_steps": 110,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -1860,7 +1929,8 @@
         }
     },
     "1966": {
-        "total_dfs_steps": 12,
+        "total_dfs_steps": 14,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 19,
@@ -1895,7 +1965,8 @@
         }
     },
     "1967": {
-        "total_dfs_steps": 707,
+        "total_dfs_steps": 787,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 14,
@@ -1930,7 +2001,8 @@
         }
     },
     "1968": {
-        "total_dfs_steps": 59,
+        "total_dfs_steps": 61,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 18,
@@ -1965,7 +2037,8 @@
         }
     },
     "1969": {
-        "total_dfs_steps": 214,
+        "total_dfs_steps": 281,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -2000,7 +2073,8 @@
         }
     },
     "1970": {
-        "total_dfs_steps": 108,
+        "total_dfs_steps": 207,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 5,
@@ -2035,7 +2109,8 @@
         }
     },
     "1971": {
-        "total_dfs_steps": 4042,
+        "total_dfs_steps": 8926,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -2070,7 +2145,8 @@
         }
     },
     "1972": {
-        "total_dfs_steps": 9,
+        "total_dfs_steps": 12,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 12,
@@ -2105,7 +2181,8 @@
         }
     },
     "1973": {
-        "total_dfs_steps": 265,
+        "total_dfs_steps": 12,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -2140,7 +2217,8 @@
         }
     },
     "1974": {
-        "total_dfs_steps": 37,
+        "total_dfs_steps": 102,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 11,
@@ -2175,7 +2253,8 @@
         }
     },
     "1975": {
-        "total_dfs_steps": 73,
+        "total_dfs_steps": 75,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -2210,7 +2289,8 @@
         }
     },
     "1976": {
-        "total_dfs_steps": 513,
+        "total_dfs_steps": 515,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -2245,7 +2325,8 @@
         }
     },
     "1977": {
-        "total_dfs_steps": 224,
+        "total_dfs_steps": 1263,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 5,
@@ -2280,7 +2361,8 @@
         }
     },
     "1978": {
-        "total_dfs_steps": 76,
+        "total_dfs_steps": 23,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -2315,7 +2397,8 @@
         }
     },
     "1979": {
-        "total_dfs_steps": 43,
+        "total_dfs_steps": 45,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 19,
@@ -2350,7 +2433,8 @@
         }
     },
     "1980": {
-        "total_dfs_steps": 93,
+        "total_dfs_steps": 150,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 18,
@@ -2385,7 +2469,8 @@
         }
     },
     "1981": {
-        "total_dfs_steps": 154,
+        "total_dfs_steps": 41,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 5,
@@ -2420,7 +2505,8 @@
         }
     },
     "1982": {
-        "total_dfs_steps": 58,
+        "total_dfs_steps": 60,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 19,
@@ -2455,7 +2541,8 @@
         }
     },
     "1983": {
-        "total_dfs_steps": 38,
+        "total_dfs_steps": 41,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -2490,7 +2577,8 @@
         }
     },
     "1984": {
-        "total_dfs_steps": 17,
+        "total_dfs_steps": 19,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -2525,7 +2613,8 @@
         }
     },
     "1985": {
-        "total_dfs_steps": 21,
+        "total_dfs_steps": 27,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -2560,7 +2649,8 @@
         }
     },
     "1986": {
-        "total_dfs_steps": 269,
+        "total_dfs_steps": 12,
+        "teams_count": 12,
         "first_hamiltonian_cycle": {
             "cycle": [
                 15,
@@ -2595,7 +2685,8 @@
         }
     },
     "1987": {
-        "total_dfs_steps": 1872,
+        "total_dfs_steps": 1938,
+        "teams_count": 14,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -2634,7 +2725,8 @@
         }
     },
     "1988": {
-        "total_dfs_steps": 2983,
+        "total_dfs_steps": 3208,
+        "teams_count": 14,
         "first_hamiltonian_cycle": {
             "cycle": [
                 17,
@@ -2673,7 +2765,8 @@
         }
     },
     "1989": {
-        "total_dfs_steps": 262,
+        "total_dfs_steps": 264,
+        "teams_count": 14,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -2712,7 +2805,8 @@
         }
     },
     "1990": {
-        "total_dfs_steps": 6418,
+        "total_dfs_steps": 6848,
+        "teams_count": 14,
         "first_hamiltonian_cycle": {
             "cycle": [
                 11,
@@ -2751,7 +2845,8 @@
         }
     },
     "1991": {
-        "total_dfs_steps": 760,
+        "total_dfs_steps": 2514,
+        "teams_count": 15,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -2792,7 +2887,8 @@
         }
     },
     "1992": {
-        "total_dfs_steps": 244,
+        "total_dfs_steps": 246,
+        "teams_count": 15,
         "first_hamiltonian_cycle": {
             "cycle": [
                 10,
@@ -2833,7 +2929,8 @@
         }
     },
     "1993": {
-        "total_dfs_steps": 34,
+        "total_dfs_steps": 36,
+        "teams_count": 15,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -2874,48 +2971,50 @@
         }
     },
     "1994": {
-        "total_dfs_steps": 3190,
+        "total_dfs_steps": 2149,
+        "teams_count": 15,
         "first_hamiltonian_cycle": {
             "cycle": [
                 12,
                 11,
-                10,
-                17,
-                19,
+                7,
+                18,
+                1,
                 16,
                 14,
+                19,
                 2,
                 15,
                 5,
                 4,
-                18,
-                1,
                 3,
-                7
+                10,
+                17
             ],
             "cycle_names": [
                 "North Melbourne",
                 "Melbourne",
-                "Hawthorn",
-                "West Coast",
-                "Fitzroy",
+                "Geelong",
+                "Western Bulldogs",
+                "Adelaide",
                 "Sydney",
                 "Richmond",
+                "Fitzroy",
                 "Brisbane Lions",
                 "St Kilda",
                 "Essendon",
                 "Collingwood",
-                "Western Bulldogs",
-                "Adelaide",
                 "Carlton",
-                "Geelong"
+                "Hawthorn",
+                "West Coast"
             ],
             "date": "1994-05-07 14:08:00",
             "round": 7
         }
     },
     "1995": {
-        "total_dfs_steps": 9406,
+        "total_dfs_steps": 9408,
+        "teams_count": 16,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -2958,7 +3057,8 @@
         }
     },
     "1996": {
-        "total_dfs_steps": 38,
+        "total_dfs_steps": 40,
+        "teams_count": 16,
         "first_hamiltonian_cycle": {
             "cycle": [
                 19,
@@ -3001,7 +3101,8 @@
         }
     },
     "1997": {
-        "total_dfs_steps": 1016,
+        "total_dfs_steps": 1202,
+        "teams_count": 16,
         "first_hamiltonian_cycle": {
             "cycle": [
                 4,
@@ -3044,41 +3145,42 @@
         }
     },
     "1998": {
-        "total_dfs_steps": 6291,
+        "total_dfs_steps": 6685,
+        "teams_count": 16,
         "first_hamiltonian_cycle": {
             "cycle": [
                 10,
                 2,
-                15,
-                7,
                 14,
-                17,
-                4,
-                5,
-                3,
-                1,
-                6,
                 11,
                 16,
                 18,
+                4,
+                3,
+                1,
+                7,
+                5,
+                15,
+                17,
+                6,
                 12,
                 13
             ],
             "cycle_names": [
                 "Hawthorn",
                 "Brisbane Lions",
-                "St Kilda",
-                "Geelong",
                 "Richmond",
-                "West Coast",
-                "Collingwood",
-                "Essendon",
-                "Carlton",
-                "Adelaide",
-                "Fremantle",
                 "Melbourne",
                 "Sydney",
                 "Western Bulldogs",
+                "Collingwood",
+                "Carlton",
+                "Adelaide",
+                "Geelong",
+                "Essendon",
+                "St Kilda",
+                "West Coast",
+                "Fremantle",
                 "North Melbourne",
                 "Port Adelaide"
             ],
@@ -3087,7 +3189,8 @@
         }
     },
     "1999": {
-        "total_dfs_steps": 118,
+        "total_dfs_steps": 121,
+        "teams_count": 16,
         "first_hamiltonian_cycle": {
             "cycle": [
                 4,
@@ -3130,7 +3233,8 @@
         }
     },
     "2000": {
-        "total_dfs_steps": 302,
+        "total_dfs_steps": 304,
+        "teams_count": 16,
         "first_hamiltonian_cycle": {
             "cycle": [
                 18,
@@ -3173,7 +3277,8 @@
         }
     },
     "2001": {
-        "total_dfs_steps": 15,
+        "total_dfs_steps": 17,
+        "teams_count": 16,
         "first_hamiltonian_cycle": {
             "cycle": [
                 6,
@@ -3216,16 +3321,17 @@
         }
     },
     "2002": {
-        "total_dfs_steps": 121682,
+        "total_dfs_steps": 139082,
+        "teams_count": 16,
         "first_hamiltonian_cycle": {
             "cycle": [
                 10,
                 6,
+                5,
+                1,
                 14,
                 17,
                 2,
-                5,
-                1,
                 7,
                 12,
                 18,
@@ -3239,11 +3345,11 @@
             "cycle_names": [
                 "Hawthorn",
                 "Fremantle",
+                "Essendon",
+                "Adelaide",
                 "Richmond",
                 "West Coast",
                 "Brisbane Lions",
-                "Essendon",
-                "Adelaide",
                 "Geelong",
                 "North Melbourne",
                 "Western Bulldogs",
@@ -3259,7 +3365,8 @@
         }
     },
     "2003": {
-        "total_dfs_steps": 1160,
+        "total_dfs_steps": 468,
+        "teams_count": 16,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -3302,7 +3409,8 @@
         }
     },
     "2004": {
-        "total_dfs_steps": 40,
+        "total_dfs_steps": 42,
+        "teams_count": 16,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -3345,7 +3453,8 @@
         }
     },
     "2005": {
-        "total_dfs_steps": 2847,
+        "total_dfs_steps": 3653,
+        "teams_count": 16,
         "first_hamiltonian_cycle": {
             "cycle": [
                 4,
@@ -3388,7 +3497,8 @@
         }
     },
     "2006": {
-        "total_dfs_steps": 2703,
+        "total_dfs_steps": 2705,
+        "teams_count": 16,
         "first_hamiltonian_cycle": {
             "cycle": [
                 6,
@@ -3431,7 +3541,8 @@
         }
     },
     "2007": {
-        "total_dfs_steps": 14,
+        "total_dfs_steps": 16,
+        "teams_count": 16,
         "first_hamiltonian_cycle": {
             "cycle": [
                 14,
@@ -3474,7 +3585,8 @@
         }
     },
     "2008": {
-        "total_dfs_steps": 521,
+        "total_dfs_steps": 1987,
+        "teams_count": 16,
         "first_hamiltonian_cycle": {
             "cycle": [
                 18,
@@ -3517,7 +3629,8 @@
         }
     },
     "2009": {
-        "total_dfs_steps": 5508,
+        "total_dfs_steps": 7140,
+        "teams_count": 16,
         "first_hamiltonian_cycle": {
             "cycle": [
                 5,
@@ -3560,7 +3673,8 @@
         }
     },
     "2010": {
-        "total_dfs_steps": 225,
+        "total_dfs_steps": 1049,
+        "teams_count": 16,
         "first_hamiltonian_cycle": {
             "cycle": [
                 14,
@@ -3603,7 +3717,8 @@
         }
     },
     "2011": {
-        "total_dfs_steps": 62980,
+        "total_dfs_steps": 15462,
+        "teams_count": 17,
         "first_hamiltonian_cycle": {
             "cycle": [
                 5,
@@ -3648,7 +3763,8 @@
         }
     },
     "2012": {
-        "total_dfs_steps": 375,
+        "total_dfs_steps": 915,
+        "teams_count": 18,
         "first_hamiltonian_cycle": {
             "cycle": [
                 8,
@@ -3695,7 +3811,8 @@
         }
     },
     "2013": {
-        "total_dfs_steps": 960,
+        "total_dfs_steps": 404,
+        "teams_count": 18,
         "first_hamiltonian_cycle": {
             "cycle": [
                 9,
@@ -3742,7 +3859,8 @@
         }
     },
     "2014": {
-        "total_dfs_steps": 13965,
+        "total_dfs_steps": 15078,
+        "teams_count": 18,
         "first_hamiltonian_cycle": {
             "cycle": [
                 4,
@@ -3789,7 +3907,8 @@
         }
     },
     "2015": {
-        "total_dfs_steps": 26135,
+        "total_dfs_steps": 35584,
+        "teams_count": 18,
         "first_hamiltonian_cycle": {
             "cycle": [
                 14,
@@ -3836,7 +3955,8 @@
         }
     },
     "2016": {
-        "total_dfs_steps": 174,
+        "total_dfs_steps": 177,
+        "teams_count": 18,
         "first_hamiltonian_cycle": {
             "cycle": [
                 6,
@@ -3883,7 +4003,8 @@
         }
     },
     "2017": {
-        "total_dfs_steps": 50222,
+        "total_dfs_steps": 50225,
+        "teams_count": 18,
         "first_hamiltonian_cycle": {
             "cycle": [
                 16,
@@ -3930,7 +4051,8 @@
         }
     },
     "2018": {
-        "total_dfs_steps": 3647,
+        "total_dfs_steps": 4221,
+        "teams_count": 18,
         "first_hamiltonian_cycle": {
             "cycle": [
                 2,
@@ -3977,7 +4099,8 @@
         }
     },
     "2019": {
-        "total_dfs_steps": 194,
+        "total_dfs_steps": 196,
+        "teams_count": 18,
         "first_hamiltonian_cycle": {
             "cycle": [
                 3,
@@ -4024,45 +4147,46 @@
         }
     },
     "2020": {
-        "total_dfs_steps": 1367,
+        "total_dfs_steps": 1500,
+        "teams_count": 18,
         "first_hamiltonian_cycle": {
             "cycle": [
                 1,
                 10,
-                12,
-                9,
-                4,
                 3,
                 5,
+                4,
+                7,
+                2,
                 6,
                 15,
                 13,
-                14,
-                2,
-                11,
                 8,
                 17,
-                7,
+                11,
+                12,
+                9,
+                14,
                 18,
                 16
             ],
             "cycle_names": [
                 "Adelaide",
                 "Hawthorn",
-                "North Melbourne",
-                "Greater Western Sydney",
-                "Collingwood",
                 "Carlton",
                 "Essendon",
+                "Collingwood",
+                "Geelong",
+                "Brisbane Lions",
                 "Fremantle",
                 "St Kilda",
                 "Port Adelaide",
-                "Richmond",
-                "Brisbane Lions",
-                "Melbourne",
                 "Gold Coast",
                 "West Coast",
-                "Geelong",
+                "Melbourne",
+                "North Melbourne",
+                "Greater Western Sydney",
+                "Richmond",
                 "Western Bulldogs",
                 "Sydney"
             ],
@@ -4071,45 +4195,46 @@
         }
     },
     "2021": {
-        "total_dfs_steps": 1283,
+        "total_dfs_steps": 2090,
+        "teams_count": 18,
         "first_hamiltonian_cycle": {
             "cycle": [
                 1,
                 11,
-                6,
-                9,
-                4,
                 3,
                 8,
                 16,
                 7,
                 2,
+                6,
+                9,
                 5,
                 15,
                 17,
                 13,
                 14,
                 18,
+                4,
                 12,
                 10
             ],
             "cycle_names": [
                 "Adelaide",
                 "Melbourne",
-                "Fremantle",
-                "Greater Western Sydney",
-                "Collingwood",
                 "Carlton",
                 "Gold Coast",
                 "Sydney",
                 "Geelong",
                 "Brisbane Lions",
+                "Fremantle",
+                "Greater Western Sydney",
                 "Essendon",
                 "St Kilda",
                 "West Coast",
                 "Port Adelaide",
                 "Richmond",
                 "Western Bulldogs",
+                "Collingwood",
                 "North Melbourne",
                 "Hawthorn"
             ],
@@ -4118,7 +4243,8 @@
         }
     },
     "2022": {
-        "total_dfs_steps": 3907,
+        "total_dfs_steps": 15941,
+        "teams_count": 18,
         "first_hamiltonian_cycle": {
             "cycle": [
                 6,
@@ -4165,7 +4291,8 @@
         }
     },
     "2023": {
-        "total_dfs_steps": 27410,
+        "total_dfs_steps": 31866,
+        "teams_count": 18,
         "first_hamiltonian_cycle": {
             "cycle": [
                 13,
@@ -4212,7 +4339,8 @@
         }
     },
     "2024": {
-        "total_dfs_steps": 691,
+        "total_dfs_steps": 839,
+        "teams_count": 18,
         "first_hamiltonian_cycle": {
             "cycle": [
                 12,
@@ -4259,7 +4387,8 @@
         }
     },
     "2025": {
-        "total_dfs_steps": 50,
+        "total_dfs_steps": 52,
+        "teams_count": 18,
         "first_hamiltonian_cycle": {
             "cycle": [
                 17,
@@ -4306,7 +4435,8 @@
         }
     },
     "2026": {
-        "total_dfs_steps": 2459,
+        "total_dfs_steps": 2082,
+        "teams_count": 18,
         "first_hamiltonian_cycle": {
             "cycle": [
                 14,

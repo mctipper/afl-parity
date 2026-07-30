@@ -1,5 +1,6 @@
 {
-  "total_dfs_steps": 10,
+  "total_dfs_steps": 12,
+  "teams_count": 12,
   "first_hamiltonian_cycle": {
     "cycle": [
       19,
