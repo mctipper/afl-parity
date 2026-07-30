@@ -297,6 +297,9 @@ class DFS:
             # early_exit trigger made, lets get out of here
             return
 
+        if (self._counters.dfs_steps == 0):
+            self._counters.dfs_steps = len(path) - 1  # account for the pre-computed bfs chain that was handed to this thread
+
         self._counters.dfs_steps += 1
         self._counters.round_dfs_steps += 1
 
@@ -435,7 +438,7 @@ class DFS:
                 hamiltonian_cycle.games.append(cur_game)
 
     def _sync_counters_to_traversal_output(self) -> None:
-        self.traversal_output.total_dfs_steps = self._counters.dfs_steps
+        self.traversal_output.total_dfs_steps += self._counters.dfs_steps
 
     def _save_output_to_file(self) -> None:
         """save the traversal output to a json file in the output directory"""
