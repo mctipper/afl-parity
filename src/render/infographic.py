@@ -66,9 +66,8 @@ class Infographic:
     def _draw_infographic(self) -> None:
         assert self.traversal_output.first_hamiltonian_cycle is not None
 
-        _, ax = plt.subplots(figsize=(20, 20))
+        _, ax = plt.subplots(figsize=(20, 20), facecolor="#ACACAC")
         ax.set_axis_off()  # this aint no graph
-        ax.set_facecolor("#FFFDD0")  # Prince would be so happy
 
         season = self.season_results.season
         rnd = self.traversal_output.first_hamiltonian_cycle.max_round
