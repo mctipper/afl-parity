@@ -48,6 +48,7 @@ class DFS:
         self.season_results = season_results
         self.adjacency_graph = AdjacencyGraph()
         self.traversal_output = DFSTraversalOutput()
+        self.traversal_output.teams_count = season_results.nteams
         self.output_file_debug = output_file_debug
         self.logger = logging.getLogger(f"{self.season_results.season}_main")
         self._counters = _DFSCounters()

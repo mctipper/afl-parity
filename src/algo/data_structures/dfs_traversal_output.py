@@ -7,6 +7,7 @@ from algo.data_structures import HamiltonianCycle
 @dataclass(slots=True)
 class DFSTraversalOutput:
     total_dfs_steps: int = 0
+    teams_count: int = 0
     first_hamiltonian_cycle: Optional[HamiltonianCycle] = None
 
     def update_first_hamiltonian_cycle(self, new_cycle: HamiltonianCycle) -> None:
@@ -18,7 +19,7 @@ class DFSTraversalOutput:
             self.first_hamiltonian_cycle = new_cycle
 
     def __str__(self) -> str:
-        return f"total_dfs_steps={self.total_dfs_steps} first_hamiltonian_cycle={self.first_hamiltonian_cycle}"
+        return f"total_dfs_steps={self.total_dfs_steps} teams_count={self.teams_count} first_hamiltonian_cycle={self.first_hamiltonian_cycle}"
 
     def to_dict(self) -> Dict[str, Any]:
         data = asdict(self)
