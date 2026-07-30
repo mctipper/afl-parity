@@ -213,7 +213,7 @@ class DFS:
     # threaded search driver ----------------------------------------------
     def _search_round_for_hamiltonian_cycles(self, cur_round: int) -> None:
         """setup and start dfs search for hamiltonian cycles"""
-        cpu_count: int = os.cpu_count() or 1  # mypy annoyances with max() function
+        cpu_count: int = os.cpu_count() or 1  # typging annoyances with max() function
         thread_pairs = self._early_exit.thread_start_pairs
 
         # one thread per parent-child relationship, by appending to the pre-determined ones
@@ -227,7 +227,7 @@ class DFS:
 
         start_paths = self._expand_thread_start_paths(thread_pairs)
 
-        with ThreadPoolExecutor(max_workers=max(cpu_count - 2, 1)) as executor:
+        with ThreadPoolExecutor(max_workers=max(cpu_count - 4, 1)) as executor:
             futures = []
             for path in start_paths:
                 # setup to mimick the 'first steps' of the dfs search, allowing this parallel action to happen
