@@ -1,4 +1,4 @@
-from algo.data_structures import AdjacencyGraph, AdjacencyList
+from afl_parity.algo.data_structures import AdjacencyGraph, AdjacencyList
 
 
 def test_adjacency_list_initialisation():

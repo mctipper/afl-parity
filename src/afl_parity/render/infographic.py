@@ -1,5 +1,6 @@
-from algo.data_structures import DFSTraversalOutput
-from models import SeasonResults, Team, GameResult
+from afl_parity.algo.data_structures import DFSTraversalOutput
+from afl_parity.models import SeasonResults, Team, GameResult
+from afl_parity.paths import OUTPUT_DIR
 import numpy as np
 from typing import Any
 from numpy.typing import NDArray
@@ -19,10 +20,8 @@ class Infographic:
 
     @property
     def _output_dir(self) -> Path:
-        project_root: Path = Path(__file__).parents[2]  # yueck
-        output_dir: Path = project_root / "output"
-        output_dir.mkdir(parents=True, exist_ok=True)
-        return output_dir
+        OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+        return OUTPUT_DIR
 
     @property
     def _logo_dir(self) -> Path:
@@ -51,8 +50,8 @@ class Infographic:
         y_flat: NDArray[np.float64] = a * np.sin(theta)
 
         # good grief numpy and mypy are not happy pappys
-        self.x: list[float] = x_flat.tolist()  # type: ignore
-        self.y: list[float] = y_flat.tolist()  # type: ignore
+        self.x: list[float] = x_flat.tolist()
+        self.y: list[float] = y_flat.tolist()
 
     def create_infographic(self) -> None:
         """using matplotlib to build an annotated circle, with team logos as points"""

@@ -1,4 +1,4 @@
-from models import SeasonResults, GameResult, Team
+from afl_parity.models import SeasonResults, GameResult, Team
 from datetime import datetime
 
 

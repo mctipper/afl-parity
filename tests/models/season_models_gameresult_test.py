@@ -1,5 +1,5 @@
 from datetime import datetime
-from models import GameResult
+from afl_parity.models import GameResult
 
 
 def test_game_result_initialisation():

@@ -6,8 +6,9 @@ import logging
 
 import requests
 
-from models import SeasonResults, GameResult, Team
-from data.raw_models import RawGameResult, RawTeam, parse_raw_game, parse_raw_team
+from afl_parity.models import SeasonResults, GameResult, Team
+from afl_parity.paths import OUTPUT_DIR
+from .raw_models import RawGameResult, RawTeam, parse_raw_game, parse_raw_team
 
 
 class APIRequestError(Exception):
@@ -131,10 +132,7 @@ class SquiggleClient:
     def _download_logos(self) -> None:
         """download the logos from squiggs, one thread per team"""
         try:
-            project_root: Path = Path(__file__).parents[
-                2
-            ]  # yuck (but keeping this as is)
-            output_dir: Path = project_root / "output" / "logos"
+            output_dir: Path = OUTPUT_DIR / "logos"
             output_dir.mkdir(parents=True, exist_ok=True)
 
             def download_logo(team: Team) -> None:

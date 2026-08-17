@@ -7,7 +7,7 @@ Makes use of [Squiggle's](https://api.squiggle.com.au/#section_bots) wonderful A
 
 Purposefully built with Python rather than Go or C++ to highlight how conditional efficiencies, early-exit strategies, and understanding of desired outcomes all provide true value when trying to optimise solutions rather than relying on raw power.  Using a high-level language forces optimisations strategies rather than just brute-forcing a way through with compute and running it all on metal.  
 
-A good example of the benefits of these efficiencies were observed when traversing Season 2000. Traversing the entire season took _~610 million_ steps and nearly 2 hours to find the first occuring hamiltonian cycle, but by employing conditional efficiencies this code is able to find the first hamiltonian cycle of the season in _~302_ steps in ~1.87 seconds for the same season.  Running for every season (1897-2026) sequentially takes ~161 seconds.  
+A good example of the benefits of these efficiencies were observed when traversing Season 2000. Traversing the entire season took _~610 million_ steps and nearly 2 hours to find the first occuring hamiltonian cycle, but by employing conditional efficiencies this code is able to find the first hamiltonian cycle of the season in _~304_ steps in ~1.87 seconds for the same season.  Running for every season (1897-2026) sequentially takes ~161 seconds.  
 
 This is just a little fun project to apply DFS and play around with graph structures. What fun.
 
@@ -72,7 +72,7 @@ Prevent backtracking from going 'too far', when beginning with a path > X length
   
 ### Efficiency Notes
 
-All these efficiencies combined have resulting in it only taken a combined _~4 minutes and 25 seconds_ to download the data, build the adjacency lists, traverse the graphs to find the first hamiltonian cycle of each season, and draw those awful infographics for all seasons from 1897 to 2026. Hardware annoyances aside (my cpu isn't even that good really) so this is all about massaging that algorithm until it's optimal for a particular use-case. Make the most of restrictions and conditions as _they actually simplify_ things when coded for. The bottleneck is actually downloading the data each season, not the actual algorithm.
+All these efficiencies combined have resulting in it only taken a combined _~2 minutes and 50 seconds_ to download the data, build the adjacency lists, traverse the graphs to find the first hamiltonian cycle of each season, and draw those awful infographics for all seasons from 1897 to 2026. Hardware annoyances aside (my cpu isn't even that good really) so this is all about massaging that algorithm until it's optimal for a particular use-case. Make the most of restrictions and conditions as _they actually simplify_ things when coded for. The bottleneck is actually downloading the data each season, not the actual algorithm.
 
 While all the above greatly improve performance and reduce computation time for traversing, they do not guarentee it and still rely on some favourable qualities in order to be taken advantage of. The key thing to remember here is understanding the data, the outcomes, and the algorithms themselves allow you to provide neat little hacks and shortcuts to reach goals and outcomes quicker. It is the combination of all the efficiencies that enable traversals to be done quickly, not just one individually or just throwing crazy parallel-epic-super-compute at it all.
 
@@ -81,14 +81,19 @@ While all the above greatly improve performance and reduce computation time for 
 First run sync up via [uv](https://github.com/astral-sh/uv) use command `uv sync` to get correct python versioning and environment management locally etc...
 
 Run for a single season:  
-> `uv run python main.py -s 2024`
+> `uv run afl-parity -s 2024`
 
 Run for all seasons:
-> `uv run python main.py -a`
+> `uv run afl-parity -a`
+
+(`uv run python -m afl_parity` works identically, if you'd rather not rely on the console script.)
 
 Optional `-d` flag for verbose logging, logs every single step performed during the DFS search so yeh probs dont run that with the `-a` flag lol.  
-
 
 ### Logs
 
 Logs are stored in the `.logs/` dir, with a single file per execution, named by DATE_TIME_LOGTYPE. There are 'main' logs which provide simple progress and outputs. If debug switch was provided, each individual thread gets it's own log output detailing _every step undertaken_ in the traversal.
+
+## Tests
+
+Centralised via uv and pytest in the `tests/` dir.  `uv run pytest` to run them all.  

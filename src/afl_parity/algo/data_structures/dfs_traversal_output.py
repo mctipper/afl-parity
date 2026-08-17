@@ -1,7 +1,7 @@
 from dataclasses import dataclass, asdict
 from typing import Any, Dict, Optional
 import json
-from algo.data_structures import HamiltonianCycle
+from .hamiltonian_cycle import HamiltonianCycle
 
 
 @dataclass(slots=True)

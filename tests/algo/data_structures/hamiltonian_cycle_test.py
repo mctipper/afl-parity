@@ -1,5 +1,5 @@
-from algo.data_structures import HamiltonianCycle
-from models import GameResult
+from afl_parity.algo.data_structures import HamiltonianCycle
+from afl_parity.models import GameResult
 from datetime import datetime
 
 
@@ -178,7 +178,7 @@ def test_hamiltonian_cycle_game_details_pprint():
     cycle.games.append(game2)
     expected_output = (
         "Hamiltonian Cycle Details\n"
-        "Rd. 2 - 2025-03-17 00:00:00\n"
+        "Rd. 2 starting 2025-03-17 00:00:00\n"
         "Rd. 1: Team A def. Team B (100 - 90)\n"
         "Rd. 2: Team C def. Team D (110 - 95)\n"
     )

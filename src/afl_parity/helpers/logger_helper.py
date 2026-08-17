@@ -6,6 +6,8 @@ from datetime import datetime
 from logging import FileHandler, LogRecord
 from io import TextIOWrapper
 
+from afl_parity.paths import LOGS_DIR
+
 
 class LazyFileHandler(FileHandler):
     """nifty helper that delays the creation of the log file/dir until the first log command is actually received"""
@@ -42,9 +44,6 @@ class LoggerHelper:
         output_file_debug: bool = False,
     ) -> Logger:
         """creates and configs out a logger"""
-        # determine the root directory of the application (hacky but static so works fine)
-        app_root = Path(__file__).resolve().parents[2]
-
         # create a generic logger
         logger = logging.getLogger(logname)
         if logger.handlers:
@@ -58,8 +57,8 @@ class LoggerHelper:
 
         # and now the file handler
         logfilepath = (
-            app_root
-            / f".logs/{current_datetime:%Y%m%d}/{current_datetime:%Y%m%d_%H%M%S}_{logname}.log"
+            LOGS_DIR
+            / f"{current_datetime:%Y%m%d}/{current_datetime:%Y%m%d_%H%M%S}_{logname}.log"
         )
         if not logfilepath.parent.is_dir():
             logfilepath.parent.mkdir(parents=True, exist_ok=True)

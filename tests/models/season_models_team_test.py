@@ -1,4 +1,4 @@
-from models import Team
+from afl_parity.models import Team
 
 
 def test_team_initialisation():

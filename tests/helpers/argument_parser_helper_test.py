@@ -3,8 +3,8 @@ from unittest.mock import patch
 
 import pytest
 
-from helpers import ArgumentParserHelper
-from helpers.argument_parser_helper import Args
+from afl_parity.helpers import ArgumentParserHelper
+from afl_parity.helpers.argument_parser_helper import Args
 
 
 def test_argument_parser_helper():

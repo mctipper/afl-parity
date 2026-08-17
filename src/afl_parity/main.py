@@ -1,18 +1,14 @@
+from afl_parity.helpers import ArgumentParserHelper, LoggerHelper, OutputHelper
+from afl_parity.helpers.argument_parser_helper import Args
+from afl_parity.data.squiggle_client import SquiggleClient
+from afl_parity.algo.dfs import DFS
+from afl_parity.render.infographic import Infographic
+from datetime import datetime
+from types import TracebackType
+from typing import List, Type
+import logging
 import sys
-from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).parent / "src"))
-
-from helpers import ArgumentParserHelper, LoggerHelper, OutputHelper  # noqa: E402
-from helpers.argument_parser_helper import Args  # noqa: E402
-from data.squiggle_client import SquiggleClient  # noqa: E402
-from algo.dfs import DFS  # noqa: E402
-from render.infographic import Infographic  # noqa: E402
-from datetime import datetime  # noqa: E402
-from types import TracebackType  # noqa: E402
-from typing import List, Type  # noqa: E402
-import logging  # noqa: E402
-import time  # noqa: E402
+import time
 
 FIRST_SEASON: int = 1897
 
@@ -46,7 +42,23 @@ def _process_season(season: int, debug: bool, run_logger: logging.Logger) -> Non
     run_logger.info(f"Season {season} complete")
 
 
+def _log_uncaught_exception(
+    exc_type: Type[BaseException],
+    exc_value: BaseException,
+    exc_tb: TracebackType | None,
+) -> None:
+    logging.getLogger("run").critical(
+        "Fatal unhandled error", exc_info=(exc_type, exc_value, exc_tb)
+    )
+    sys.__excepthook__(exc_type, exc_value, exc_tb)
+
+
 def main() -> None:
+    # logger setup lives here, not in a __main__ guard - the console script calls
+    # main() directly so a guard would never fire and we'd lose all run logging
+    LoggerHelper.setup(datetime.now(), "run")
+    sys.excepthook = _log_uncaught_exception
+
     start_time = time.time()
     run_logger = logging.getLogger("run")
     argument_parser_helper = ArgumentParserHelper()
@@ -63,18 +75,5 @@ def main() -> None:
     run_logger.info(f"Complete in {(time.time() - start_time):.2f} seconds")
 
 
-def _log_uncaught_exception(
-    exc_type: Type[BaseException],
-    exc_value: BaseException,
-    exc_tb: TracebackType | None,
-) -> None:
-    logging.getLogger("run").critical(
-        "Fatal unhandled error", exc_info=(exc_type, exc_value, exc_tb)
-    )
-    sys.__excepthook__(exc_type, exc_value, exc_tb)
-
-
 if __name__ == "__main__":
-    LoggerHelper.setup(datetime.now(), "run")
-    sys.excepthook = _log_uncaught_exception
     main()

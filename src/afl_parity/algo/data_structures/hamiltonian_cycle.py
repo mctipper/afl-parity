@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from models import GameResult
+from afl_parity.models import GameResult
 from datetime import datetime
 from typing import List, Dict, Any
 import json

@@ -1,13 +1,13 @@
 import json
-from pathlib import Path
 from typing import Dict, Any
+
+from afl_parity.paths import OUTPUT_DIR
 
 
 class OutputHelper:
     @staticmethod
     def combine_all_json_outputs() -> None:
-        project_root: Path = Path(__file__).parents[2]
-        output_dir: Path = project_root / "output"
+        output_dir = OUTPUT_DIR
 
         # output data
         combined_data: Dict[str, Any] = {}

@@ -1,6 +1,6 @@
 from datetime import datetime
-from algo.data_structures import HamiltonianCycle, DFSTraversalOutput
-from models import GameResult
+from afl_parity.algo.data_structures import HamiltonianCycle, DFSTraversalOutput
+from afl_parity.models import GameResult
 
 
 def test_dfstraversaloutput_initialisation():
@@ -55,8 +55,12 @@ def test_update_first_hamiltonian_cycle():
 
 
 def test_dfstraversaloutput_str():
+    """__str__ reports all three fields, including the unset defaults"""
     traversal_output = DFSTraversalOutput(total_dfs_steps=10)
-    assert str(traversal_output) == "total_dfs_steps=10"
+    assert (
+        str(traversal_output)
+        == "total_dfs_steps=10 teams_count=0 first_hamiltonian_cycle=None"
+    )
 
 
 def test_model_dump_json():
